@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+# dev
+/figma
+todo.md
+
 # testing
 /coverage
 
