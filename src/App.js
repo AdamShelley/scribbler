@@ -1,10 +1,13 @@
 import "./App.css";
+import Scribble from "./pages/Scribble";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello</h1>
-      <p>Start of Scribbler app.</p>
+      <Scribble />
+
+      <Footer />
     </div>
   );
 }
