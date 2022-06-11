@@ -6,8 +6,11 @@ import Note from "./Note";
 const StyledNoteContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  /* min-height: 100%;
+  min-width: 100%; */
+  flex-grow: 100;
   cursor: auto;
+  position: relative;
 
   .searchbar {
     background-color: var(--dark-grey);
@@ -27,7 +30,7 @@ const NoteContainer = (note = false) => {
       <div className="searchbar">
         <h3>Search</h3>
       </div>
-      <div>{!note ? <EmptyNote /> : <Note />}</div>
+      <div>{note ? <EmptyNote /> : <Note />}</div>
     </StyledNoteContainer>
   );
 };

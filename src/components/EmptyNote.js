@@ -1,15 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const StyledEmptyNote = styled.div`
   display: flex;
-  min-height: 100%;
+  /* flex-direction: column; */
+  position: absolute;
+
   width: 100%;
-  border: 1px solid white;
+  height: 100%;
+
+  textarea {
+    padding: 1rem;
+    background-color: inherit;
+    resize: none;
+    height: 100%;
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    cursor: text;
+    font-size: 1rem;
+    width: 50%;
+    border-right: 1px solid var(--light-grey);
+  }
+
+  .result-container {
+    width: 50%;
+    padding: 1rem 2rem;
+    line-height: 2;
+    font-weight: inherit;
+  }
 `;
 
 const EmptyNote = () => {
-  return <StyledEmptyNote>EmptyNote</StyledEmptyNote>;
+  const [markdown, setMarkDown] = useState("#### Write some markdown here");
+
+  const updateMarkdown = (e) => {
+    setMarkDown(e.target.value);
+  };
+
+  return (
+    <StyledEmptyNote>
+      <textarea onChange={updateMarkdown} value={markdown} />
+      <div className="result-container">
+        <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />
+      </div>
+    </StyledEmptyNote>
+  );
 };
 
 export default EmptyNote;
