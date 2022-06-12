@@ -46,7 +46,7 @@ const StyledSidebar = styled.div`
 
     li {
       margin-top: 1rem;
-
+      height: 2.5rem;
       cursor: pointer;
       border-left: 1px solid transparent;
       padding-left: 0.3rem;
@@ -56,6 +56,7 @@ const StyledSidebar = styled.div`
       align-items: center;
       width: 100%;
       padding: 0.5rem;
+      border-radius: 5px;
       transition: all 0.3s ease-out;
 
       &:hover {
@@ -89,7 +90,6 @@ const StyledSidebar = styled.div`
 `;
 
 const Sidebar = ({ scribbles, selectedScribble, setSelectedScribble }) => {
-  console.log(selectedScribble);
   return (
     <StyledSidebar>
       <div>
@@ -101,6 +101,7 @@ const Sidebar = ({ scribbles, selectedScribble, setSelectedScribble }) => {
         {scribbles ? (
           scribbles.map((note) => (
             <li
+              key={note.id}
               onClick={(e) => setSelectedScribble(note)}
               className={`${
                 selectedScribble.title === note.title ? "selected-scribble" : ""

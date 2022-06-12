@@ -1,25 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-const StyledNote = styled.div`
+const StyledNoteContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  height: 100%;
-  width: 100%;
+  /* flex-direction: column; */
+  position: absolute;
 
-  p {
-    margin-top: 2rem;
-    line-height: 1.8;
+  width: 100%;
+  height: 100%;
+
+  textarea {
+    padding: 1rem;
+    background-color: inherit;
+    resize: none;
+    height: 100%;
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    cursor: text;
+    font-size: 1rem;
+    width: 50%;
+    border-right: 1px solid var(--light-grey);
+  }
+
+  .result-container {
+    width: 50%;
+    padding: 1rem 2rem;
+    line-height: 2;
+    font-weight: inherit;
   }
 `;
 
-const Note = () => {
+const Note = ({ selectedScribble }) => {
+  const [markdown, setMarkDown] = useState(selectedScribble.body);
+
+  useEffect(() => {
+    setMarkDown(selectedScribble.body);
+  }, [selectedScribble]);
+
+  const updateMarkdown = (e) => {
+    setMarkDown(e.target.value);
+    console.log(markdown);
+  };
+
   return (
-    <StyledNote>
-      <ReactMarkdown></ReactMarkdown>
-    </StyledNote>
+    <StyledNoteContainer>
+      <textarea
+        onChange={updateMarkdown}
+        value={markdown}
+        data-provide="markdown"
+      />
+      <div className="result-container">
+        <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />
+      </div>
+    </StyledNoteContainer>
   );
 };
 

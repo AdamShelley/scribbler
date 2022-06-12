@@ -24,13 +24,20 @@ const StyledNoteContainer = styled.div`
   }
 `;
 
-const NoteContainer = (note = false) => {
+const NoteContainer = ({ selectedScribble }) => {
   return (
     <StyledNoteContainer>
       <div className="searchbar">
         <h3>Search</h3>
+        <span>E</span>
       </div>
-      <div>{note ? <EmptyNote /> : <Note />}</div>
+      <div>
+        {!selectedScribble ? (
+          <EmptyNote />
+        ) : (
+          <Note selectedScribble={selectedScribble} />
+        )}
+      </div>
     </StyledNoteContainer>
   );
 };
