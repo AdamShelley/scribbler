@@ -19,3 +19,26 @@ body {
   color: var(--text-color);
   font-family: 'Montserrat', sans-serif;
 }
+
+
+.slide-in-left-enter {
+  transform: translateX(-100%);
+
+}
+
+.slide-in-left-enter-active {
+  transform: translate(0);
+  opacity: 1;
+  transition: all 200ms;
+}
+
+.slide-in-left-exit {
+  transform :translateX(0%);
+  opacity: 1;
+}
+
+.slide-in-left-exit-active {
+  transform: translateX(-100%);
+  opacity: .8;
+  transition: all 200ms;
+}

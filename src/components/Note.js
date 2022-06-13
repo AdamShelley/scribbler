@@ -23,6 +23,8 @@ const StyledNoteContainer = styled.div`
     font-size: 1rem;
     width: 50%;
     border-right: 1px solid var(--light-grey);
+    min-width: 20%;
+    /* resize: horizontal; */
   }
 
   .result-container {

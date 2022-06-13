@@ -15,6 +15,13 @@ const StyledNoteContainer = styled.div`
   .searchbar {
     background-color: var(--dark-grey);
     padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      padding: 0 1rem;
+    }
 
     h3 {
       font-weight: 300;
@@ -29,7 +36,10 @@ const NoteContainer = ({ selectedScribble }) => {
     <StyledNoteContainer>
       <div className="searchbar">
         <h3>Search</h3>
-        <span>E</span>
+        <div>
+          <span>E</span>
+          <span>D</span>
+        </div>
       </div>
       <div>
         {!selectedScribble ? (

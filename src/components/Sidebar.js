@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Note from "./Note";
 
 const StyledSidebar = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+
   min-width: 25vw;
   border-right: 1px solid var(--light-grey);
 
@@ -90,6 +89,23 @@ const StyledSidebar = styled.div`
 `;
 
 const Sidebar = ({ scribbles, selectedScribble, setSelectedScribble }) => {
+  const [showSave, setShowSave] = useState(false);
+
+  let showSaveTimeout;
+
+  useEffect(() => {
+    setShowSave(false);
+    clearTimeout(showSaveTimeout);
+  }, [selectedScribble, showSaveTimeout]);
+
+  if (selectedScribble) {
+    clearTimeout(showSaveTimeout);
+
+    showSaveTimeout = setTimeout(() => {
+      setShowSave(true);
+    }, 10000);
+  }
+
   return (
     <StyledSidebar>
       <div>
@@ -108,7 +124,7 @@ const Sidebar = ({ scribbles, selectedScribble, setSelectedScribble }) => {
               }`}
             >
               <h3>{note.title}</h3>
-              {selectedScribble.id === note.id && <span>Save</span>}
+              {selectedScribble.id === note.id && showSave && <span>Save</span>}
             </li>
           ))
         ) : (

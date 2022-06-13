@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import NavBurger from "../components/NavBurger";
 import NoteContainer from "../components/NoteContainer";
 import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { CSSTransition } from "react-transition-group";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -38,6 +40,7 @@ const emptyScribble = {
 
 const Scribble = () => {
   let fakeFirebaseRequest = scribbles;
+  const [showNav, setShowNav] = useState(false);
   const [users, setUsers] = useState();
   const [selectedScribble, setSelectedScribble] = useState(
     fakeFirebaseRequest[0]
@@ -48,18 +51,31 @@ const Scribble = () => {
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
-
+      console.log(data);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
-    getUsers();
+    // getUsers();
   }, []);
 
   console.log(users);
 
   return (
     <div>
-      <Navbar />
+      <Navbar
+        setShowNav={setShowNav}
+        noteTitle={selectedScribble.title}
+        unsaved={true}
+      />
+      <CSSTransition
+        in={showNav}
+        timeout={300}
+        classNames="slide-in-left"
+        mountOnEnter
+        unmountOnExit
+      >
+        <NavBurger />
+      </CSSTransition>
       <StyledContainer>
         <Sidebar
           scribbles={scribbles}
