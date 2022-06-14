@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { signInWithPopup } from "../utils/auth";
+import { useAuth } from "../utils/auth";
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -78,7 +78,7 @@ const StyledNavbar = styled.div`
   .avatar-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     flex: 1;
 
     span {
@@ -89,10 +89,25 @@ const StyledNavbar = styled.div`
       background-color: var(--dark-grey);
       text-align: center;
     }
+
+    p {
+      font-weight: 500;
+    }
+
+    img {
+      width: 2rem;
+      height: 2rem;
+      cursor: pointer;
+    }
   }
 `;
 
 const Navbar = ({ setShowNav, noteTitle, unsaved }) => {
+  const auth = useAuth();
+
+  console.log(auth?.user);
+  console.log(auth.user?.photoUrl);
+
   return (
     <StyledNavbar>
       <div>
@@ -111,8 +126,17 @@ const Navbar = ({ setShowNav, noteTitle, unsaved }) => {
         <h4>{noteTitle} </h4>
         <span>{unsaved && " - Unsaved scribble"}</span>
       </div>
+
       <div className="avatar-container">
-        <span>A</span>
+        {!auth.user && <span onClick={auth.signinWithGithub}>A</span>}
+        {auth.user && <p>{auth.user?.displayName}</p>}
+        {auth.user && (
+          <img
+            src={auth.user?.photoURL}
+            alt="avatar"
+            onClick={auth.signout}
+          ></img>
+        )}
       </div>
     </StyledNavbar>
   );

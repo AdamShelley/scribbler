@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import NavBurger from "../components/NavBurger";
 import NoteContainer from "../components/NoteContainer";
-import { db } from "../firebase";
+import firestore from "../utils/db";
 import { collection, getDocs } from "firebase/firestore";
 import { CSSTransition } from "react-transition-group";
 
@@ -19,7 +19,10 @@ const scribbles = [
     id: 1,
     title: "Shopping list",
     createdAt: new Date(),
-    body: "# shopping List *Tomatoes * Apples * Oranges",
+    body: `# shopping List 
+    *Tomatoes 
+    * Apples 
+    * Oranges`,
   },
   { id: 2, title: "Lecture notes", createdAt: new Date(), body: "# Testing 2" },
   {
@@ -46,19 +49,18 @@ const Scribble = () => {
     fakeFirebaseRequest[0]
   );
 
-  const usersCollectionRef = collection(db, "users");
+  const usersCollectionRef = collection(firestore, "users");
 
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
+      console.log("called");
       console.log(data);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
-    // getUsers();
+    getUsers();
   }, []);
-
-  console.log(users);
 
   return (
     <div>

@@ -39,6 +39,6 @@ body {
 
 .slide-in-left-exit-active {
   transform: translateX(-100%);
-  opacity: .8;
-  transition: all 200ms;
+  opacity: .5;
+  transition: all 100ms;
 }
