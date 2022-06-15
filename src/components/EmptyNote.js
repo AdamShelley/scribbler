@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useAuth } from "../utils/auth";
+import { createScribble } from "../utils/db";
 
 const StyledEmptyNote = styled.div`
   display: flex;
@@ -33,8 +35,14 @@ const StyledEmptyNote = styled.div`
   }
 `;
 
-const EmptyNote = () => {
+const EmptyNote = ({ save, setSave }) => {
   const [markdown, setMarkDown] = useState("#### Write some markdown here");
+  const auth = useAuth();
+
+  // createScribble(auth.user?.uid, {
+  //   title: "Testing title 123",
+  //   body: markdown,
+  // });
 
   const updateMarkdown = (e) => {
     setMarkDown(e.target.value);

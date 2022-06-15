@@ -81,13 +81,22 @@ const StyledNavbar = styled.div`
     justify-content: space-evenly;
     flex: 1;
 
-    span {
+    button {
+      padding: 0.4rem 1rem;
+      background-color: var(--background);
       border: 1px solid var(--text-color);
-      border-radius: 50%;
-      padding: 0.5rem;
-      width: 2.5rem;
-      background-color: var(--dark-grey);
-      text-align: center;
+      color: var(--text-color);
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: inherit;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.1s ease-in;
+
+      &:hover {
+        background-color: var(--dark-grey);
+        color: var(--text-color);
+      }
     }
 
     p {
@@ -95,9 +104,16 @@ const StyledNavbar = styled.div`
     }
 
     img {
-      width: 2rem;
-      height: 2rem;
+      width: 2.2rem;
+      height: 2.2rem;
       cursor: pointer;
+      border-radius: 50%;
+      opacity: 1;
+      transition: opacity 0.1s;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 `;
@@ -128,11 +144,11 @@ const Navbar = ({ setShowNav, noteTitle, unsaved }) => {
       </div>
 
       <div className="avatar-container">
-        {!auth.user && <span onClick={auth.signinWithGithub}>A</span>}
-        {auth.user && <p>{auth.user?.displayName}</p>}
+        {!auth.user && <button onClick={auth.signinWithGithub}>Sign in</button>}
+        {auth.user && <p>{auth.user?.name}</p>}
         {auth.user && (
           <img
-            src={auth.user?.photoURL}
+            src={auth.user?.photoUrl}
             alt="avatar"
             onClick={auth.signout}
           ></img>

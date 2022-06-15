@@ -5,8 +5,9 @@ import Sidebar from "../components/Sidebar";
 import NavBurger from "../components/NavBurger";
 import NoteContainer from "../components/NoteContainer";
 import firestore from "../utils/db";
-import { collection, getDocs } from "firebase/firestore";
+import { getAllUserScribbles } from "../utils/db";
 import { CSSTransition } from "react-transition-group";
+import { useAuth } from "../utils/auth";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -14,59 +15,25 @@ const StyledContainer = styled.div`
   width: 100%;
 `;
 
-const scribbles = [
-  {
-    id: 1,
-    title: "Shopping list",
-    createdAt: new Date(),
-    body: `# shopping List 
-    *Tomatoes 
-    * Apples 
-    * Oranges`,
-  },
-  { id: 2, title: "Lecture notes", createdAt: new Date(), body: "# Testing 2" },
-  {
-    id: 3,
-    title: "Movies to watch",
-    createdAt: new Date(),
-    body: "# Testing 3",
-  },
-  { id: 4, title: "Journal Day 1", createdAt: new Date(), body: "# Testing 4" },
-];
-
-const emptyScribble = {
-  id: "empty",
-  title: "Empty Note",
-  createdAt: new Date(),
-  body: "# Start by typing and creating a scribble",
-};
-
 const Scribble = () => {
-  let fakeFirebaseRequest = scribbles;
   const [showNav, setShowNav] = useState(false);
-  const [users, setUsers] = useState();
-  const [selectedScribble, setSelectedScribble] = useState(
-    fakeFirebaseRequest[0]
-  );
+  const [scribbles, setScribbles] = useState();
+  const [selectedScribble, setSelectedScribble] = useState();
+  const auth = useAuth();
 
-  const usersCollectionRef = collection(firestore, "users");
+  console.log(auth);
 
   useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      console.log("called");
-      console.log(data);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    getUsers();
+    auth.checkSignedIn();
+    getAllUserScribbles(auth.user?.uid);
+    // setScribbles(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   }, []);
 
   return (
     <div>
       <Navbar
         setShowNav={setShowNav}
-        noteTitle={selectedScribble.title}
+        noteTitle={selectedScribble?.title}
         unsaved={true}
       />
       <CSSTransition

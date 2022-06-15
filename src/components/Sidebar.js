@@ -7,6 +7,7 @@ const StyledSidebar = styled.div`
 
   min-width: 25vw;
   border-right: 1px solid var(--light-grey);
+  background-color: #1b1b1b;
 
   div {
     background-color: var(--dark-grey);
@@ -68,7 +69,24 @@ const StyledSidebar = styled.div`
       font-weight: 500;
     }
 
-    span {
+    button {
+      padding: 0.4rem 0.8rem;
+      background-color: var(--background);
+      border: 1px solid var(--background);
+      color: var(--text-color);
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: inherit;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.1s ease-in;
+
+      &:hover {
+        border: 1px solid var(--text-color);
+      }
+    }
+
+    /* span {
       border: 1px solid white;
       font-size: 0.8rem;
       border-radius: 2px;
@@ -78,7 +96,7 @@ const StyledSidebar = styled.div`
         color: var(--dark-grey);
         background-color: var(--text-color);
       }
-    }
+    } */
 
     .selected-scribble {
       background-color: var(--light-grey);
@@ -103,7 +121,7 @@ const Sidebar = ({ scribbles, selectedScribble, setSelectedScribble }) => {
 
     showSaveTimeout = setTimeout(() => {
       setShowSave(true);
-    }, 10000);
+    }, 1000);
   }
 
   return (
@@ -124,7 +142,9 @@ const Sidebar = ({ scribbles, selectedScribble, setSelectedScribble }) => {
               }`}
             >
               <h3>{note.title}</h3>
-              {selectedScribble.id === note.id && showSave && <span>Save</span>}
+              {selectedScribble.id === note.id && showSave && (
+                <button>Save</button>
+              )}
             </li>
           ))
         ) : (

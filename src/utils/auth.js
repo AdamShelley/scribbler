@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
 import { Router } from "react-router-dom";
 import { firebase, auth } from "../firebase";
 import {
@@ -6,6 +6,7 @@ import {
   GithubAuthProvider,
   signInWithPopup,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 import { createUser } from "./db";
@@ -24,24 +25,52 @@ function useProvideAuth() {
   const [loading, setLoading] = useState(true);
   const auth = getAuth();
 
+  const handleUser = (rawUser) => {
+    if (rawUser) {
+      const user = formatUser(rawUser);
+
+      createUser(user.uid, user);
+      setUser(user);
+    } else {
+      setUser(false);
+      return false;
+    }
+  };
+
+  const checkSignedIn = () => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        handleUser(user);
+      }
+    });
+  };
+
   const signinWithGithub = () => {
     setLoading(true);
 
     const provider = new GithubAuthProvider();
 
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        setUser(result.user);
-      })
-      .catch((err) => {
-        console.log(err);
+    try {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          handleUser(user);
+        }
       });
+    } catch {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          handleUser(result.user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const signout = () => {
     signOut(auth)
       .then(() => {
-        console.log("signed out");
+        setUser(false);
       })
       .catch((err) => {
         console.log(err);
@@ -53,5 +82,16 @@ function useProvideAuth() {
     loading,
     signinWithGithub,
     signout,
+    checkSignedIn,
   };
 }
+
+const formatUser = (user) => {
+  return {
+    uid: user.uid,
+    email: user.email,
+    name: user.displayName,
+    provider: user.providerData[0].providerId,
+    photoUrl: user.photoURL,
+  };
+};

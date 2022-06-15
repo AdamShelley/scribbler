@@ -3,6 +3,8 @@ import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+import { updateScribble } from "../utils/db";
+
 const StyledNoteContainer = styled.div`
   display: flex;
   /* flex-direction: column; */
@@ -24,7 +26,10 @@ const StyledNoteContainer = styled.div`
     width: 50%;
     border-right: 1px solid var(--light-grey);
     min-width: 20%;
+
+    /* Testing */
     /* resize: horizontal; */
+    /* background-color: #1b1b1b; */
   }
 
   .result-container {
