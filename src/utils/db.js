@@ -7,14 +7,16 @@ import {
   addDoc,
   updateDoc,
   where,
+  query,
+  getDocs,
 } from "firebase/firestore";
 
 const firestore = getFirestore();
 
 export async function createUser(uid, data) {
   try {
-    const newUserRef = doc(collection(firestore, "users"));
-    await setDoc(newUserRef, { uid, ...data }, { merge: true });
+    const newUserRef = doc(firestore, "users", uid);
+    setDoc(newUserRef, { uid, ...data }, { merge: true });
   } catch (err) {
     console.log(err);
   }
@@ -36,12 +38,20 @@ export async function createScribble(uid, data) {
 }
 
 export async function getAllUserScribbles(uid) {
+  if (!uid) return;
   try {
-    return doc(
-      collection(firestore, "scribbles"),
-      where("authorId", "==", uid)
-    );
+    const scribblesRef = collection(firestore, "scribbles");
+    const q = query(scribblesRef, where("authorId", "==", uid));
+    const querySnapshot = await getDocs(q);
+    const scribbleList = [];
+    console.log("Checking snapshot");
+    querySnapshot.forEach((doc) => {
+      scribbleList.push({ ...doc.data(), id: doc.id });
+    });
+
+    return scribbleList;
   } catch (err) {
+    console.log("There has been an issue fetching user scribbles");
     console.log(err);
   }
 }

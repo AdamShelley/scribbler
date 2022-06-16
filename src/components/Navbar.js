@@ -121,9 +121,6 @@ const StyledNavbar = styled.div`
 const Navbar = ({ setShowNav, noteTitle, unsaved }) => {
   const auth = useAuth();
 
-  console.log(auth?.user);
-  console.log(auth.user?.photoUrl);
-
   return (
     <StyledNavbar>
       <div>

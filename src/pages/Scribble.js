@@ -17,17 +17,20 @@ const StyledContainer = styled.div`
 
 const Scribble = () => {
   const [showNav, setShowNav] = useState(false);
-  const [scribbles, setScribbles] = useState();
+  const [scribbles, setScribbles] = useState([]);
   const [selectedScribble, setSelectedScribble] = useState();
   const auth = useAuth();
 
-  console.log(auth);
-
   useEffect(() => {
     auth.checkSignedIn();
-    getAllUserScribbles(auth.user?.uid);
-    // setScribbles(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    const fetchScribbles = async () => {
+      const scribbles = await getAllUserScribbles(auth?.user?.uid);
+      console.log(scribbles);
+    };
+    fetchScribbles();
   }, []);
+
+  console.log(scribbles);
 
   return (
     <div>

@@ -40,24 +40,32 @@ const StyledNoteContainer = styled.div`
   position: relative;
 `;
 
-const NoteContainer = ({ selectedScribble }) => {
-  const saveClicked = () => {};
+const NoteContainer = ({ scribbles, selectedScribble }) => {
+  const [markdown, setMarkdown] = useState("#### Write some markdown here");
+  const auth = useAuth();
+
+  const saveScribbleToDatabase = () => {
+    createScribble(auth.user.uid, {
+      body: markdown,
+      title: "Testing the saving function",
+    });
+  };
 
   return (
     <StyledScribbleContainer>
       <StyledSearchBar>
         <h3>Search</h3>
         <div>
-          <Button onClick={saveClicked}>Save</Button>
+          <Button onClick={saveScribbleToDatabase}>Save</Button>
           <Button>Delete</Button>
         </div>
       </StyledSearchBar>
       <StyledNoteContainer>
         <div>
-          {!selectedScribble ? (
-            <EmptyNote />
+          {scribbles?.length < 1 ? (
+            <EmptyNote markdown={markdown} setMarkdown={setMarkdown} />
           ) : (
-            <Note selectedScribble={selectedScribble} />
+            <Note scribbles={scribbles} selectedScribble={selectedScribble} />
           )}
         </div>
       </StyledNoteContainer>

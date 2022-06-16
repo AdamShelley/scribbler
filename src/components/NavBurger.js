@@ -16,8 +16,8 @@ const StyledNavBurger = styled.div`
 
   h3 {
     margin-top: 2rem;
-    font-size: 1rem;
-    font-weight: 300;
+    font-size: 5rem;
+    font-weight: 900;
   }
 
   ul {
@@ -38,7 +38,7 @@ const StyledNavBurger = styled.div`
 const NavBurger = () => {
   return (
     <StyledNavBurger>
-      <h3>Scribbler</h3>
+      <h3>S</h3>
       <ul>
         <li>Home</li>
         <li>Account</li>

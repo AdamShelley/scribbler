@@ -50,21 +50,13 @@ function useProvideAuth() {
 
     const provider = new GithubAuthProvider();
 
-    try {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          handleUser(user);
-        }
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        handleUser(result.user);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    } catch {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          handleUser(result.user);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
   };
 
   const signout = () => {
