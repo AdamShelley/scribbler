@@ -41,6 +41,8 @@ const StyledNoteContainer = styled.div`
 `;
 
 const Note = ({ selectedScribble }) => {
+  console.log(selectedScribble);
+
   const [markdown, setMarkDown] = useState(selectedScribble.body);
 
   useEffect(() => {

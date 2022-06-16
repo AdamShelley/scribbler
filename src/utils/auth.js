@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext, useEffect } from "react";
+import React, { useState, useContext, createContext, useCallback } from "react";
 import { Router } from "react-router-dom";
 import { firebase, auth } from "../firebase";
 import {
@@ -37,13 +37,14 @@ function useProvideAuth() {
     }
   };
 
-  const checkSignedIn = () => {
+  const checkSignedIn = useCallback(() => {
+    console.log("checking sign in");
     onAuthStateChanged(auth, (user) => {
       if (user) {
         handleUser(user);
       }
     });
-  };
+  }, [auth]);
 
   const signinWithGithub = () => {
     setLoading(true);

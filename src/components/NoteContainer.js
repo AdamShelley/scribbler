@@ -45,6 +45,11 @@ const NoteContainer = ({ scribbles, selectedScribble }) => {
   const auth = useAuth();
 
   const saveScribbleToDatabase = () => {
+    // If scribble already exists
+    // Updating existing
+    // else
+
+    // Create new document
     createScribble(auth.user.uid, {
       body: markdown,
       title: "Testing the saving function",

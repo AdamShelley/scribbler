@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import NavBurger from "../components/NavBurger";
 import NoteContainer from "../components/NoteContainer";
-import firestore from "../utils/db";
+
 import { getAllUserScribbles } from "../utils/db";
 import { CSSTransition } from "react-transition-group";
 import { useAuth } from "../utils/auth";
@@ -19,18 +19,21 @@ const Scribble = () => {
   const [showNav, setShowNav] = useState(false);
   const [scribbles, setScribbles] = useState([]);
   const [selectedScribble, setSelectedScribble] = useState();
+
   const auth = useAuth();
 
   useEffect(() => {
-    auth.checkSignedIn();
     const fetchScribbles = async () => {
-      const scribbles = await getAllUserScribbles(auth?.user?.uid);
-      console.log(scribbles);
+      console.log("attempting fetch");
+      const fetchedScribbles = await getAllUserScribbles(auth.user.uid);
+      setScribbles(fetchedScribbles);
+      setSelectedScribble(fetchedScribbles[0]);
     };
-    fetchScribbles();
-  }, []);
 
-  console.log(scribbles);
+    if (auth.user) {
+      fetchScribbles();
+    }
+  }, [auth.user]);
 
   return (
     <div>
