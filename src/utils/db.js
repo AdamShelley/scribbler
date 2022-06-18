@@ -9,6 +9,7 @@ import {
   where,
   query,
   getDocs,
+  serverTimestamp,
 } from "firebase/firestore";
 
 const firestore = getFirestore();
@@ -57,9 +58,15 @@ export async function getAllUserScribbles(uid) {
 }
 
 export async function updateScribble(id, newValues) {
+  console.log(newValues);
   const existingScribble = doc(firestore, "scribbles", id);
 
-  await updateDoc(existingScribble, newValues);
+  await updateDoc(existingScribble, {
+    ...newValues,
+    timestamp: serverTimestamp(),
+  });
 }
+
+export async function deleteScribble(id) {}
 
 export default firestore;

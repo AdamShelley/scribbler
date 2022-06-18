@@ -3,8 +3,6 @@ import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-import { updateScribble } from "../utils/db";
-
 const StyledNoteContainer = styled.div`
   display: flex;
   /* flex-direction: column; */
@@ -40,19 +38,22 @@ const StyledNoteContainer = styled.div`
   }
 `;
 
-const Note = ({ selectedScribble }) => {
-  console.log(selectedScribble);
-
-  const [markdown, setMarkDown] = useState(selectedScribble.body);
-
+const Note = ({ markdown, setMarkdown, selectedScribble, setTitle }) => {
   useEffect(() => {
-    setMarkDown(selectedScribble.body);
-  }, [selectedScribble]);
+    setMarkdown(selectedScribble.body);
+  }, [setMarkdown, selectedScribble.body]);
 
   const updateMarkdown = (e) => {
-    setMarkDown(e.target.value);
+    setTitle(currentTitle);
+    setMarkdown(e.target.value);
     console.log(markdown);
   };
+
+  const reg = /([^\n]+)/g;
+  const firstLine = markdown.match(reg)[0];
+  const currentTitle = firstLine.replace(/[!@#$%^&*]/g, "");
+
+  console.log(currentTitle);
 
   return (
     <StyledNoteContainer>

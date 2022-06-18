@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import EmptyNote from "./EmptyNote";
 import Note from "./Note";
-import { createScribble } from "../utils/db";
+import { createScribble, updateScribble } from "../utils/db";
 import { useAuth } from "../utils/auth";
 import Button from "../styles/Button";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StyledScribbleContainer = styled.div`
   display: flex;
@@ -40,28 +42,59 @@ const StyledNoteContainer = styled.div`
   position: relative;
 `;
 
+const toastOptions = {
+  position: "bottom-right",
+  autoClose: 3000,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: false,
+  progress: undefined,
+};
+
 const NoteContainer = ({ scribbles, selectedScribble }) => {
-  const [markdown, setMarkdown] = useState("#### Write some markdown here");
+  const [markdown, setMarkdown] = useState(
+    selectedScribble ? selectedScribble : "#### Write some markdown here"
+  );
+  const [title, setTitle] = useState(
+    selectedScribble ? selectedScribble.title : ""
+  );
+
+  const [saving, setSaving] = useState(false);
   const auth = useAuth();
 
   const saveScribbleToDatabase = () => {
-    // If scribble already exists
-    // Updating existing
-    // else
+    // If Scribble exists, update it
 
-    // Create new document
-    createScribble(auth.user.uid, {
-      body: markdown,
-      title: "Testing the saving function",
-    });
+    setSaving(true);
+    if (selectedScribble.id) {
+      updateScribble(selectedScribble.id, {
+        body: markdown,
+        title,
+      });
+      toast.success("The update was successful!", toastOptions);
+      setSaving(false);
+    } else {
+      // Create new document
+      createScribble(auth.user.uid, {
+        body: markdown,
+        title: "Testing the saving function", // Make Dynamic
+      });
+      toast.success("Created new Scribble!", toastOptions);
+      setSaving(false);
+    }
   };
+
+  // console.log(saving);
 
   return (
     <StyledScribbleContainer>
       <StyledSearchBar>
         <h3>Search</h3>
         <div>
-          <Button onClick={saveScribbleToDatabase}>Save</Button>
+          <Button onClick={saveScribbleToDatabase} disabled={saving}>
+            {saving ? "Saving" : "Save"}
+          </Button>
           <Button>Delete</Button>
         </div>
       </StyledSearchBar>
@@ -70,9 +103,16 @@ const NoteContainer = ({ scribbles, selectedScribble }) => {
           {scribbles?.length < 1 ? (
             <EmptyNote markdown={markdown} setMarkdown={setMarkdown} />
           ) : (
-            <Note scribbles={scribbles} selectedScribble={selectedScribble} />
+            <Note
+              markdown={markdown}
+              setMarkdown={setMarkdown}
+              scribbles={scribbles}
+              selectedScribble={selectedScribble}
+              setTitle={setTitle}
+            />
           )}
         </div>
+        <ToastContainer closeButton={false} />
       </StyledNoteContainer>
     </StyledScribbleContainer>
   );
