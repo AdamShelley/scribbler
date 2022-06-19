@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { updateTitle } from "../utils/getTitle";
 
 const StyledNoteContainer = styled.div`
   display: flex;
@@ -44,16 +45,10 @@ const Note = ({ markdown, setMarkdown, selectedScribble, setTitle }) => {
   }, [setMarkdown, selectedScribble.body]);
 
   const updateMarkdown = (e) => {
-    setTitle(currentTitle);
     setMarkdown(e.target.value);
-    console.log(markdown);
+    const newTitle = updateTitle(e.target.value);
+    setTitle(newTitle);
   };
-
-  const reg = /([^\n]+)/g;
-  const firstLine = markdown.match(reg)[0];
-  const currentTitle = firstLine.replace(/[!@#$%^&*]/g, "");
-
-  console.log(currentTitle);
 
   return (
     <StyledNoteContainer>

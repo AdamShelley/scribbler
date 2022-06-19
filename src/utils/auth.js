@@ -38,7 +38,6 @@ function useProvideAuth() {
   };
 
   const checkSignedIn = useCallback(() => {
-    console.log("checking sign in");
     onAuthStateChanged(auth, (user) => {
       if (user) {
         handleUser(user);

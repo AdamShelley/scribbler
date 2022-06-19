@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { updateTitle } from "../utils/getTitle";
 
 const StyledEmptyNote = styled.div`
   display: flex;
@@ -33,9 +34,11 @@ const StyledEmptyNote = styled.div`
   }
 `;
 
-const EmptyNote = ({ markdown, setMarkdown }) => {
+const EmptyNote = ({ markdown, setMarkdown, setTitle }) => {
   const updateMarkdown = (e) => {
     setMarkdown(e.target.value);
+    const newTitle = updateTitle(e.target.value);
+    setTitle(newTitle);
   };
 
   return (

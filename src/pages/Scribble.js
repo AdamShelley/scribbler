@@ -35,6 +35,21 @@ const Scribble = () => {
     }
   }, [auth.user]);
 
+  const createBlankScribble = () => {
+    // If a blank scribble already exists, do not create a new one.
+    const blankExists = scribbles.find((scribble) => scribble.temp);
+    if (blankExists) return;
+
+    const blankScribble = {
+      body: "# Unsaved Scribble",
+      title: "Unsaved Scribble",
+      temp: true,
+    };
+
+    setScribbles((scribbles) => [...scribbles, blankScribble]);
+    setSelectedScribble(blankScribble);
+  };
+
   return (
     <div>
       <Navbar
@@ -56,10 +71,13 @@ const Scribble = () => {
           scribbles={scribbles}
           selectedScribble={selectedScribble}
           setSelectedScribble={setSelectedScribble}
+          createNewScribble={createBlankScribble}
         />
         <NoteContainer
           scribbles={scribbles}
           selectedScribble={selectedScribble}
+          setScribbles={setScribbles}
+          // origTitle={selectedScribble?.title}
         />
       </StyledContainer>
     </div>

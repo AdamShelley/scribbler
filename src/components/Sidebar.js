@@ -4,16 +4,18 @@ import styled from "styled-components";
 const StyledSidebar = styled.div`
   display: flex;
   flex-direction: column;
-
   min-width: 25vw;
   border-right: 1px solid var(--light-grey);
   background-color: #1b1b1b;
+  max-height: 80vh;
 
   div {
     background-color: var(--dark-grey);
     padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 2.5rem;
 
     h3 {
       font-weight: 400;
@@ -43,6 +45,8 @@ const StyledSidebar = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    max-height: 100%;
+    overflow-x: scroll;
 
     li {
       margin-top: 1rem;
@@ -106,7 +110,13 @@ const StyledSidebar = styled.div`
   }
 `;
 
-const Sidebar = ({ scribbles, selectedScribble, setSelectedScribble }) => {
+const Sidebar = ({
+  scribbles,
+  selectedScribble,
+  setSelectedScribble,
+  scribbleTitle,
+  createNewScribble,
+}) => {
   const [showSave, setShowSave] = useState(false);
 
   let showSaveTimeout;
@@ -124,33 +134,35 @@ const Sidebar = ({ scribbles, selectedScribble, setSelectedScribble }) => {
     }, 1000);
   }
 
+  const createBlankScribble = () => {
+    createNewScribble();
+  };
+
   return (
     <StyledSidebar>
       <div>
         <h3>Scribbles</h3>
-        <span>+</span>
+        <span onClick={createBlankScribble}>+</span>
       </div>
 
       <ul>
         {scribbles ? (
-          scribbles.map((note) => (
+          scribbles.map((scribble) => (
             <li
-              key={note.id}
-              onClick={(e) => setSelectedScribble(note)}
+              key={scribble.id || "temp"}
+              onClick={(e) => setSelectedScribble(scribble)}
               className={`${
-                selectedScribble.title === note.title ? "selected-scribble" : ""
+                selectedScribble.title === scribble.title
+                  ? "selected-scribble"
+                  : ""
               }`}
             >
-              <h3>{note.title}</h3>
-              {selectedScribble.id === note.id && showSave && (
-                <button>Save</button>
-              )}
+              <h3>{scribble.title}</h3>
             </li>
           ))
         ) : (
           <li>
             <h3>Unsaved Scribble...</h3>
-            <span>Save</span>
           </li>
         )}
       </ul>

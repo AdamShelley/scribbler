@@ -10,6 +10,7 @@ import {
   query,
   getDocs,
   serverTimestamp,
+  deleteDoc,
 } from "firebase/firestore";
 
 const firestore = getFirestore();
@@ -45,7 +46,7 @@ export async function getAllUserScribbles(uid) {
     const q = query(scribblesRef, where("authorId", "==", uid));
     const querySnapshot = await getDocs(q);
     const scribbleList = [];
-    console.log("Checking snapshot");
+
     querySnapshot.forEach((doc) => {
       scribbleList.push({ ...doc.data(), id: doc.id });
     });
@@ -67,6 +68,8 @@ export async function updateScribble(id, newValues) {
   });
 }
 
-export async function deleteScribble(id) {}
+export async function deleteScribble(id) {
+  deleteDoc(doc(firestore, "scribbles", id));
+}
 
 export default firestore;

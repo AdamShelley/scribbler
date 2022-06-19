@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import EmptyNote from "./EmptyNote";
 import Note from "./Note";
-import { createScribble, updateScribble } from "../utils/db";
+import { createScribble, updateScribble, deleteScribble } from "../utils/db";
 import { useAuth } from "../utils/auth";
 import Button from "../styles/Button";
 import { toast, ToastContainer } from "react-toastify";
@@ -20,6 +20,7 @@ const StyledSearchBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 2.5rem;
 
   span {
     padding: 0 1rem;
@@ -52,7 +53,7 @@ const toastOptions = {
   progress: undefined,
 };
 
-const NoteContainer = ({ scribbles, selectedScribble }) => {
+const NoteContainer = ({ scribbles, selectedScribble, setScribbles }) => {
   const [markdown, setMarkdown] = useState(
     selectedScribble ? selectedScribble : "#### Write some markdown here"
   );
@@ -72,20 +73,28 @@ const NoteContainer = ({ scribbles, selectedScribble }) => {
         body: markdown,
         title,
       });
+
+      selectedScribble.title = title;
+      selectedScribble.body = markdown;
       toast.success("The update was successful!", toastOptions);
       setSaving(false);
     } else {
       // Create new document
+      console.log("Creating new scribble");
+
       createScribble(auth.user.uid, {
         body: markdown,
-        title: "Testing the saving function", // Make Dynamic
+        title, // Make Dynamic
       });
       toast.success("Created new Scribble!", toastOptions);
       setSaving(false);
     }
   };
 
-  // console.log(saving);
+  const deleteScribbleHandler = () => {
+    deleteScribble(selectedScribble.id);
+    toast.success("Scribble deleted", toastOptions);
+  };
 
   return (
     <StyledScribbleContainer>
@@ -95,13 +104,18 @@ const NoteContainer = ({ scribbles, selectedScribble }) => {
           <Button onClick={saveScribbleToDatabase} disabled={saving}>
             {saving ? "Saving" : "Save"}
           </Button>
-          <Button>Delete</Button>
+          <Button onClick={deleteScribbleHandler}>Delete</Button>
         </div>
       </StyledSearchBar>
       <StyledNoteContainer>
         <div>
           {scribbles?.length < 1 ? (
-            <EmptyNote markdown={markdown} setMarkdown={setMarkdown} />
+            <EmptyNote
+              markdown={markdown}
+              setMarkdown={setMarkdown}
+              setTitle={setTitle}
+              scribbles={scribbles}
+            />
           ) : (
             <Note
               markdown={markdown}
