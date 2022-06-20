@@ -8,6 +8,7 @@ import NoteContainer from "../components/NoteContainer";
 import { getAllUserScribbles } from "../utils/db";
 import { CSSTransition } from "react-transition-group";
 import { useAuth } from "../utils/auth";
+import { saveScribbleToDatabase } from "../utils/HandleScribbles";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -24,7 +25,6 @@ const Scribble = () => {
 
   useEffect(() => {
     const fetchScribbles = async () => {
-      console.log("attempting fetch");
       const fetchedScribbles = await getAllUserScribbles(auth.user.uid);
       setScribbles(fetchedScribbles);
       setSelectedScribble(fetchedScribbles[0]);
@@ -34,6 +34,22 @@ const Scribble = () => {
       fetchScribbles();
     }
   }, [auth.user]);
+
+  const changeScribble = (scribble) => {
+    console.log(selectedScribble);
+
+    // Decide to save or hold in storage for now. Fix later.
+
+    // saveScribbleToDatabase(
+    //   selectedScribble.body,
+    //   selectedScribble.title,
+    //   scribbles,
+    //   selectedScribble,
+    //   setScribbles,
+    //   auth.user.uid
+    // );
+    setSelectedScribble(scribble);
+  };
 
   const createBlankScribble = () => {
     // If a blank scribble already exists, do not create a new one.
@@ -70,12 +86,13 @@ const Scribble = () => {
         <Sidebar
           scribbles={scribbles}
           selectedScribble={selectedScribble}
-          setSelectedScribble={setSelectedScribble}
+          changeScribble={changeScribble}
           createNewScribble={createBlankScribble}
         />
         <NoteContainer
           scribbles={scribbles}
           selectedScribble={selectedScribble}
+          setSelectedScribble={setSelectedScribble}
           setScribbles={setScribbles}
           // origTitle={selectedScribble?.title}
         />

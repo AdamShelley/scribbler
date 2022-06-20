@@ -113,27 +113,9 @@ const StyledSidebar = styled.div`
 const Sidebar = ({
   scribbles,
   selectedScribble,
-  setSelectedScribble,
-  scribbleTitle,
+  changeScribble,
   createNewScribble,
 }) => {
-  const [showSave, setShowSave] = useState(false);
-
-  let showSaveTimeout;
-
-  useEffect(() => {
-    setShowSave(false);
-    clearTimeout(showSaveTimeout);
-  }, [selectedScribble, showSaveTimeout]);
-
-  if (selectedScribble) {
-    clearTimeout(showSaveTimeout);
-
-    showSaveTimeout = setTimeout(() => {
-      setShowSave(true);
-    }, 1000);
-  }
-
   const createBlankScribble = () => {
     createNewScribble();
   };
@@ -150,7 +132,7 @@ const Sidebar = ({
           scribbles.map((scribble) => (
             <li
               key={scribble.id || "temp"}
-              onClick={(e) => setSelectedScribble(scribble)}
+              onClick={() => changeScribble(scribble)}
               className={`${
                 selectedScribble.title === scribble.title
                   ? "selected-scribble"

@@ -22,9 +22,10 @@ const StyledNoteContainer = styled.div`
     color: var(--text-color);
     cursor: text;
     font-size: 1rem;
-    width: 50%;
+    width: ${(props) => (props.showResults ? "50%" : "100%")};
     border-right: 1px solid var(--light-grey);
     min-width: 20%;
+    overflow-x: scroll;
 
     /* Testing */
     /* resize: horizontal; */
@@ -36,13 +37,22 @@ const StyledNoteContainer = styled.div`
     padding: 1rem 2rem;
     line-height: 2;
     font-weight: inherit;
+    overflow-x: scroll;
   }
 `;
 
-const Note = ({ markdown, setMarkdown, selectedScribble, setTitle }) => {
+const Note = ({
+  markdown,
+  setMarkdown,
+  selectedScribble,
+  setTitle,
+  showResults,
+}) => {
   useEffect(() => {
     setMarkdown(selectedScribble.body);
-  }, [setMarkdown, selectedScribble.body]);
+    const title = updateTitle(selectedScribble.body);
+    setTitle(title);
+  }, [setMarkdown, selectedScribble.body, setTitle]);
 
   const updateMarkdown = (e) => {
     setMarkdown(e.target.value);
@@ -51,15 +61,17 @@ const Note = ({ markdown, setMarkdown, selectedScribble, setTitle }) => {
   };
 
   return (
-    <StyledNoteContainer>
+    <StyledNoteContainer showResults={showResults}>
       <textarea
         onChange={updateMarkdown}
         value={markdown}
         data-provide="markdown"
       />
-      <div className="result-container">
-        <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />
-      </div>
+      {showResults && (
+        <div className="result-container">
+          <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />
+        </div>
+      )}
     </StyledNoteContainer>
   );
 };

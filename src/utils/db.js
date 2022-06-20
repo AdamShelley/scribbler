@@ -28,12 +28,10 @@ export async function createScribble(uid, data) {
   console.log("Create Scribble function called");
   console.log(uid, data);
   try {
-    await addDoc(collection(firestore, "scribbles"), {
+    return await addDoc(collection(firestore, "scribbles"), {
       authorId: uid,
       ...data,
     });
-
-    console.log("document added");
   } catch (err) {
     console.log(err);
   }
@@ -62,7 +60,7 @@ export async function updateScribble(id, newValues) {
   console.log(newValues);
   const existingScribble = doc(firestore, "scribbles", id);
 
-  await updateDoc(existingScribble, {
+  return await updateDoc(existingScribble, {
     ...newValues,
     timestamp: serverTimestamp(),
   });
