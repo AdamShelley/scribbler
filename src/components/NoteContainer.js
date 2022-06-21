@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EmptyNote from "./EmptyNote";
 import Note from "./Note";
-import { createScribble, updateScribble, deleteScribble } from "../utils/db";
+import { deleteScribble } from "../utils/db";
 import { useAuth } from "../utils/auth";
 import { toastOptions } from "../utils/toastOptions";
 import Button from "../styles/Button";

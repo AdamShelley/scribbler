@@ -20,6 +20,7 @@ const Scribble = () => {
   const [showNav, setShowNav] = useState(false);
   const [scribbles, setScribbles] = useState([]);
   const [selectedScribble, setSelectedScribble] = useState();
+  const [unsaved, setUnsaved] = useState(false);
 
   const auth = useAuth();
 
@@ -36,18 +37,6 @@ const Scribble = () => {
   }, [auth.user]);
 
   const changeScribble = (scribble) => {
-    console.log(selectedScribble);
-
-    // Decide to save or hold in storage for now. Fix later.
-
-    // saveScribbleToDatabase(
-    //   selectedScribble.body,
-    //   selectedScribble.title,
-    //   scribbles,
-    //   selectedScribble,
-    //   setScribbles,
-    //   auth.user.uid
-    // );
     setSelectedScribble(scribble);
   };
 
@@ -71,7 +60,7 @@ const Scribble = () => {
       <Navbar
         setShowNav={setShowNav}
         noteTitle={selectedScribble?.title}
-        unsaved={true}
+        unsaved={unsaved}
       />
       <CSSTransition
         in={showNav}
@@ -94,7 +83,6 @@ const Scribble = () => {
           selectedScribble={selectedScribble}
           setSelectedScribble={setSelectedScribble}
           setScribbles={setScribbles}
-          // origTitle={selectedScribble?.title}
         />
       </StyledContainer>
     </div>
