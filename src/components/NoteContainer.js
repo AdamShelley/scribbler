@@ -25,10 +25,12 @@ const NoteContainer = ({
   const [markdown, setMarkdown] = useState(
     selectedScribble ? selectedScribble : "#### Write some markdown here"
   );
+
   const [title, setTitle] = useState(
     selectedScribble ? selectedScribble.title : ""
   );
   const [showResults, setShowResults] = useState(true);
+  const [showMarkdown, setShowMarkdown] = useState(true);
   const [saving, setSaving] = useState(false);
   const auth = useAuth();
 
@@ -57,12 +59,16 @@ const NoteContainer = ({
   return (
     <StyledScribbleContainer>
       <StyledSearchBar>
-        <h3>Search</h3>
+        <FontAwesomeIcon
+          className="show-results"
+          icon={showResults ? faEyeSlash : faEye}
+          onClick={() => setShowResults((prev) => !prev)}
+        />
         <div>
           <FontAwesomeIcon
             className="show-results"
-            icon={showResults ? faEyeSlash : faEye}
-            onClick={() => setShowResults((prev) => !prev)}
+            icon={showMarkdown ? faEyeSlash : faEye}
+            onClick={() => setShowMarkdown((prev) => !prev)}
           />
           <Button
             onClick={saveScribbleToDatabaseHandler}
@@ -92,6 +98,7 @@ const NoteContainer = ({
               selectedScribble={selectedScribble}
               setTitle={setTitle}
               showResults={showResults}
+              showMarkdown={showMarkdown}
             />
           )}
         </div>

@@ -47,6 +47,7 @@ const Note = ({
   selectedScribble,
   setTitle,
   showResults,
+  showMarkdown,
 }) => {
   useEffect(() => {
     setMarkdown(selectedScribble.body);
@@ -62,11 +63,13 @@ const Note = ({
 
   return (
     <StyledNoteContainer showResults={showResults}>
-      <textarea
-        onChange={updateMarkdown}
-        value={markdown}
-        data-provide="markdown"
-      />
+      {showMarkdown && (
+        <textarea
+          onChange={updateMarkdown}
+          value={markdown}
+          data-provide="markdown"
+        />
+      )}
       {showResults && (
         <div className="result-container">
           <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />
