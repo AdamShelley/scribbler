@@ -14,12 +14,10 @@ const StyledNavbar = styled.div`
     display: flex;
     align-items: center;
     height: 100%;
-    flex: 1;
 
     .burger-nav {
       padding: 1rem;
       z-index: 99;
-      width: 4.5rem;
       height: 100%;
       background-color: var(--light-grey);
       display: flex;
@@ -39,7 +37,9 @@ const StyledNavbar = styled.div`
         span {
           background-color: var(--text-color);
           height: 2px;
-          width: 80%;
+          width: 2rem;
+          min-width: 80%;
+          /* max-width: 2rem; */
           margin-bottom: 3px;
           transform: scale(1);
           transition: all 0.2s ease-in-out;

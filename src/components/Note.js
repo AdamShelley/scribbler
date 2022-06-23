@@ -48,6 +48,7 @@ const Note = ({
   setTitle,
   showResults,
   showMarkdown,
+  updateScribblesWithoutDatabasePush,
 }) => {
   useEffect(() => {
     setMarkdown(selectedScribble.body);
@@ -59,6 +60,12 @@ const Note = ({
     setMarkdown(e.target.value);
     const newTitle = updateTitle(e.target.value);
     setTitle(newTitle);
+
+    updateScribblesWithoutDatabasePush(
+      selectedScribble,
+      e.target.value,
+      newTitle
+    );
   };
 
   return (

@@ -15,12 +15,14 @@ import {
   StyledNoteContainer,
 } from "../styles/NoteStyles";
 import { saveScribbleToDatabase } from "../utils/HandleScribbles";
+import { useEffect } from "react";
 
 const NoteContainer = ({
   scribbles,
   selectedScribble,
   setScribbles,
   setSelectedScribble,
+  updateScribblesWithoutDatabasePush,
 }) => {
   const [markdown, setMarkdown] = useState(
     selectedScribble ? selectedScribble : "#### Write some markdown here"
@@ -99,6 +101,9 @@ const NoteContainer = ({
               setTitle={setTitle}
               showResults={showResults}
               showMarkdown={showMarkdown}
+              updateScribblesWithoutDatabasePush={
+                updateScribblesWithoutDatabasePush
+              }
             />
           )}
         </div>

@@ -55,6 +55,21 @@ const Scribble = () => {
     setSelectedScribble(blankScribble);
   };
 
+  // Keeps the non-saved markdown persistent.
+  const updateScribblesWithoutDatabasePush = (currentScribble, body, title) => {
+    const filteredScribbles = scribbles.filter((scribble) => {
+      return scribble.id !== selectedScribble.id;
+    });
+
+    const tempUpdateScribble = {
+      ...currentScribble,
+      body,
+      title,
+    };
+
+    setScribbles([...filteredScribbles, tempUpdateScribble]);
+  };
+
   return (
     <div>
       <Navbar
@@ -83,6 +98,9 @@ const Scribble = () => {
           selectedScribble={selectedScribble}
           setSelectedScribble={setSelectedScribble}
           setScribbles={setScribbles}
+          updateScribblesWithoutDatabasePush={
+            updateScribblesWithoutDatabasePush
+          }
         />
       </StyledContainer>
     </div>
