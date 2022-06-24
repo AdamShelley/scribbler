@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const Account = () => {
+const Account = ({ setShowNav }) => {
   return <div>Account</div>;
 };
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledNavBurger = styled.div`
@@ -31,19 +32,40 @@ const StyledNavBurger = styled.div`
       margin-top: 2rem;
       font-weight: 500;
       cursor: pointer;
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
     }
   }
 `;
 
-const NavBurger = () => {
+const NavBurger = (setShowNav) => {
   return (
     <StyledNavBurger>
       <h3>S</h3>
       <ul>
-        <li>Home</li>
-        <li>Account</li>
-        <li>Settings</li>
-        <li>Contact</li>
+        <li>
+          <Link onClick={() => setShowNav(false)} to="/">
+            Home
+          </Link>
+        </li>
+        <li>
+          <Link onClick={() => setShowNav(false)} to="/account">
+            Account
+          </Link>
+        </li>
+        <li>
+          <Link onClick={() => setShowNav(false)} to="/settings">
+            Settings
+          </Link>
+        </li>
+        <li>
+          <Link onClick={() => setShowNav(false)} to="/contact">
+            Contact
+          </Link>
+        </li>
       </ul>
     </StyledNavBurger>
   );

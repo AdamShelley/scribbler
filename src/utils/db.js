@@ -1,3 +1,4 @@
+import { compareDesc, compareAsc, parseISO } from "date-fns";
 import "../firebase";
 import {
   getFirestore,
@@ -48,6 +49,10 @@ export async function getAllUserScribbles(uid) {
     querySnapshot.forEach((doc) => {
       scribbleList.push({ ...doc.data(), id: doc.id });
     });
+
+    scribbleList.sort((a, b) =>
+      compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
+    );
 
     return scribbleList;
   } catch (err) {

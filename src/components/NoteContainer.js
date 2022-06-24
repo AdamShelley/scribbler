@@ -15,7 +15,7 @@ import {
   StyledNoteContainer,
 } from "../styles/NoteStyles";
 import { saveScribbleToDatabase } from "../utils/HandleScribbles";
-import { useEffect } from "react";
+import useKeyPress from "../utils/useKeyPress";
 
 const NoteContainer = ({
   scribbles,
@@ -35,6 +35,7 @@ const NoteContainer = ({
   const [showMarkdown, setShowMarkdown] = useState(true);
   const [saving, setSaving] = useState(false);
   const auth = useAuth();
+  const keyPressed = useKeyPress();
 
   const saveScribbleToDatabaseHandler = () => {
     saveScribbleToDatabase(
@@ -63,14 +64,14 @@ const NoteContainer = ({
       <StyledSearchBar>
         <FontAwesomeIcon
           className="show-results"
-          icon={showResults ? faEyeSlash : faEye}
-          onClick={() => setShowResults((prev) => !prev)}
+          icon={showMarkdown ? faEyeSlash : faEye}
+          onClick={() => setShowMarkdown((prev) => !prev)}
         />
         <div>
           <FontAwesomeIcon
             className="show-results"
-            icon={showMarkdown ? faEyeSlash : faEye}
-            onClick={() => setShowMarkdown((prev) => !prev)}
+            icon={showResults ? faEyeSlash : faEye}
+            onClick={() => setShowResults((prev) => !prev)}
           />
           <Button
             onClick={saveScribbleToDatabaseHandler}
