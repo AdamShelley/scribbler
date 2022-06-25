@@ -1,24 +1,18 @@
-import { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Redirect,
-  Route,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+import GlobalStyle from "./styles/globalStyles";
 import Scribble from "./pages/Scribble";
 import Account from "./pages/Account";
 import Settings from "./pages/Settings";
+import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import { useAuth } from "./utils/auth";
-
-import { CSSTransition } from "react-transition-group";
-import NavBurger from "./components/NavBurger";
 import Navbar from "./components/Navbar";
 
 function App() {
-  const [showNav, setShowNav] = useState(false);
   const [unsaved, setUnsaved] = useState(false);
+
   // const [navTitle, setNavTitle] = useState("");
   const auth = useAuth();
 
@@ -28,35 +22,19 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className="App">
-        <Navbar
-          setShowNav={setShowNav}
-          // noteTitle={navTitle}
-          unsaved={unsaved}
-        />
-        <CSSTransition
-          in={showNav}
-          timeout={300}
-          classNames="slide-in-left"
-          mountOnEnter
-          unmountOnExit
-        >
-          <NavBurger setShowNav={setShowNav} />
-        </CSSTransition>
+    <div className="App">
+      <Router>
+        <Navbar unsaved={unsaved} />
+        <GlobalStyle />
         <Routes>
           <Route path="/" element={<Scribble setUnsaved={setUnsaved} />} />
-          <Route
-            path="/account"
-            element={<Account />}
-            onClick={() => setShowNav(false)}
-          />
+          <Route path="/account" element={<Account />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
-
-        <Footer />
-      </div>
-    </Router>
+      </Router>
+      <Footer />
+    </div>
   );
 }
 

@@ -1,19 +1,43 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-const StyledNavBurger = styled.div`
+const StyledNavBurger = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
 
   position: absolute;
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 25vw;
   z-index: 99;
 
   background-color: var(--dark-grey);
   border-right: 1px solid var(--text-color);
+
+  .close-nav {
+    height: 4rem;
+    width: 4rem;
+    background-color: var(--light-grey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    cursor: pointer;
+    border-radius: 3px;
+
+    &:hover span {
+      color: var(--dark-grey);
+    }
+
+    span {
+      font-size: 1.8rem;
+      font-weight: 900;
+      transition: all 0.15s ease-in-out;
+    }
+  }
 
   h3 {
     margin-top: 2rem;
@@ -41,30 +65,57 @@ const StyledNavBurger = styled.div`
   }
 `;
 
-const NavBurger = (setShowNav) => {
+let activeStyle = {
+  textDecoration: "underline",
+};
+
+const NavBurger = ({ setShowNav }) => {
+  const handleNavLinkClick = () => {
+    setShowNav(false);
+  };
+
   return (
     <StyledNavBurger>
+      <div className="close-nav" onClick={handleNavLinkClick}>
+        <span>X</span>
+      </div>
       <h3>S</h3>
       <ul>
         <li>
-          <Link onClick={() => setShowNav(false)} to="/">
+          <NavLink
+            to="/"
+            onClick={handleNavLinkClick}
+            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+          >
             Home
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link onClick={() => setShowNav(false)} to="/account">
+          <NavLink
+            to="/account"
+            onClick={handleNavLinkClick}
+            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+          >
             Account
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link onClick={() => setShowNav(false)} to="/settings">
+          <NavLink
+            to="/settings"
+            onClick={handleNavLinkClick}
+            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+          >
             Settings
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link onClick={() => setShowNav(false)} to="/contact">
+          <NavLink
+            to="/contact"
+            onClick={handleNavLinkClick}
+            style={({ isActive }) => (isActive ? activeStyle : undefined)}
+          >
             Contact
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </StyledNavBurger>

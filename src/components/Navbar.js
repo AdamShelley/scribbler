@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import NavBurger from "./NavBurger";
 import { useAuth } from "../utils/auth";
+import { CSSTransition } from "react-transition-group";
 
 const StyledNavbar = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 4rem;
   background-color: var(--nav-color);
-  /* padding: 2.5rem; */
 
   div {
     display: flex;
@@ -118,7 +120,9 @@ const StyledNavbar = styled.div`
   }
 `;
 
-const Navbar = ({ setShowNav, noteTitle, unsaved }) => {
+const Navbar = ({ noteTitle, unsaved }) => {
+  const [showNav, setShowNav] = useState(false);
+  const nodeRef = React.useRef(null);
   const auth = useAuth();
 
   return (
@@ -151,6 +155,18 @@ const Navbar = ({ setShowNav, noteTitle, unsaved }) => {
           ></img>
         )}
       </div>
+      {showNav && (
+        <CSSTransition
+          nodeRef={nodeRef}
+          in={showNav}
+          timeout={300}
+          classNames="slide-in-left"
+          mountOnEnter
+          unmountOnExit
+        >
+          <NavBurger setShowNav={setShowNav} innerRef={nodeRef} />
+        </CSSTransition>
+      )}
     </StyledNavbar>
   );
 };
