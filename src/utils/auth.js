@@ -37,13 +37,14 @@ function useProvideAuth() {
     }
   };
 
-  const checkSignedIn = useCallback(() => {
+  const checkSignedIn = () => {
+    console.log(auth);
     onAuthStateChanged(auth, (user) => {
       if (user) {
         handleUser(user);
       }
     });
-  }, [auth]);
+  };
 
   const signinWithGithub = () => {
     setLoading(true);

@@ -66,7 +66,8 @@ const StyledNavBurger = styled.nav`
 `;
 
 let activeStyle = {
-  textDecoration: "underline",
+  borderBottom: "1px solid white",
+  paddingBottom: ".3rem",
 };
 
 const NavBurger = ({ setShowNav }) => {
