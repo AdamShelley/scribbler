@@ -140,8 +140,8 @@ const Navbar = ({ noteTitle, unsaved }) => {
         </div>
       </div>
       <div className="note-name">
-        <h4>{noteTitle} </h4>
-        <span>{unsaved && " - Unsaved scribble"}</span>
+        {/* <h4>{noteTitle} </h4>
+        <span>{unsaved && " - Unsaved scribble"}</span> */}
       </div>
 
       <div className="avatar-container">
@@ -155,18 +155,16 @@ const Navbar = ({ noteTitle, unsaved }) => {
           ></img>
         )}
       </div>
-      {showNav && (
-        <CSSTransition
-          nodeRef={nodeRef}
-          in={showNav}
-          timeout={300}
-          classNames="slide-in-left"
-          mountOnEnter
-          unmountOnExit
-        >
-          <NavBurger setShowNav={setShowNav} innerRef={nodeRef} />
-        </CSSTransition>
-      )}
+
+      <CSSTransition
+        in={showNav}
+        timeout={300}
+        classNames="slide-in-left"
+        mountOnEnter
+        unmountOnExit
+      >
+        <NavBurger setShowNav={setShowNav} />
+      </CSSTransition>
     </StyledNavbar>
   );
 };

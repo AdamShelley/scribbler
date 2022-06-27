@@ -12,14 +12,17 @@ import Navbar from "./components/Navbar";
 
 function App() {
   const [unsaved, setUnsaved] = useState(false);
+  const [user, setUser] = useState(null);
 
   // const [navTitle, setNavTitle] = useState("");
   const auth = useAuth();
 
-  // Fix deps
   useEffect(() => {
-    auth.checkSignedIn();
-  }, []);
+    if (!user) {
+      auth.checkSignedIn();
+      setUser(auth.user);
+    }
+  }, [auth, setUser, user]);
 
   return (
     <div className="App">
