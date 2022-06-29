@@ -3,6 +3,7 @@ import styled from "styled-components";
 import NavBurger from "./NavBurger";
 import { useAuth } from "../utils/auth";
 import { CSSTransition } from "react-transition-group";
+import { Link } from "react-router-dom";
 
 const StyledNavbar = styled.div`
   position: relative;
@@ -57,10 +58,21 @@ const StyledNavbar = styled.div`
     .logo-container {
       margin-left: 2rem;
 
-      h1 {
-        font-size: 1.2rem;
-        padding-right: 2rem;
-        border-right: 1px solid var(--light-grey);
+      a {
+        color: inherit;
+        text-decoration: none;
+        opacity: 1;
+        transition: all 0.2s;
+
+        h1 {
+          font-size: 1.2rem;
+          padding-right: 2rem;
+          border-right: 1px solid var(--light-grey);
+        }
+
+        &:hover {
+          opacity: 0.9;
+        }
       }
     }
   }
@@ -136,7 +148,9 @@ const Navbar = ({ noteTitle, unsaved }) => {
           </div>
         </div>
         <div className="logo-container">
-          <h1>Scribbler</h1>
+          <Link to="/">
+            <h1>Scribbler</h1>
+          </Link>
         </div>
       </div>
       <div className="note-name">
