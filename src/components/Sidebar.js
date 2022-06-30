@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StyledSidebar } from "../styles/SidebarStyles";
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDown,
+  faArrowUp,
+  faFloppyDisk,
+  faTrash,
+  faBoxArchive,
+} from "@fortawesome/free-solid-svg-icons";
 import OptionsMenu from "./OptionsMenu";
 
 const Sidebar = ({
@@ -35,6 +41,7 @@ const Sidebar = ({
                   : ""
               }`}
             >
+              <OptionsMenu scribble={scribble} />
               <h3>{scribble.title}</h3>
             </li>
           ))
@@ -44,6 +51,7 @@ const Sidebar = ({
           </li>
         )}
       </ul>
+
       <button
         className="archive-button"
         onClick={() => setShowArchive((prev) => !prev)}

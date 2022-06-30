@@ -66,6 +66,10 @@ export const StyledSidebar = styled.div`
       &:hover {
         border-left: 1px solid var(--text-color);
       }
+
+      div {
+        width: 100%;
+      }
     }
 
     h3 {
