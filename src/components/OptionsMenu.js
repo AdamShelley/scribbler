@@ -1,6 +1,7 @@
 import useContextMenu from "../utils/useContextMenu";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { archiveScribble } from "../utils/HandleScribbles";
 
 import {
   faFloppyDisk,
@@ -15,11 +16,11 @@ const StyledOptionsMenu = styled.ul`
   background-color: var(--dark-grey);
   border: 1px solid var(--light-grey);
   font-size: 0.8rem;
-  padding: 0 !important;
+  padding: 0.5rem 0 !important;
   border-radius: 3px;
 
   li {
-    padding: 0.7rem 1rem !important;
+    padding: 0.8rem 1rem !important;
     margin: 0 !important;
     height: 1.5rem !important;
     border-left: none !important;
@@ -45,8 +46,8 @@ const StyledOptionsMenu = styled.ul`
   }
 `;
 
-const Menu = ({ scribble }) => {
-  const { anchorPoint, show } = useContextMenu();
+const Menu = ({ archiveScribble }) => {
+  const { anchorPoint, show, scribblePicked } = useContextMenu();
 
   const saveHandler = () => {
     // Connect to auth and save to database
@@ -56,15 +57,11 @@ const Menu = ({ scribble }) => {
     // Connect to DB and delete
   };
   const archiveHandler = () => {
-    // Connect to DB
-    // Copy the existing document to the archive collection
-    // Delete the current document in the scribbles file
+    archiveScribble();
   };
 
   // TBD
-  const restoreArchivedScribble = () => {
-    // Opposite of above
-  };
+  const restoreArchivedScribble = () => {};
 
   if (show) {
     return (

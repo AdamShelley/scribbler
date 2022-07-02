@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StyledSidebar } from "../styles/SidebarStyles";
-import {
-  faArrowDown,
-  faArrowUp,
-  faFloppyDisk,
-  faTrash,
-  faBoxArchive,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import OptionsMenu from "./OptionsMenu";
 
 const Sidebar = ({
   scribbles,
+  archived,
   selectedScribble,
   changeScribble,
   createNewScribble,
@@ -20,6 +15,10 @@ const Sidebar = ({
 
   const createBlankScribble = () => {
     createNewScribble();
+  };
+
+  const archiveScribble = (scribble) => {
+    console.log(scribble);
   };
 
   return (
@@ -41,7 +40,7 @@ const Sidebar = ({
                   : ""
               }`}
             >
-              <OptionsMenu scribble={scribble} />
+              <OptionsMenu />
               <h3>{scribble.title}</h3>
             </li>
           ))
@@ -61,10 +60,21 @@ const Sidebar = ({
       </button>
       {showArchive && (
         <ul>
-          <li>archived scribble</li>
-          <li>archived scribble</li>
-          <li>archived scribble</li>
-          <li>archived scribble</li>
+          {archived
+            ? archived.map((scribble) => (
+                <li
+                  key={scribble.id + "-archive"}
+                  onClick={() => changeScribble(scribble)}
+                  className={`${
+                    selectedScribble.title === scribble.title
+                      ? "selected-scribble"
+                      : ""
+                  }`}
+                >
+                  {scribble.title}
+                </li>
+              ))
+            : ""}
         </ul>
       )}
     </StyledSidebar>

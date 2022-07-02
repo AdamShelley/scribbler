@@ -61,14 +61,27 @@ export async function getAllUserScribbles(uid) {
   }
 }
 
-export async function updateScribble(id, newValues) {
+export async function updateScribble(uid, newValues) {
   console.log(newValues);
-  const existingScribble = doc(firestore, "scribbles", id);
+  const existingScribble = doc(firestore, "scribbles", uid);
 
   return await updateDoc(existingScribble, {
     ...newValues,
     timestamp: serverTimestamp(),
   });
+}
+
+export async function archiveScribble(uid, data) {
+  console.log("Archiving Scribble");
+
+  try {
+    return await addDoc(collection(firestore, "archive"), {
+      authorId: uid,
+      ...data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export async function deleteScribble(id) {

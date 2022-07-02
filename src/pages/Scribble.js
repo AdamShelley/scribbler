@@ -14,6 +14,7 @@ const StyledContainer = styled.div`
 
 const Scribble = ({ setUnsaved }) => {
   const [scribbles, setScribbles] = useState([]);
+  const [archived, setArchived] = useState([]);
   const [selectedScribble, setSelectedScribble] = useState();
 
   const auth = useAuth();
@@ -23,6 +24,10 @@ const Scribble = ({ setUnsaved }) => {
       const fetchedScribbles = await getAllUserScribbles(auth.user.uid);
       setScribbles(fetchedScribbles);
       setSelectedScribble(fetchedScribbles[0]);
+      setArchived([
+        { title: "test 1", body: "testtest", id: "test1" },
+        { title: "test 2", body: "testtesttests", id: "test2" },
+      ]); // This needs to be updated with real archive
       // navTitle(selectedScribble?.title);
     };
 
@@ -69,6 +74,7 @@ const Scribble = ({ setUnsaved }) => {
           selectedScribble={selectedScribble}
           changeScribble={changeScribble}
           createNewScribble={createBlankScribble}
+          archived={archived}
         />
         <NoteContainer
           scribbles={scribbles}

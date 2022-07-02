@@ -68,3 +68,7 @@ export const deleteScribble = (
   setSelectedScribble(scribbleList[0]);
   toast.success("Scribble deleted", toastOptions);
 };
+
+export const archiveScribble = (scribble) => {
+  console.log(scribble);
+};
