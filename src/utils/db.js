@@ -38,10 +38,10 @@ export async function createScribble(uid, data) {
   }
 }
 
-export async function getAllUserScribbles(uid) {
+export async function getAllUserScribbles(uid, col = "scribbles") {
   if (!uid) return;
   try {
-    const scribblesRef = collection(firestore, "scribbles");
+    const scribblesRef = collection(firestore, col);
     const q = query(scribblesRef, where("authorId", "==", uid));
     const querySnapshot = await getDocs(q);
     const scribbleList = [];
@@ -61,6 +61,15 @@ export async function getAllUserScribbles(uid) {
   }
 }
 
+export async function getAllUserArchivedScribbles(uid) {
+  if (!uid) return;
+
+  try {
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export async function updateScribble(uid, newValues) {
   console.log(newValues);
   const existingScribble = doc(firestore, "scribbles", uid);
@@ -72,20 +81,21 @@ export async function updateScribble(uid, newValues) {
 }
 
 export async function archiveScribble(uid, data) {
-  console.log("Archiving Scribble");
+  console.log("Archiving Scribble from database file");
 
   try {
-    return await addDoc(collection(firestore, "archive"), {
+    await addDoc(collection(firestore, "archive"), {
       authorId: uid,
       ...data,
     });
+    deleteScribble(data.id);
   } catch (err) {
     console.log(err);
   }
 }
 
-export async function deleteScribble(id) {
-  deleteDoc(doc(firestore, "scribbles", id));
+export async function deleteScribble(id, collection = "scribbles") {
+  deleteDoc(doc(firestore, collection, id));
 }
 
 export default firestore;

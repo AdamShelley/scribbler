@@ -14,7 +14,10 @@ import {
   StyledSearchBar,
   StyledNoteContainer,
 } from "../styles/NoteStyles";
-import { saveScribbleToDatabase } from "../utils/HandleScribbles";
+import {
+  saveScribbleToDatabase,
+  deleteScribbleHandler,
+} from "../utils/HandleScribbles";
 import useKeyPress from "../utils/useKeyPress";
 
 const NoteContainer = ({

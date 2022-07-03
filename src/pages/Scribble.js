@@ -24,11 +24,13 @@ const Scribble = ({ setUnsaved }) => {
       const fetchedScribbles = await getAllUserScribbles(auth.user.uid);
       setScribbles(fetchedScribbles);
       setSelectedScribble(fetchedScribbles[0]);
-      setArchived([
-        { title: "test 1", body: "testtest", id: "test1" },
-        { title: "test 2", body: "testtesttests", id: "test2" },
-      ]); // This needs to be updated with real archive
-      // navTitle(selectedScribble?.title);
+
+      const fetchedArchivedScribbles = await getAllUserScribbles(
+        auth.user.uid,
+        "archive"
+      );
+
+      setArchived(fetchedArchivedScribbles);
     };
 
     if (auth.user) {
@@ -73,6 +75,8 @@ const Scribble = ({ setUnsaved }) => {
           scribbles={scribbles}
           selectedScribble={selectedScribble}
           changeScribble={changeScribble}
+          setScribbles={setScribbles}
+          setSelectedScribble={setSelectedScribble}
           createNewScribble={createBlankScribble}
           archived={archived}
         />

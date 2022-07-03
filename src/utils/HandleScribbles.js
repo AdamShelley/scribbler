@@ -1,4 +1,9 @@
-import { createScribble, updateScribble } from "./db";
+import {
+  createScribble,
+  deleteScribble,
+  updateScribble,
+  archiveScribble,
+} from "./db";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toastOptions } from "./toastOptions";
@@ -53,7 +58,7 @@ export const saveScribbleToDatabase = (
   }
 };
 
-export const deleteScribble = (
+export const deleteScribbleFromDatabase = (
   scribbles,
   selectedScribbleId,
   setScribbles,
@@ -69,6 +74,7 @@ export const deleteScribble = (
   toast.success("Scribble deleted", toastOptions);
 };
 
-export const archiveScribble = (scribble) => {
-  console.log(scribble);
+export const archiveScribbleInDatabase = (userId, scribble) => {
+  archiveScribble(userId, scribble);
+  console.log("Then do frontend manip");
 };

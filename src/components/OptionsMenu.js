@@ -1,7 +1,6 @@
 import useContextMenu from "../utils/useContextMenu";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { archiveScribble } from "../utils/HandleScribbles";
 
 import {
   faFloppyDisk,
@@ -46,22 +45,12 @@ const StyledOptionsMenu = styled.ul`
   }
 `;
 
-const Menu = ({ archiveScribble }) => {
-  const { anchorPoint, show, scribblePicked } = useContextMenu();
-
-  const saveHandler = () => {
-    // Connect to auth and save to database
-  };
-
-  const deleteHandler = () => {
-    // Connect to DB and delete
-  };
-  const archiveHandler = () => {
-    archiveScribble();
-  };
-
-  // TBD
-  const restoreArchivedScribble = () => {};
+const Menu = ({
+  archiveScribbleHandler,
+  saveScribbleHandler,
+  deleteScribbleHandler,
+}) => {
+  const { anchorPoint, show } = useContextMenu();
 
   if (show) {
     return (
@@ -69,15 +58,15 @@ const Menu = ({ archiveScribble }) => {
         className="menu"
         style={{ top: anchorPoint.y, left: anchorPoint.x }}
       >
-        <li onClick={saveHandler}>
+        <li onClick={saveScribbleHandler}>
           <FontAwesomeIcon icon={faFloppyDisk} />
           <span>Save</span>
         </li>
-        <li onClick={deleteHandler}>
+        <li onClick={deleteScribbleHandler}>
           <FontAwesomeIcon icon={faTrash} />
           <span>Delete</span>
         </li>
-        <li onClick={archiveHandler}>
+        <li onClick={archiveScribbleHandler}>
           <FontAwesomeIcon icon={faBoxArchive} />
           <span>Archive</span>
         </li>
