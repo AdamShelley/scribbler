@@ -8,12 +8,16 @@ import {
   saveScribbleToDatabase,
   deleteScribbleFromDatabase,
   archiveScribbleInDatabase,
+  restoreScribbleToMain,
 } from "../utils/HandleScribbles";
 import OptionsMenu from "./OptionsMenu";
 
 const Sidebar = ({
   scribbles,
   archived,
+  setArchived,
+  deleted,
+  setDeleted,
   selectedScribble,
   changeScribble,
   createNewScribble,
@@ -21,14 +25,19 @@ const Sidebar = ({
   setSelectedScribble,
 }) => {
   const [showArchive, setShowArchive] = useState(true);
+  const [showBin, setShowBin] = useState(true);
   const [currentRightClickedScribble, setCurrentRightClickedScribble] =
     useState(null);
   const { uid } = useAuth();
 
   const archiveScribbleHandler = () => {
-    console.log("archiving scribble");
-    console.log(currentRightClickedScribble);
-    archiveScribbleInDatabase(uid, currentRightClickedScribble);
+    archiveScribbleInDatabase(
+      uid,
+      currentRightClickedScribble,
+      scribbles,
+      setScribbles,
+      setArchived
+    );
   };
 
   const saveScribbleHandler = () => {
@@ -42,16 +51,33 @@ const Sidebar = ({
       uid
     );
   };
-  const deleteScribble = () => {
+
+  const deleteScribbleHandler = () => {
     deleteScribbleFromDatabase(
-      archiveScribbleInDatabase,
+      scribbles,
       selectedScribble.id,
       setScribbles,
       setSelectedScribble
     );
   };
 
-  const copyScribble = () => {
+  const restoreScribbleHandler = () => {
+    const prevLoc = currentRightClickedScribble.archived
+      ? "archive"
+      : "deleted";
+    const setPrevLoc = currentRightClickedScribble.archived
+      ? setArchived
+      : setDeleted;
+    restoreScribbleToMain(
+      currentRightClickedScribble,
+      scribbles,
+      setScribbles,
+      prevLoc,
+      setPrevLoc
+    );
+  };
+
+  const copyScribbleHandler = () => {
     console.log("Copy scribble");
   };
 
@@ -65,8 +91,10 @@ const Sidebar = ({
       <OptionsMenu
         archiveScribbleHandler={archiveScribbleHandler}
         saveScribbleHandler={saveScribbleHandler}
-        deleteScribbleHandler={deleteScribble}
-        copyScribble={copyScribble}
+        deleteScribbleHandler={deleteScribbleHandler}
+        restoreScribbleHandler={restoreScribbleHandler}
+        copyScribbleHandler={copyScribbleHandler}
+        fullMenu={currentRightClickedScribble?.archived}
       />
 
       <ul>
@@ -106,13 +134,41 @@ const Sidebar = ({
                 <li
                   key={scribble.id + "-archive"}
                   onClick={() => changeScribble(scribble)}
+                  onContextMenu={() => setCurrentRightClickedScribble(scribble)}
                   className={`${
                     selectedScribble.title === scribble.title
                       ? "selected-scribble"
                       : ""
                   }`}
                 >
-                  {scribble.title}
+                  <h3>{scribble.title}</h3>
+                </li>
+              ))
+            : ""}
+        </ul>
+      )}
+      <button
+        className="archive-button"
+        onClick={() => setShowBin((prev) => !prev)}
+      >
+        | Bin |
+        <FontAwesomeIcon icon={showArchive ? faArrowUp : faArrowDown} />
+      </button>
+      {showBin && (
+        <ul>
+          {deleted
+            ? deleted.map((scribble) => (
+                <li
+                  key={scribble.id + "-deleted"}
+                  onClick={() => changeScribble(scribble)}
+                  onContextMenu={() => setCurrentRightClickedScribble(scribble)}
+                  className={`${
+                    selectedScribble.title === scribble.title
+                      ? "selected-scribble"
+                      : ""
+                  }`}
+                >
+                  <h3>{scribble.title}</h3>
                 </li>
               ))
             : ""}

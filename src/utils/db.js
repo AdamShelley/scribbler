@@ -32,6 +32,8 @@ export async function createScribble(uid, data) {
     return await addDoc(collection(firestore, "scribbles"), {
       authorId: uid,
       ...data,
+      archived: false,
+      deleted: false,
     });
   } catch (err) {
     console.log(err);
@@ -81,14 +83,29 @@ export async function updateScribble(uid, newValues) {
 }
 
 export async function archiveScribble(uid, data) {
-  console.log("Archiving Scribble from database file");
+  console.log(data);
 
   try {
     await addDoc(collection(firestore, "archive"), {
       authorId: uid,
+      archived: true,
+      deleted: false,
       ...data,
     });
     deleteScribble(data.id);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function restoreScribble(scribble, prevLoc) {
+  try {
+    await addDoc(collection(firestore, "scribbles"), {
+      ...scribble,
+      archived: false,
+      deleted: false,
+    });
+    deleteScribble(scribble.id, prevLoc);
   } catch (err) {
     console.log(err);
   }

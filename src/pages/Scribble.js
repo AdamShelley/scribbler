@@ -15,6 +15,7 @@ const StyledContainer = styled.div`
 const Scribble = ({ setUnsaved }) => {
   const [scribbles, setScribbles] = useState([]);
   const [archived, setArchived] = useState([]);
+  const [deleted, setDeleted] = useState([]);
   const [selectedScribble, setSelectedScribble] = useState();
 
   const auth = useAuth();
@@ -79,6 +80,9 @@ const Scribble = ({ setUnsaved }) => {
           setSelectedScribble={setSelectedScribble}
           createNewScribble={createBlankScribble}
           archived={archived}
+          setArchived={setArchived}
+          deleted={deleted}
+          setDeleted={setDeleted}
         />
         <NoteContainer
           scribbles={scribbles}

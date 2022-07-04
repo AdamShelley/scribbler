@@ -38,28 +38,28 @@ export const StyledSidebar = styled.div`
   }
 
   ul {
-    margin-top: 1rem;
+    margin: 1rem 0;
     padding: 0 2rem;
     list-style: none;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     max-height: 100%;
     overflow-x: scroll;
 
     li {
-      margin-top: 1rem;
+      margin-top: 0.2rem;
       height: 2.5rem;
       cursor: pointer;
       border-left: 1px solid transparent;
-      padding-left: 0.3rem;
       transition: all 0.2s ease-in-out;
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
       padding: 0.5rem;
+      padding-left: 1rem;
       border-radius: 5px;
       transition: all 0.3s ease-out;
 
@@ -110,12 +110,16 @@ export const StyledSidebar = styled.div`
       background-color: var(--light-grey);
       border-radius: 5px;
       padding: 0.5rem;
+
+      &:hover {
+        border-left: 1px solid var(--light-grey);
+      }
     }
   }
 
   .archive-button {
-    margin: 0 1rem;
-    margin-top: 5rem;
+    margin: 0 0.5rem;
+    /* margin-top: 0.5rem; */
     background-color: var(--dark-grey);
     color: inherit;
     padding: 0.8rem 1rem;
@@ -130,5 +134,9 @@ export const StyledSidebar = styled.div`
     &:hover {
       border: 1px solid var(--text-color);
     }
+  }
+
+  .archive-button:first-child {
+    margin-top: 5rem;
   }
 `;

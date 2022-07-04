@@ -6,6 +6,7 @@ import {
   faFloppyDisk,
   faTrash,
   faBoxArchive,
+  faCopy,
 } from "@fortawesome/free-solid-svg-icons";
 
 const StyledOptionsMenu = styled.ul`
@@ -49,18 +50,36 @@ const Menu = ({
   archiveScribbleHandler,
   saveScribbleHandler,
   deleteScribbleHandler,
+  restoreScribbleHandler,
+  copyScribbleHandler,
+  fullMenu,
 }) => {
   const { anchorPoint, show } = useContextMenu();
 
-  if (show) {
-    return (
-      <StyledOptionsMenu
-        className="menu"
-        style={{ top: anchorPoint.y, left: anchorPoint.x }}
-      >
+  let menuChoices;
+  if (fullMenu) {
+    menuChoices = (
+      <>
+        <li onClick={deleteScribbleHandler}>
+          <FontAwesomeIcon icon={faTrash} />
+          <span>Delete</span>
+        </li>
+        <li onClick={restoreScribbleHandler}>
+          <FontAwesomeIcon icon={faBoxArchive} />
+          <span>Restore</span>
+        </li>
+      </>
+    );
+  } else {
+    menuChoices = (
+      <>
         <li onClick={saveScribbleHandler}>
           <FontAwesomeIcon icon={faFloppyDisk} />
           <span>Save</span>
+        </li>
+        <li onClick={copyScribbleHandler}>
+          <FontAwesomeIcon icon={faCopy} />
+          <span>Duplicate</span>
         </li>
         <li onClick={deleteScribbleHandler}>
           <FontAwesomeIcon icon={faTrash} />
@@ -70,7 +89,17 @@ const Menu = ({
           <FontAwesomeIcon icon={faBoxArchive} />
           <span>Archive</span>
         </li>
-        <li>Exit</li>
+      </>
+    );
+  }
+
+  if (show) {
+    return (
+      <StyledOptionsMenu
+        className="menu"
+        style={{ top: anchorPoint.y, left: anchorPoint.x }}
+      >
+        {menuChoices}
       </StyledOptionsMenu>
     );
   }

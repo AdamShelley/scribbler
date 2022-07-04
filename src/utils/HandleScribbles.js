@@ -3,6 +3,7 @@ import {
   deleteScribble,
   updateScribble,
   archiveScribble,
+  restoreScribble,
 } from "./db";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -74,7 +75,50 @@ export const deleteScribbleFromDatabase = (
   toast.success("Scribble deleted", toastOptions);
 };
 
-export const archiveScribbleInDatabase = (userId, scribble) => {
+export const moveScribbleToBin = () => {};
+
+export const archiveScribbleInDatabase = (
+  userId,
+  scribble,
+  scribbles,
+  setScribbles,
+  setArchived
+) => {
+  // Database call to delete from existing Collection and add to archive collection.
   archiveScribble(userId, scribble);
-  console.log("Then do frontend manip");
+
+  // Remove the archived scribble from the scribbles list
+  const scribbleList = scribbles.filter((existing) => {
+    return existing.id !== scribble.id;
+  });
+  setScribbles(scribbleList);
+
+  scribble.archived = true;
+  scribble.deleted = false;
+  // Add the archived scribble to the archived section
+  setArchived((scribbles) => [...scribbles, scribble]);
+
+  toast.success("Scribble Archived", toastOptions);
+};
+
+export const restoreScribbleToMain = (
+  scribble,
+  scribbles,
+  setScribbles,
+  prevLoc,
+  setPrevLoc
+) => {
+  // Restore scribble to the main section
+  restoreScribble(scribble, prevLoc);
+
+  // Remove from prevList
+  setPrevLoc((prev) =>
+    prev.filter((existing) => {
+      return existing.id !== scribble.id;
+    })
+  );
+  // Add to main list
+  scribble.archived = false;
+  scribble.deleted = false;
+  setScribbles((prev) => [...prev, scribble]);
 };
