@@ -75,17 +75,23 @@ export const deleteScribbleFromDatabase = (
   toast.success("Scribble deleted", toastOptions);
 };
 
-export const moveScribbleToBin = () => {};
+export const moveScribbleToBin = (
+  scribble,
+  scribbles,
+  setScribbles,
+  setDeleted
+) => {
+  archiveScribble(scribble, "deleted");
+};
 
 export const archiveScribbleInDatabase = (
-  userId,
   scribble,
   scribbles,
   setScribbles,
   setArchived
 ) => {
   // Database call to delete from existing Collection and add to archive collection.
-  archiveScribble(userId, scribble);
+  archiveScribble(scribble);
 
   // Remove the archived scribble from the scribbles list
   const scribbleList = scribbles.filter((existing) => {

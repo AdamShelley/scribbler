@@ -34,7 +34,7 @@ const NoteContainer = ({
   const [title, setTitle] = useState(
     selectedScribble ? selectedScribble.title : ""
   );
-  const [showResults, setShowResults] = useState(true);
+  const [showResults, setShowResults] = useState(false);
   const [showMarkdown, setShowMarkdown] = useState(true);
   const [saving, setSaving] = useState(false);
   const auth = useAuth();

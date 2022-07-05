@@ -30,8 +30,14 @@ const Scribble = ({ setUnsaved }) => {
         auth.user.uid,
         "archive"
       );
-
       setArchived(fetchedArchivedScribbles);
+
+      const fetchedDeletedScribbles = await getAllUserScribbles(
+        auth.user.uid,
+        "deleted"
+      );
+
+      setDeleted(fetchedDeletedScribbles);
     };
 
     if (auth.user) {

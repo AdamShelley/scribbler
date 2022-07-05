@@ -9,6 +9,7 @@ import {
   deleteScribbleFromDatabase,
   archiveScribbleInDatabase,
   restoreScribbleToMain,
+  moveScribbleToBin,
 } from "../utils/HandleScribbles";
 import OptionsMenu from "./OptionsMenu";
 
@@ -32,7 +33,6 @@ const Sidebar = ({
 
   const archiveScribbleHandler = () => {
     archiveScribbleInDatabase(
-      uid,
       currentRightClickedScribble,
       scribbles,
       setScribbles,
@@ -81,6 +81,15 @@ const Sidebar = ({
     console.log("Copy scribble");
   };
 
+  const binScribbleHandler = () => {
+    moveScribbleToBin(
+      currentRightClickedScribble,
+      scribbles,
+      setScribbles,
+      setDeleted
+    );
+  };
+
   return (
     <StyledSidebar>
       <div>
@@ -91,12 +100,13 @@ const Sidebar = ({
       <OptionsMenu
         archiveScribbleHandler={archiveScribbleHandler}
         saveScribbleHandler={saveScribbleHandler}
-        deleteScribbleHandler={deleteScribbleHandler}
+        // deleteScribbleHandler={deleteScribbleHandler}
+        binScribbleHandler={binScribbleHandler}
         restoreScribbleHandler={restoreScribbleHandler}
         copyScribbleHandler={copyScribbleHandler}
         fullMenu={currentRightClickedScribble?.archived}
       />
-
+      {scribbles.length === 0 && <ul>Wow.. nothing here.</ul>}
       <ul>
         {scribbles ? (
           scribbles.map((scribble) => (
@@ -127,7 +137,7 @@ const Sidebar = ({
         | Archive |{" "}
         <FontAwesomeIcon icon={showArchive ? faArrowUp : faArrowDown} />
       </button>
-      {showArchive && (
+      {showArchive && archived.length > 0 && (
         <ul>
           {archived
             ? archived.map((scribble) => (
@@ -136,7 +146,7 @@ const Sidebar = ({
                   onClick={() => changeScribble(scribble)}
                   onContextMenu={() => setCurrentRightClickedScribble(scribble)}
                   className={`${
-                    selectedScribble.title === scribble.title
+                    selectedScribble?.title === scribble.title
                       ? "selected-scribble"
                       : ""
                   }`}
@@ -151,10 +161,10 @@ const Sidebar = ({
         className="archive-button"
         onClick={() => setShowBin((prev) => !prev)}
       >
-        | Bin |
-        <FontAwesomeIcon icon={showArchive ? faArrowUp : faArrowDown} />
+        | Bin |<span>X</span>
+        <FontAwesomeIcon icon={showBin ? faArrowUp : faArrowDown} />
       </button>
-      {showBin && (
+      {showBin && deleted.length > 0 && (
         <ul>
           {deleted
             ? deleted.map((scribble) => (
@@ -163,7 +173,7 @@ const Sidebar = ({
                   onClick={() => changeScribble(scribble)}
                   onContextMenu={() => setCurrentRightClickedScribble(scribble)}
                   className={`${
-                    selectedScribble.title === scribble.title
+                    selectedScribble?.title === scribble.title
                       ? "selected-scribble"
                       : ""
                   }`}
@@ -174,6 +184,7 @@ const Sidebar = ({
             : ""}
         </ul>
       )}
+      {/* {showBin && deleted.length === 0 && <ul>Empty</ul>} */}
     </StyledSidebar>
   );
 };

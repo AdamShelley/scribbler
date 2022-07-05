@@ -75,6 +75,7 @@ const Note = ({
           onChange={updateMarkdown}
           value={markdown}
           data-provide="markdown"
+          disabled={selectedScribble.archived || selectedScribble.deleted}
         />
       )}
       {showResults && (

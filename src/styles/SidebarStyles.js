@@ -38,7 +38,6 @@ export const StyledSidebar = styled.div`
   }
 
   ul {
-    margin: 1rem 0;
     padding: 0 2rem;
     list-style: none;
     display: flex;
@@ -49,22 +48,24 @@ export const StyledSidebar = styled.div`
     overflow-x: scroll;
 
     li {
-      margin-top: 0.2rem;
-      height: 2.5rem;
+      margin: 0.5rem 0;
+      height: 2rem;
       cursor: pointer;
-      border-left: 1px solid transparent;
+      border: 2px solid transparent;
+      border-left: 2px solid var(--light-grey);
       transition: all 0.2s ease-in-out;
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      padding: 0.5rem;
       padding-left: 1rem;
       border-radius: 5px;
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
       transition: all 0.3s ease-out;
 
       &:hover {
-        border-left: 1px solid var(--text-color);
+        border-left: 2px solid var(--light-grey);
       }
 
       div {
@@ -107,12 +108,16 @@ export const StyledSidebar = styled.div`
     } */
 
     .selected-scribble {
-      background-color: var(--light-grey);
+      border: 2px solid var(--dark-grey);
+      background-color: var(--background);
       border-radius: 5px;
-      padding: 0.5rem;
+      padding: 0 1.5rem;
 
       &:hover {
-        border-left: 1px solid var(--light-grey);
+        border: 2px solid var(--dark-grey);
+      }
+
+      h3 {
       }
     }
   }
@@ -121,15 +126,17 @@ export const StyledSidebar = styled.div`
     margin: 0 0.5rem;
     /* margin-top: 0.5rem; */
     background-color: var(--dark-grey);
+    color: #ccc !important;
     color: inherit;
-    padding: 0.8rem 1rem;
+    padding: 0.4rem 1rem;
     cursor: pointer;
     font-size: 0.9rem;
-    font-weight: 400;
+    font-weight: 600;
     font-family: inherit;
     border: 1px solid var(--light-grey);
     display: flex;
     justify-content: space-between;
+    border-radius: 3px;
 
     &:hover {
       border: 1px solid var(--text-color);

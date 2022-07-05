@@ -49,7 +49,7 @@ const StyledOptionsMenu = styled.ul`
 const Menu = ({
   archiveScribbleHandler,
   saveScribbleHandler,
-  deleteScribbleHandler,
+  binScribbleHandler,
   restoreScribbleHandler,
   copyScribbleHandler,
   fullMenu,
@@ -60,7 +60,7 @@ const Menu = ({
   if (fullMenu) {
     menuChoices = (
       <>
-        <li onClick={deleteScribbleHandler}>
+        <li onClick={binScribbleHandler}>
           <FontAwesomeIcon icon={faTrash} />
           <span>Delete</span>
         </li>
@@ -81,7 +81,7 @@ const Menu = ({
           <FontAwesomeIcon icon={faCopy} />
           <span>Duplicate</span>
         </li>
-        <li onClick={deleteScribbleHandler}>
+        <li onClick={binScribbleHandler}>
           <FontAwesomeIcon icon={faTrash} />
           <span>Delete</span>
         </li>
