@@ -12,7 +12,7 @@ const StyledContainer = styled.div`
   width: 100%;
 `;
 
-const Scribble = ({ setUnsaved }) => {
+const Scribble = ({ setUnsaved, setNavTitle }) => {
   const [scribbles, setScribbles] = useState([]);
   const [archived, setArchived] = useState([]);
   const [deleted, setDeleted] = useState([]);
@@ -25,6 +25,7 @@ const Scribble = ({ setUnsaved }) => {
       const fetchedScribbles = await getAllUserScribbles(auth.user.uid);
       setScribbles(fetchedScribbles);
       setSelectedScribble(fetchedScribbles[0]);
+      setNavTitle(fetchedScribbles[0].title);
 
       const fetchedArchivedScribbles = await getAllUserScribbles(
         auth.user.uid,
@@ -43,10 +44,11 @@ const Scribble = ({ setUnsaved }) => {
     if (auth.user) {
       fetchScribbles();
     }
-  }, [auth.user]);
+  }, [auth.user, setNavTitle]);
 
   const changeScribble = (scribble) => {
     setSelectedScribble(scribble);
+    setNavTitle(scribble.title);
   };
 
   const createBlankScribble = () => {
@@ -68,11 +70,21 @@ const Scribble = ({ setUnsaved }) => {
   const updateScribblesWithoutDatabasePush = (currentScribble, body, title) => {
     setScribbles((previousScribbles) =>
       previousScribbles.map((scrib) =>
-        scrib.id === currentScribble.id ? { ...scrib, body, title } : scrib
+        scrib.id === currentScribble.id
+          ? { ...scrib, body, title, unsaved: true }
+          : scrib
       )
     );
 
     setUnsaved(true);
+  };
+
+  const resetSaveDot = (currentScribble) => {
+    setScribbles((previousScribbles) =>
+      previousScribbles.map((scrib) =>
+        scrib.id === currentScribble.id ? { ...scrib, unsaved: false } : scrib
+      )
+    );
   };
 
   return (
@@ -98,6 +110,7 @@ const Scribble = ({ setUnsaved }) => {
           updateScribblesWithoutDatabasePush={
             updateScribblesWithoutDatabasePush
           }
+          resetSaveDot={resetSaveDot}
         />
       </StyledContainer>
     </div>

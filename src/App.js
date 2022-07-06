@@ -13,8 +13,7 @@ import Navbar from "./components/Navbar";
 function App() {
   const [unsaved, setUnsaved] = useState(false);
   const [user, setUser] = useState(null);
-
-  // const [navTitle, setNavTitle] = useState("");
+  const [navTitle, setNavTitle] = useState("");
   const auth = useAuth();
 
   useEffect(() => {
@@ -27,10 +26,15 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar unsaved={unsaved} />
+        <Navbar unsaved={unsaved} navTitle={navTitle} />
         <GlobalStyle />
         <Routes>
-          <Route path="/" element={<Scribble setUnsaved={setUnsaved} />} />
+          <Route
+            path="/"
+            element={
+              <Scribble setUnsaved={setUnsaved} setNavTitle={setNavTitle} />
+            }
+          />
           <Route path="/account" element={<Account />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/contact" element={<Contact />} />

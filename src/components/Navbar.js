@@ -132,7 +132,7 @@ const StyledNavbar = styled.div`
   }
 `;
 
-const Navbar = ({ noteTitle, unsaved }) => {
+const Navbar = ({ navTitle, unsaved }) => {
   const [showNav, setShowNav] = useState(false);
   const nodeRef = React.useRef(null);
   const auth = useAuth();
@@ -154,8 +154,8 @@ const Navbar = ({ noteTitle, unsaved }) => {
         </div>
       </div>
       <div className="note-name">
-        {/* <h4>{noteTitle} </h4>
-        <span>{unsaved && " - Unsaved scribble"}</span> */}
+        <h4>{navTitle} </h4>
+        <span>{unsaved && " - Unsaved scribble"}</span>
       </div>
 
       <div className="avatar-container">

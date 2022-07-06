@@ -34,6 +34,7 @@ export async function createScribble(uid, data) {
       ...data,
       archived: false,
       deleted: false,
+      unsaved: false,
     });
   } catch (err) {
     console.log(err);

@@ -14,6 +14,7 @@ export const saveScribbleToDatabase = (
   title,
   scribbles,
   selectedScribble,
+  setSelectedScribble,
   setScribbles,
   userId
 ) => {
@@ -25,17 +26,22 @@ export const saveScribbleToDatabase = (
       title,
     });
 
+    console.log(selectedScribble);
+    // setSelectedScribble((prev) => []);
     selectedScribble.title = title;
     selectedScribble.body = markdown;
     // Remove current scribble & reinsert
+
     scribbles.forEach((scribble) => {
       if (scribble.id === selectedScribble.id) {
         scribble = {
           body: markdown,
           title,
+          unsaved: false,
         };
       }
     });
+
     toast.success("The update was successful!", toastOptions);
   } else {
     // Create new document

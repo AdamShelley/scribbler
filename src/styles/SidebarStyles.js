@@ -52,7 +52,7 @@ export const StyledSidebar = styled.div`
       height: 2rem;
       cursor: pointer;
       border: 2px solid transparent;
-      border-left: 2px solid var(--light-grey);
+      border-left: 1px solid var(--light-grey);
       transition: all 0.2s ease-in-out;
       display: flex;
       justify-content: space-between;
@@ -65,11 +65,19 @@ export const StyledSidebar = styled.div`
       transition: all 0.3s ease-out;
 
       &:hover {
-        border-left: 2px solid var(--light-grey);
+        border-left: 1px solid var(--text-color);
       }
 
       div {
         width: 100%;
+      }
+
+      .save-dot {
+        background-color: var(--light-grey);
+        max-width: 8px;
+        max-height: 8px;
+        border-radius: 100%;
+        padding: 0;
       }
     }
 
@@ -109,12 +117,15 @@ export const StyledSidebar = styled.div`
 
     .selected-scribble {
       border: 2px solid var(--dark-grey);
+      border-left: 1px solid var(--light-grey);
       background-color: var(--background);
       border-radius: 5px;
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
       padding: 0 1.5rem;
 
       &:hover {
-        border: 2px solid var(--dark-grey);
+        border: 1px solid var(--dark-grey);
       }
 
       h3 {
@@ -128,10 +139,8 @@ export const StyledSidebar = styled.div`
     background-color: var(--dark-grey);
     color: #ccc !important;
     color: inherit;
-    padding: 0.4rem 1rem;
+    padding: 0rem 0.5rem;
     cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
     font-family: inherit;
     border: 1px solid var(--light-grey);
     display: flex;
@@ -140,6 +149,39 @@ export const StyledSidebar = styled.div`
 
     &:hover {
       border: 1px solid var(--text-color);
+    }
+
+    &:hover .bin-container {
+      opacity: 1;
+      transition: all 0.2s ease-in;
+      cursor: pointer;
+    }
+
+    div {
+      padding-left: 0;
+
+      h4 {
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+
+        &:hover {
+          transform: scale(1);
+        }
+      }
+    }
+
+    .bin-container {
+      opacity: 0;
+      color: var(--light-grey);
+
+      .bin-icon {
+        margin-left: 0.5rem;
+      }
+
+      &:hover {
+        color: var(--text-color);
+      }
     }
   }
 

@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useAuth } from "../utils/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StyledSidebar } from "../styles/SidebarStyles";
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDown,
+  faArrowUp,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 import {
   saveScribbleToDatabase,
@@ -47,6 +51,7 @@ const Sidebar = ({
       title,
       scribbles,
       selectedScribble,
+      setSelectedScribble,
       setScribbles,
       uid
     );
@@ -121,6 +126,7 @@ const Sidebar = ({
               }`}
             >
               <h3>{scribble.title}</h3>
+              {scribble?.unsaved && <div className="save-dot"></div>}
             </li>
           ))
         ) : (
@@ -134,8 +140,10 @@ const Sidebar = ({
         className="archive-button"
         onClick={() => setShowArchive((prev) => !prev)}
       >
-        | Archive |{" "}
-        <FontAwesomeIcon icon={showArchive ? faArrowUp : faArrowDown} />
+        <div>
+          <FontAwesomeIcon icon={!showArchive ? faArrowUp : faArrowDown} />
+          <h4>| Archive |</h4>
+        </div>
       </button>
       {showArchive && archived.length > 0 && (
         <ul>
@@ -161,8 +169,14 @@ const Sidebar = ({
         className="archive-button"
         onClick={() => setShowBin((prev) => !prev)}
       >
-        | Bin |<span>X</span>
-        <FontAwesomeIcon icon={showBin ? faArrowUp : faArrowDown} />
+        <div>
+          <FontAwesomeIcon icon={!showBin ? faArrowUp : faArrowDown} />
+          <h4>| Bin |</h4>
+        </div>
+        <div className="bin-container">
+          <h4>Clear all</h4>
+          <FontAwesomeIcon icon={faTrash} className="bin-icon" />
+        </div>
       </button>
       {showBin && deleted.length > 0 && (
         <ul>

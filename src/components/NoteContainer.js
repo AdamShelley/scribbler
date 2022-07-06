@@ -26,6 +26,7 @@ const NoteContainer = ({
   setScribbles,
   setSelectedScribble,
   updateScribblesWithoutDatabasePush,
+  resetSaveDot,
 }) => {
   const [markdown, setMarkdown] = useState(
     selectedScribble ? selectedScribble : "#### Write some markdown here"
@@ -49,6 +50,8 @@ const NoteContainer = ({
       setScribbles,
       auth.user.uid
     );
+
+    resetSaveDot(selectedScribble);
   };
 
   const deleteScribbleHandler = () => {
