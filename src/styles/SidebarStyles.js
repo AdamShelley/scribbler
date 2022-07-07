@@ -24,6 +24,22 @@ export const StyledSidebar = styled.div`
       letter-spacing: 1px;
     }
 
+    div {
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      svg {
+        margin: 0 0.5rem;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
     span {
       font-size: 1rem;
       font-weight: 900;
@@ -51,13 +67,14 @@ export const StyledSidebar = styled.div`
       margin: 0.5rem 0;
       height: 2rem;
       cursor: pointer;
-      border: 2px solid transparent;
+      border: 1px solid transparent;
       border-left: 1px solid var(--light-grey);
       transition: all 0.2s ease-in-out;
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
+      padding: 1rem 0;
       padding-left: 1rem;
       border-radius: 5px;
       border-top-left-radius: 0px;
@@ -116,16 +133,16 @@ export const StyledSidebar = styled.div`
     } */
 
     .selected-scribble {
-      border: 2px solid var(--dark-grey);
-      border-left: 1px solid var(--light-grey);
+      border: 1px solid var(--dark-grey);
+      border-left: 1px solid var(--text-color);
       background-color: var(--background);
       border-radius: 5px;
       border-top-left-radius: 0px;
       border-bottom-left-radius: 0px;
-      padding: 0 1.5rem;
+      padding: 1rem 1.5rem;
 
       &:hover {
-        border: 1px solid var(--dark-grey);
+        border: 1px solid var(--light-grey);
       }
 
       h3 {
@@ -134,7 +151,7 @@ export const StyledSidebar = styled.div`
   }
 
   .archive-button {
-    margin: 0 0.5rem;
+    margin: 0.2rem 0.5rem;
     /* margin-top: 0.5rem; */
     background-color: var(--dark-grey);
     color: #ccc !important;

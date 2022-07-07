@@ -85,6 +85,7 @@ const Scribble = ({ setUnsaved, setNavTitle }) => {
         scrib.id === currentScribble.id ? { ...scrib, unsaved: false } : scrib
       )
     );
+    setUnsaved(false);
   };
 
   return (

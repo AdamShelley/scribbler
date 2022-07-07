@@ -47,30 +47,20 @@ const StyledOptionsMenu = styled.ul`
 `;
 
 const Menu = ({
+  currentRightClickedScribble,
   archiveScribbleHandler,
   saveScribbleHandler,
   binScribbleHandler,
   restoreScribbleHandler,
   copyScribbleHandler,
   fullMenu,
+  deleteMenu,
+  archivedMenu,
 }) => {
   const { anchorPoint, show } = useContextMenu();
 
   let menuChoices;
   if (fullMenu) {
-    menuChoices = (
-      <>
-        <li onClick={binScribbleHandler}>
-          <FontAwesomeIcon icon={faTrash} />
-          <span>Delete</span>
-        </li>
-        <li onClick={restoreScribbleHandler}>
-          <FontAwesomeIcon icon={faBoxArchive} />
-          <span>Restore</span>
-        </li>
-      </>
-    );
-  } else {
     menuChoices = (
       <>
         <li onClick={saveScribbleHandler}>
@@ -91,6 +81,34 @@ const Menu = ({
         </li>
       </>
     );
+  } else if (deleteMenu) {
+    menuChoices = (
+      <>
+        <li onClick={restoreScribbleHandler}>
+          <FontAwesomeIcon icon={faBoxArchive} />
+          <span>Restore</span>
+        </li>
+        <li onClick={binScribbleHandler}>
+          <FontAwesomeIcon icon={faTrash} />
+          <span>Fully Delete</span>
+        </li>
+      </>
+    );
+  } else if (archivedMenu) {
+    menuChoices = (
+      <>
+        <li onClick={binScribbleHandler}>
+          <FontAwesomeIcon icon={faTrash} />
+          <span>Delete</span>
+        </li>
+        <li onClick={restoreScribbleHandler}>
+          <FontAwesomeIcon icon={faBoxArchive} />
+          <span>Restore</span>
+        </li>
+      </>
+    );
+  } else {
+    menuChoices = <></>;
   }
 
   if (show) {

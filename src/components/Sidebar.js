@@ -6,6 +6,8 @@ import {
   faArrowDown,
   faArrowUp,
   faTrash,
+  faFilter,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -99,17 +101,26 @@ const Sidebar = ({
     <StyledSidebar>
       <div>
         <h3>Scribbles</h3>
-        <span onClick={createNewScribble}>+</span>
+        <div>
+          <FontAwesomeIcon icon={faFilter} />
+          <FontAwesomeIcon onClick={createNewScribble} icon={faPlus} />
+        </div>
       </div>
 
       <OptionsMenu
+        currentRightClickedScribble={currentRightClickedScribble}
         archiveScribbleHandler={archiveScribbleHandler}
         saveScribbleHandler={saveScribbleHandler}
         // deleteScribbleHandler={deleteScribbleHandler}
         binScribbleHandler={binScribbleHandler}
         restoreScribbleHandler={restoreScribbleHandler}
         copyScribbleHandler={copyScribbleHandler}
-        fullMenu={currentRightClickedScribble?.archived}
+        archivedMenu={currentRightClickedScribble?.archived}
+        deleteMenu={currentRightClickedScribble?.deleted}
+        fullMenu={
+          !currentRightClickedScribble.archived &&
+          !currentRightClickedScribble.deleted
+        }
       />
       {scribbles.length === 0 && <ul>Wow.. nothing here.</ul>}
       <ul>

@@ -47,6 +47,7 @@ const NoteContainer = ({
       title,
       scribbles,
       selectedScribble,
+      setSelectedScribble,
       setScribbles,
       auth.user.uid
     );
