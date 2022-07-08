@@ -118,8 +118,8 @@ const Sidebar = ({
         archivedMenu={currentRightClickedScribble?.archived}
         deleteMenu={currentRightClickedScribble?.deleted}
         fullMenu={
-          !currentRightClickedScribble.archived &&
-          !currentRightClickedScribble.deleted
+          !currentRightClickedScribble?.archived &&
+          !currentRightClickedScribble?.deleted
         }
       />
       {scribbles.length === 0 && <ul>Wow.. nothing here.</ul>}
@@ -150,6 +150,7 @@ const Sidebar = ({
       <button
         className="archive-button"
         onClick={() => setShowArchive((prev) => !prev)}
+        onContextMenu={() => setCurrentRightClickedScribble(null)}
       >
         <div>
           <FontAwesomeIcon icon={!showArchive ? faArrowUp : faArrowDown} />
@@ -179,6 +180,7 @@ const Sidebar = ({
       <button
         className="archive-button"
         onClick={() => setShowBin((prev) => !prev)}
+        onContextMenu={() => setCurrentRightClickedScribble(null)}
       >
         <div>
           <FontAwesomeIcon icon={!showBin ? faArrowUp : faArrowDown} />

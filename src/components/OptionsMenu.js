@@ -59,6 +59,8 @@ const Menu = ({
 }) => {
   const { anchorPoint, show } = useContextMenu();
 
+  if (currentRightClickedScribble === null) return;
+
   let menuChoices;
   if (fullMenu) {
     menuChoices = (
