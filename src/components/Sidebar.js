@@ -68,6 +68,10 @@ const Sidebar = ({
     );
   };
 
+  const deleteAllScribblesInBin = () => {
+    console.log("Delete all scribbles");
+  };
+
   const restoreScribbleHandler = () => {
     const prevLoc = currentRightClickedScribble.archived
       ? "archive"
@@ -111,7 +115,7 @@ const Sidebar = ({
         currentRightClickedScribble={currentRightClickedScribble}
         archiveScribbleHandler={archiveScribbleHandler}
         saveScribbleHandler={saveScribbleHandler}
-        // deleteScribbleHandler={deleteScribbleHandler}
+        deleteScribbleHandler={deleteScribbleHandler}
         binScribbleHandler={binScribbleHandler}
         restoreScribbleHandler={restoreScribbleHandler}
         copyScribbleHandler={copyScribbleHandler}
@@ -186,7 +190,7 @@ const Sidebar = ({
           <FontAwesomeIcon icon={!showBin ? faArrowUp : faArrowDown} />
           <h4>| Bin |</h4>
         </div>
-        <div className="bin-container">
+        <div className="bin-container" onClick={deleteAllScribblesInBin}>
           <h4>Clear all</h4>
           <FontAwesomeIcon icon={faTrash} className="bin-icon" />
         </div>

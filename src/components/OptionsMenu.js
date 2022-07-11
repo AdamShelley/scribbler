@@ -51,6 +51,7 @@ const Menu = ({
   archiveScribbleHandler,
   saveScribbleHandler,
   binScribbleHandler,
+  deleteScribbleHandler,
   restoreScribbleHandler,
   copyScribbleHandler,
   fullMenu,
@@ -90,7 +91,7 @@ const Menu = ({
           <FontAwesomeIcon icon={faBoxArchive} />
           <span>Restore</span>
         </li>
-        <li onClick={binScribbleHandler}>
+        <li onClick={deleteScribbleHandler}>
           <FontAwesomeIcon icon={faTrash} />
           <span>Fully Delete</span>
         </li>

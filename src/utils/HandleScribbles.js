@@ -71,14 +71,18 @@ export const deleteScribbleFromDatabase = (
   setScribbles,
   setSelectedScribble
 ) => {
-  deleteScribble(selectedScribbleId);
-  const scribbleList = scribbles.filter((scribble) => {
-    return scribble.id !== selectedScribbleId;
-  });
+  try {
+    deleteScribble(selectedScribbleId);
+    const scribbleList = scribbles.filter((scribble) => {
+      return scribble.id !== selectedScribbleId;
+    });
 
-  setScribbles(scribbleList);
-  setSelectedScribble(scribbleList[0]);
-  toast.success("Scribble deleted", toastOptions);
+    setScribbles(scribbleList);
+    setSelectedScribble(scribbleList[0]);
+    toast.success("Scribble deleted", toastOptions);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const moveScribbleToBin = (
