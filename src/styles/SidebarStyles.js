@@ -150,19 +150,26 @@ export const StyledSidebar = styled.div`
     }
   }
 
+  button:first-of-type {
+    margin-top: 0.3rem;
+    border-top: 1px solid var(--light-grey);
+  }
+
   .archive-button {
-    margin: 0.2rem 0.5rem;
-    /* margin-top: 0.5rem; */
+    margin: 0rem;
     background-color: var(--dark-grey);
-    color: #ccc !important;
-    color: inherit;
-    padding: 0rem 0.5rem;
+    color: var(--text-color);
+    padding: 0rem 1rem;
     cursor: pointer;
     font-family: inherit;
-    border: 1px solid var(--light-grey);
+    /* border: 1px solid var(--light-grey); */
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--light-grey);
+    border-top: 1px solid var(--light-grey);
     display: flex;
     justify-content: space-between;
-    border-radius: 3px;
+    /* border-radius: 3px; */
+    letter-spacing: 1px;
 
     &:hover {
       border: 1px solid var(--text-color);
@@ -179,7 +186,7 @@ export const StyledSidebar = styled.div`
 
       h4 {
         font-size: 0.8rem;
-        font-weight: 600;
+        font-weight: 500;
         margin-left: 0.5rem;
 
         &:hover {
@@ -200,9 +207,5 @@ export const StyledSidebar = styled.div`
         color: var(--text-color);
       }
     }
-  }
-
-  .archive-button:first-child {
-    margin-top: 5rem;
   }
 `;

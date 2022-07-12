@@ -25,7 +25,7 @@ const Scribble = ({ setUnsaved, setNavTitle }) => {
       const fetchedScribbles = await getAllUserScribbles(auth.user.uid);
       setScribbles(fetchedScribbles);
       setSelectedScribble(fetchedScribbles[0]);
-      setNavTitle(fetchedScribbles[0].title);
+      setNavTitle(fetchedScribbles[0]?.title);
 
       const fetchedArchivedScribbles = await getAllUserScribbles(
         auth.user.uid,
@@ -80,6 +80,7 @@ const Scribble = ({ setUnsaved, setNavTitle }) => {
   };
 
   const resetSaveDot = (currentScribble) => {
+    if (currentScribble.temp) return;
     setScribbles((previousScribbles) =>
       previousScribbles.map((scrib) =>
         scrib.id === currentScribble.id ? { ...scrib, unsaved: false } : scrib
@@ -87,6 +88,11 @@ const Scribble = ({ setUnsaved, setNavTitle }) => {
     );
     setUnsaved(false);
   };
+
+  // console.log("Scribbles");
+  // console.table(scribbles);
+  // console.log("Archived");
+  // console.log(archived);
 
   return (
     <div>

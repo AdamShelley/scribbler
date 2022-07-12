@@ -33,16 +33,20 @@ const Sidebar = ({
 }) => {
   const [showArchive, setShowArchive] = useState(true);
   const [showBin, setShowBin] = useState(true);
+  const [showScribbles, setShowScribbles] = useState(true);
   const [currentRightClickedScribble, setCurrentRightClickedScribble] =
     useState(null);
   const { uid } = useAuth();
 
   const archiveScribbleHandler = () => {
+    console.log(uid);
+
     archiveScribbleInDatabase(
       currentRightClickedScribble,
       scribbles,
       setScribbles,
-      setArchived
+      setArchived,
+      uid
     );
   };
 
@@ -104,7 +108,7 @@ const Sidebar = ({
   return (
     <StyledSidebar>
       <div>
-        <h3>Scribbles</h3>
+        <h3>Organizer</h3>
         <div>
           <FontAwesomeIcon icon={faFilter} />
           <FontAwesomeIcon onClick={createNewScribble} icon={faPlus} />
@@ -126,30 +130,42 @@ const Sidebar = ({
           !currentRightClickedScribble?.deleted
         }
       />
-      {scribbles.length === 0 && <ul>Wow.. nothing here.</ul>}
-      <ul>
-        {scribbles ? (
-          scribbles.map((scribble) => (
-            <li
-              key={scribble.id || "temp"}
-              onClick={() => changeScribble(scribble)}
-              onContextMenu={() => setCurrentRightClickedScribble(scribble)}
-              className={`${
-                selectedScribble.title === scribble.title
-                  ? "selected-scribble"
-                  : ""
-              }`}
-            >
-              <h3>{scribble.title}</h3>
-              {scribble?.unsaved && <div className="save-dot"></div>}
+      {/* {scribbles.length === 0 && <ul>Wow.. nothing here.</ul>} */}
+      <button
+        className="archive-button"
+        onClick={() => setShowScribbles((prev) => !prev)}
+        onContextMenu={() => setCurrentRightClickedScribble(null)}
+      >
+        <div>
+          <FontAwesomeIcon icon={!showScribbles ? faArrowUp : faArrowDown} />
+          <h4>| Scribbles |</h4>
+        </div>
+      </button>
+      {showScribbles && scribbles.length > 0 && (
+        <ul>
+          {scribbles ? (
+            scribbles.map((scribble) => (
+              <li
+                key={scribble.id || "temp"}
+                onClick={() => changeScribble(scribble)}
+                onContextMenu={() => setCurrentRightClickedScribble(scribble)}
+                className={`${
+                  selectedScribble?.title === scribble?.title
+                    ? "selected-scribble"
+                    : ""
+                }`}
+              >
+                <h3>{scribble.title}</h3>
+                {scribble?.unsaved && <div className="save-dot"></div>}
+              </li>
+            ))
+          ) : (
+            <li>
+              <h3>Unsaved Scribble...</h3>
             </li>
-          ))
-        ) : (
-          <li>
-            <h3>Unsaved Scribble...</h3>
-          </li>
-        )}
-      </ul>
+          )}
+        </ul>
+      )}
 
       <button
         className="archive-button"

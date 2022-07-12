@@ -65,17 +65,7 @@ export async function getAllUserScribbles(uid, col = "scribbles") {
   }
 }
 
-export async function getAllUserArchivedScribbles(uid) {
-  if (!uid) return;
-
-  try {
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 export async function updateScribble(uid, newValues) {
-  console.log(newValues);
   const existingScribble = doc(firestore, "scribbles", uid);
 
   return await updateDoc(existingScribble, {

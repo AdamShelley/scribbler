@@ -4,12 +4,13 @@ import {
   updateScribble,
   archiveScribble,
   restoreScribble,
+  getAllUserScribbles,
 } from "./db";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toastOptions } from "./toastOptions";
 
-export const saveScribbleToDatabase = (
+export const saveScribbleToDatabase = async (
   markdown,
   title,
   scribbles,
@@ -51,15 +52,15 @@ export const saveScribbleToDatabase = (
       title,
       createdAt: new Date().toISOString(),
       temp: false,
+      archived: false,
+      deleted: false,
+      authorId: userId,
+      unsaved: false,
     };
 
     createScribble(userId, newScribble);
-    const scribbleList = scribbles.filter((scribble) => {
-      return scribble.temp !== true;
-    });
 
-    scribbleList.push(newScribble);
-    setScribbles(scribbleList);
+    getAllUserScribbles(userId).then((result) => setScribbles(result));
 
     toast.success("Created new Scribble!", toastOptions);
   }
@@ -91,30 +92,48 @@ export const moveScribbleToBin = (
   setScribbles,
   setDeleted
 ) => {
-  archiveScribble(scribble, "deleted");
+  try {
+    archiveScribble(scribble, "deleted");
+    const scribbleList = scribbles.filter((existing) => {
+      return scribble.id !== existing.id;
+    });
+
+    setScribbles(scribbleList);
+
+    setDeleted((prev) => [...prev, scribble]);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export const archiveScribbleInDatabase = (
+export const archiveScribbleInDatabase = async (
   scribble,
   scribbles,
   setScribbles,
-  setArchived
+  setArchived,
+  uid
 ) => {
   // Database call to delete from existing Collection and add to archive collection.
-  archiveScribble(scribble);
+  try {
+    archiveScribble(scribble);
 
-  // Remove the archived scribble from the scribbles list
-  const scribbleList = scribbles.filter((existing) => {
-    return existing.id !== scribble.id;
-  });
-  setScribbles(scribbleList);
+    // Remove the archived scribble from the scribbles list
+    const scribbleList = scribbles.filter((existing) => {
+      return existing.id !== scribble.id;
+    });
+    setScribbles(scribbleList);
 
-  scribble.archived = true;
-  scribble.deleted = false;
-  // Add the archived scribble to the archived section
-  setArchived((scribbles) => [...scribbles, scribble]);
+    const archivedScribbles = await getAllUserScribbles(
+      scribble.authorId,
+      "archive"
+    );
 
-  toast.success("Scribble Archived", toastOptions);
+    setArchived(archivedScribbles);
+
+    toast.success("Scribble Archived", toastOptions);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const restoreScribbleToMain = (
