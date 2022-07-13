@@ -75,8 +75,6 @@ export async function updateScribble(uid, newValues) {
 }
 
 export async function archiveScribble(data, loc = "archive") {
-  console.log(data);
-
   try {
     await addDoc(collection(firestore, loc), {
       ...data,

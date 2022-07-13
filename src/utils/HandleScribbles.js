@@ -90,17 +90,13 @@ export const moveScribbleToBin = (
   scribble,
   scribbles,
   setScribbles,
-  setDeleted
+  setDelete,
+  userId
 ) => {
   try {
     archiveScribble(scribble, "deleted");
-    const scribbleList = scribbles.filter((existing) => {
-      return scribble.id !== existing.id;
-    });
-
-    setScribbles(scribbleList);
-
-    setDeleted((prev) => [...prev, scribble]);
+    getAllUserScribbles(userId, "deleted").then((result) => setDelete(result));
+    getAllUserScribbles(userId).then((result) => setScribbles(result));
   } catch (err) {
     console.log(err);
   }

@@ -36,17 +36,15 @@ const Sidebar = ({
   const [showScribbles, setShowScribbles] = useState(true);
   const [currentRightClickedScribble, setCurrentRightClickedScribble] =
     useState(null);
-  const { uid } = useAuth();
-
+  const { user } = useAuth();
+  console.log(user);
   const archiveScribbleHandler = () => {
-    console.log(uid);
-
     archiveScribbleInDatabase(
       currentRightClickedScribble,
       scribbles,
       setScribbles,
       setArchived,
-      uid
+      user.uid
     );
   };
 
@@ -59,7 +57,7 @@ const Sidebar = ({
       selectedScribble,
       setSelectedScribble,
       setScribbles,
-      uid
+      user.uid
     );
   };
 
@@ -101,7 +99,8 @@ const Sidebar = ({
       currentRightClickedScribble,
       scribbles,
       setScribbles,
-      setDeleted
+      setDeleted,
+      user.uid
     );
   };
 
@@ -130,7 +129,7 @@ const Sidebar = ({
           !currentRightClickedScribble?.deleted
         }
       />
-      {/* {scribbles.length === 0 && <ul>Wow.. nothing here.</ul>} */}
+
       <button
         className="archive-button"
         onClick={() => setShowScribbles((prev) => !prev)}

@@ -61,7 +61,7 @@ export const StyledSidebar = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
     max-height: 100%;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
 
     li {
       margin: 0.5rem 0;
