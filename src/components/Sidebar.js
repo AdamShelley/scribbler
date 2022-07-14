@@ -37,11 +37,10 @@ const Sidebar = ({
   const [currentRightClickedScribble, setCurrentRightClickedScribble] =
     useState(null);
   const { user } = useAuth();
-  console.log(user);
+
   const archiveScribbleHandler = () => {
     archiveScribbleInDatabase(
       currentRightClickedScribble,
-      scribbles,
       setScribbles,
       setArchived,
       user.uid
@@ -61,19 +60,6 @@ const Sidebar = ({
     );
   };
 
-  const deleteScribbleHandler = () => {
-    deleteScribbleFromDatabase(
-      scribbles,
-      selectedScribble.id,
-      setScribbles,
-      setSelectedScribble
-    );
-  };
-
-  const deleteAllScribblesInBin = () => {
-    console.log("Delete all scribbles");
-  };
-
   const restoreScribbleHandler = () => {
     const prevLoc = currentRightClickedScribble.archived
       ? "archive"
@@ -83,25 +69,38 @@ const Sidebar = ({
       : setDeleted;
     restoreScribbleToMain(
       currentRightClickedScribble,
-      scribbles,
       setScribbles,
       prevLoc,
-      setPrevLoc
+      setPrevLoc,
+      user.uid
     );
-  };
-
-  const copyScribbleHandler = () => {
-    console.log("Copy scribble");
   };
 
   const binScribbleHandler = () => {
     moveScribbleToBin(
       currentRightClickedScribble,
-      scribbles,
       setScribbles,
       setDeleted,
       user.uid
     );
+  };
+
+  const deleteScribbleHandler = () => {
+    deleteScribbleFromDatabase(
+      scribbles,
+      selectedScribble.id,
+      setScribbles,
+      setSelectedScribble
+    );
+  };
+
+  // To do
+  const deleteAllScribblesInBin = () => {
+    console.log("Delete all scribbles");
+  };
+
+  const copyScribbleHandler = () => {
+    console.log("Copy scribble");
   };
 
   return (

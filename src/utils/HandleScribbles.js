@@ -42,7 +42,7 @@ export const saveScribbleToDatabase = async (
         };
       }
     });
-
+    getAllUserScribbles(userId).then((result) => setScribbles(result));
     toast.success("The update was successful!", toastOptions);
   } else {
     // Create new document
@@ -88,13 +88,16 @@ export const deleteScribbleFromDatabase = (
 
 export const moveScribbleToBin = (
   scribble,
-  scribbles,
   setScribbles,
   setDelete,
   userId
 ) => {
   try {
     archiveScribble(scribble, "deleted");
+  } catch (err) {
+    console.log(err);
+  }
+  try {
     getAllUserScribbles(userId, "deleted").then((result) => setDelete(result));
     getAllUserScribbles(userId).then((result) => setScribbles(result));
   } catch (err) {
@@ -104,52 +107,36 @@ export const moveScribbleToBin = (
 
 export const archiveScribbleInDatabase = async (
   scribble,
-  scribbles,
   setScribbles,
   setArchived,
-  uid
+  userId
 ) => {
   // Database call to delete from existing Collection and add to archive collection.
   try {
     archiveScribble(scribble);
 
-    // Remove the archived scribble from the scribbles list
-    const scribbleList = scribbles.filter((existing) => {
-      return existing.id !== scribble.id;
-    });
-    setScribbles(scribbleList);
-
-    const archivedScribbles = await getAllUserScribbles(
-      scribble.authorId,
-      "archive"
-    );
-
-    setArchived(archivedScribbles);
-
     toast.success("Scribble Archived", toastOptions);
   } catch (error) {
     console.log(error);
   }
+  getAllUserScribbles(userId).then((result) => setScribbles(result));
+  getAllUserScribbles(userId, "archive").then((result) => setArchived(result));
 };
 
 export const restoreScribbleToMain = (
   scribble,
-  scribbles,
   setScribbles,
   prevLoc,
-  setPrevLoc
+  setPrevLoc,
+  userId
 ) => {
   // Restore scribble to the main section
-  restoreScribble(scribble, prevLoc);
+  try {
+    restoreScribble(scribble, prevLoc);
+  } catch (err) {
+    console.log(err);
+  }
 
-  // Remove from prevList
-  setPrevLoc((prev) =>
-    prev.filter((existing) => {
-      return existing.id !== scribble.id;
-    })
-  );
-  // Add to main list
-  scribble.archived = false;
-  scribble.deleted = false;
-  setScribbles((prev) => [...prev, scribble]);
+  getAllUserScribbles(userId, prevLoc).then((result) => setPrevLoc(result));
+  getAllUserScribbles(userId).then((result) => setScribbles(result));
 };
