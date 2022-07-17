@@ -86,20 +86,21 @@ export const deleteScribbleFromDatabase = (
   }
 };
 
-export const moveScribbleToBin = (
+export const moveScribbleToBin = async (
   scribble,
   setScribbles,
   setDelete,
+
   userId
 ) => {
   try {
-    archiveScribble(scribble, "deleted");
-  } catch (err) {
-    console.log(err);
-  }
-  try {
-    getAllUserScribbles(userId, "deleted").then((result) => setDelete(result));
-    getAllUserScribbles(userId).then((result) => setScribbles(result));
+    await archiveScribble(scribble, "deleted");
+    const userScribbles = await getAllUserScribbles(userId);
+    setScribbles(userScribbles);
+    const deletedScribbles = await getAllUserScribbles(userId, "deleted");
+    setDelete(deletedScribbles);
+
+    toast.success(`Scribble Deleted`, toastOptions);
   } catch (err) {
     console.log(err);
   }
@@ -113,17 +114,20 @@ export const archiveScribbleInDatabase = async (
 ) => {
   // Database call to delete from existing Collection and add to archive collection.
   try {
-    archiveScribble(scribble);
+    await archiveScribble(scribble);
+
+    const userScribbles = await getAllUserScribbles(userId);
+    setScribbles(userScribbles);
+    const archivedScribbles = await getAllUserScribbles(userId, "archive");
+    setArchived(archivedScribbles);
 
     toast.success("Scribble Archived", toastOptions);
   } catch (error) {
     console.log(error);
   }
-  getAllUserScribbles(userId).then((result) => setScribbles(result));
-  getAllUserScribbles(userId, "archive").then((result) => setArchived(result));
 };
 
-export const restoreScribbleToMain = (
+export const restoreScribbleToMain = async (
   scribble,
   setScribbles,
   prevLoc,
@@ -132,11 +136,13 @@ export const restoreScribbleToMain = (
 ) => {
   // Restore scribble to the main section
   try {
-    restoreScribble(scribble, prevLoc);
+    await restoreScribble(scribble, prevLoc);
+
+    const prevLocScribbles = await getAllUserScribbles(userId, prevLoc);
+    setPrevLoc(prevLocScribbles);
+    const userScribbles = await getAllUserScribbles(userId);
+    setScribbles(userScribbles);
   } catch (err) {
     console.log(err);
   }
-
-  getAllUserScribbles(userId, prevLoc).then((result) => setPrevLoc(result));
-  getAllUserScribbles(userId).then((result) => setScribbles(result));
 };
