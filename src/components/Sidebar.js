@@ -81,7 +81,7 @@ const Sidebar = ({
       currentRightClickedScribble,
       setScribbles,
       setDeleted,
-
+      setArchived,
       user.uid
     );
   };

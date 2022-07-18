@@ -76,13 +76,13 @@ export async function updateScribble(uid, newValues) {
 
 export async function archiveScribble(data, loc = "archive") {
   try {
+    await deleteScribble(data.id);
     await addDoc(collection(firestore, loc), {
       ...data,
 
       archived: loc === "archive" ? true : false,
       deleted: loc === "deleted" ? true : false,
     });
-    deleteScribble(data.id);
   } catch (err) {
     console.log(err);
   }

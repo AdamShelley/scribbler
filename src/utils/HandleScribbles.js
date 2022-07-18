@@ -90,13 +90,17 @@ export const moveScribbleToBin = async (
   scribble,
   setScribbles,
   setDelete,
-
+  setArchived,
   userId
 ) => {
   try {
     await archiveScribble(scribble, "deleted");
     const userScribbles = await getAllUserScribbles(userId);
     setScribbles(userScribbles);
+
+    const archivedScribbles = await getAllUserScribbles(userId, "archive");
+    setArchived(archivedScribbles);
+
     const deletedScribbles = await getAllUserScribbles(userId, "deleted");
     setDelete(deletedScribbles);
 
