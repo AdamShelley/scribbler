@@ -74,9 +74,9 @@ export async function updateScribble(uid, newValues) {
   });
 }
 
-export async function archiveScribble(data, loc = "archive") {
+export async function archiveScribble(data, loc = "archive", prevLoc) {
   try {
-    await deleteScribble(data.id);
+    await deleteScribble(data.id, prevLoc);
     await addDoc(collection(firestore, loc), {
       ...data,
 
