@@ -74,12 +74,17 @@ export async function updateScribble(uid, newValues) {
   });
 }
 
-export async function archiveScribble(data, loc = "archive", prevLoc) {
+export async function archiveScribble(
+  data,
+  loc = "archive",
+  prevLoc = "scribbles"
+) {
   try {
+    console.log([data, loc, prevLoc]);
+
     await deleteScribble(data.id, prevLoc);
     await addDoc(collection(firestore, loc), {
       ...data,
-
       archived: loc === "archive" ? true : false,
       deleted: loc === "deleted" ? true : false,
     });
@@ -101,7 +106,7 @@ export async function restoreScribble(scribble, prevLoc) {
   }
 }
 
-export async function deleteScribble(id, collection = "scribbles") {
+export async function deleteScribble(id, collection = "deleted") {
   deleteDoc(doc(firestore, collection, id));
 }
 

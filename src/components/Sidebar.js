@@ -88,10 +88,9 @@ const Sidebar = ({
 
   const deleteScribbleHandler = () => {
     deleteScribbleFromDatabase(
-      scribbles,
-      selectedScribble.id,
-      setScribbles,
-      setSelectedScribble
+      currentRightClickedScribble,
+      setDeleted,
+      user.uid
     );
   };
 
@@ -205,11 +204,14 @@ const Sidebar = ({
           <FontAwesomeIcon icon={!showBin ? faArrowUp : faArrowDown} />
           <h4>| Bin |</h4>
         </div>
-        <div className="bin-container" onClick={deleteAllScribblesInBin}>
-          <h4>Clear all</h4>
-          <FontAwesomeIcon icon={faTrash} className="bin-icon" />
-        </div>
       </button>
+
+      {/* <div className="bin-container" onClick={deleteAllScribblesInBin}>
+        <h4>Clear all</h4>
+
+        <FontAwesomeIcon icon={faTrash} className="bin-icon" />
+      </div> */}
+
       {showBin && deleted.length > 0 && (
         <ul>
           {deleted

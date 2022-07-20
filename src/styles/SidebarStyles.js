@@ -8,6 +8,7 @@ export const StyledSidebar = styled.div`
   border-right: 1px solid var(--light-grey);
   background-color: #1b1b1b;
   max-height: 90vh;
+  position: relative;
 
   div {
     background-color: var(--dark-grey);
@@ -120,18 +121,6 @@ export const StyledSidebar = styled.div`
       }
     }
 
-    /* span {
-      border: 1px solid white;
-      font-size: 0.8rem;
-      border-radius: 2px;
-      padding: 0.3rem;
-
-      &:hover {
-        color: var(--dark-grey);
-        background-color: var(--text-color);
-      }
-    } */
-
     .selected-scribble {
       border: 1px solid var(--dark-grey);
       border-left: 1px solid var(--text-color);
@@ -162,10 +151,13 @@ export const StyledSidebar = styled.div`
     padding: 0rem 1rem;
     cursor: pointer;
     font-family: inherit;
+
     /* border: 1px solid var(--light-grey); */
     border: 1px solid transparent;
-    border-bottom: 1px solid var(--light-grey);
-    border-top: 1px solid var(--light-grey);
+    /* border-bottom: 1px solid var(--light-grey); */
+    /* border-top: 1px solid var(--light-grey); */
+    border-top: 1px solid var(--background);
+    border-bottom: 1px solid var(--background);
     display: flex;
     justify-content: space-between;
     /* border-radius: 3px; */
@@ -185,7 +177,7 @@ export const StyledSidebar = styled.div`
       padding-left: 0;
 
       h4 {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-weight: 500;
         margin-left: 0.5rem;
 
@@ -198,6 +190,7 @@ export const StyledSidebar = styled.div`
     .bin-container {
       opacity: 0;
       color: var(--light-grey);
+      position: absolute;
 
       .bin-icon {
         margin-left: 0.5rem;

@@ -66,20 +66,17 @@ export const saveScribbleToDatabase = async (
   }
 };
 
-export const deleteScribbleFromDatabase = (
-  scribbles,
-  selectedScribbleId,
-  setScribbles,
-  setSelectedScribble
+export const deleteScribbleFromDatabase = async (
+  rightClickedScribble,
+  setDeleted,
+  userId
 ) => {
   try {
-    deleteScribble(selectedScribbleId);
-    const scribbleList = scribbles.filter((scribble) => {
-      return scribble.id !== selectedScribbleId;
-    });
+    await deleteScribble(rightClickedScribble.id);
 
-    setScribbles(scribbleList);
-    setSelectedScribble(scribbleList[0]);
+    const deletedScribbles = await getAllUserScribbles(userId, "deleted");
+    setDeleted(deletedScribbles);
+
     toast.success("Scribble deleted", toastOptions);
   } catch (err) {
     console.log(err);
@@ -94,14 +91,17 @@ export const moveScribbleToBin = async (
   userId
 ) => {
   try {
-    let currentCollection = scribble?.archived ? "archive" : "";
+    let currentCollection = scribble?.archived ? "archive" : "scribbles";
 
     await archiveScribble(scribble, "deleted", currentCollection);
-    const userScribbles = await getAllUserScribbles(userId);
-    setScribbles(userScribbles);
 
-    const archivedScribbles = await getAllUserScribbles(userId, "archive");
-    setArchived(archivedScribbles);
+    if (currentCollection === "archive") {
+      const archivedScribbles = await getAllUserScribbles(userId, "archive");
+      setArchived(archivedScribbles);
+    } else {
+      const userScribbles = await getAllUserScribbles(userId);
+      setScribbles(userScribbles);
+    }
 
     const deletedScribbles = await getAllUserScribbles(userId, "deleted");
     setDelete(deletedScribbles);
@@ -120,7 +120,7 @@ export const archiveScribbleInDatabase = async (
 ) => {
   // Database call to delete from existing Collection and add to archive collection.
   try {
-    await archiveScribble(scribble);
+    await archiveScribble(scribble, "archive");
 
     const userScribbles = await getAllUserScribbles(userId);
     setScribbles(userScribbles);
@@ -142,6 +142,7 @@ export const restoreScribbleToMain = async (
 ) => {
   // Restore scribble to the main section
   try {
+    console.log(prevLoc);
     await restoreScribble(scribble, prevLoc);
 
     const prevLocScribbles = await getAllUserScribbles(userId, prevLoc);
