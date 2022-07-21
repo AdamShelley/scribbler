@@ -33,6 +33,7 @@ const Sidebar = ({
 }) => {
   const [showArchive, setShowArchive] = useState(true);
   const [showBin, setShowBin] = useState(true);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [showScribbles, setShowScribbles] = useState(true);
   const [currentRightClickedScribble, setCurrentRightClickedScribble] =
     useState(null);
@@ -97,6 +98,12 @@ const Sidebar = ({
   // To do
   const deleteAllScribblesInBin = () => {
     console.log("Delete all scribbles");
+
+    deleted.forEach((deletedScribble) => {
+      deleteScribbleFromDatabase(deletedScribble, setDeleted, user.uid);
+    });
+
+    setShowConfirm(false);
   };
 
   const copyScribbleHandler = () => {
@@ -213,24 +220,46 @@ const Sidebar = ({
       </div> */}
 
       {showBin && deleted.length > 0 && (
-        <ul>
-          {deleted
-            ? deleted.map((scribble) => (
-                <li
-                  key={scribble.id + "-deleted"}
-                  onClick={() => changeScribble(scribble)}
-                  onContextMenu={() => setCurrentRightClickedScribble(scribble)}
-                  className={`${
-                    selectedScribble?.title === scribble.title
-                      ? "selected-scribble"
-                      : ""
-                  }`}
-                >
-                  <h3>{scribble.title}</h3>
-                </li>
-              ))
-            : ""}
-        </ul>
+        <>
+          <div className="delete-all-container">
+            {!showConfirm && (
+              <button
+                onClick={() => setShowConfirm(true)}
+                className="delete-all-button"
+              >
+                Delete All
+              </button>
+            )}
+            {showConfirm && (
+              <button
+                onClick={deleteAllScribblesInBin}
+                className="delete-all-button"
+              >
+                Confirm - this cannot be undone
+              </button>
+            )}
+          </div>
+          <ul>
+            {deleted
+              ? deleted.map((scribble) => (
+                  <li
+                    key={scribble.id + "-deleted"}
+                    onClick={() => changeScribble(scribble)}
+                    onContextMenu={() =>
+                      setCurrentRightClickedScribble(scribble)
+                    }
+                    className={`${
+                      selectedScribble?.title === scribble.title
+                        ? "selected-scribble"
+                        : ""
+                    }`}
+                  >
+                    <h3>{scribble.title}</h3>
+                  </li>
+                ))
+              : ""}
+          </ul>
+        </>
       )}
       {/* {showBin && deleted.length === 0 && <ul>Empty</ul>} */}
     </StyledSidebar>
