@@ -11,12 +11,14 @@ export const StyledSidebar = styled.div`
   position: relative;
 
   div {
-    background-color: var(--dark-grey);
+    background-color: var(--background);
     padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 2.5rem;
+    border-bottom: 1px solid var(--light-grey);
+    border-top: 1px solid var(--light-grey);
 
     h3 {
       font-weight: 400;
@@ -140,8 +142,8 @@ export const StyledSidebar = styled.div`
   }
 
   button:first-of-type {
-    margin-top: 0.3rem;
-    border-top: 1px solid var(--light-grey);
+    /* margin-top: 0.3rem; */
+    /* border-top: 1px solid var(--light-grey); */
   }
 
   .archive-button {
@@ -151,20 +153,15 @@ export const StyledSidebar = styled.div`
     padding: 0rem 1rem;
     cursor: pointer;
     font-family: inherit;
-
-    /* border: 1px solid var(--light-grey); */
     border: 1px solid transparent;
-    /* border-bottom: 1px solid var(--light-grey); */
-    /* border-top: 1px solid var(--light-grey); */
-    border-top: 1px solid var(--background);
-    border-bottom: 1px solid var(--background);
     display: flex;
     justify-content: space-between;
-    /* border-radius: 3px; */
     letter-spacing: 1px;
+    transition: all 0.1s ease-in;
+    border-bottom: 1px solid var(--light-grey);
 
     &:hover {
-      border: 1px solid var(--text-color);
+      border: 1px solid var(--light-grey);
     }
 
     &:hover .bin-container {
@@ -175,9 +172,11 @@ export const StyledSidebar = styled.div`
 
     div {
       padding-left: 0;
+      background-color: var(--dark-grey);
+      border: none;
 
       h4 {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         font-weight: 500;
         margin-left: 0.5rem;
 
@@ -203,10 +202,12 @@ export const StyledSidebar = styled.div`
   }
 
   .delete-all-container {
-    width: 50%;
+    width: 35%;
     align-self: center;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    border: 1px solid var(--light-grey);
+    border-top: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -215,7 +216,8 @@ export const StyledSidebar = styled.div`
       border: none;
       background-color: transparent;
       color: var(--text-color);
-      font-weight: 900;
+      font-weight: 600;
+      letter-spacing: 0.5px;
       cursor: pointer;
 
       &:hover {

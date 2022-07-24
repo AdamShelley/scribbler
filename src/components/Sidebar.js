@@ -213,12 +213,6 @@ const Sidebar = ({
         </div>
       </button>
 
-      {/* <div className="bin-container" onClick={deleteAllScribblesInBin}>
-        <h4>Clear all</h4>
-
-        <FontAwesomeIcon icon={faTrash} className="bin-icon" />
-      </div> */}
-
       {showBin && deleted.length > 0 && (
         <>
           <div className="delete-all-container">

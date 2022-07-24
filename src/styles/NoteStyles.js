@@ -13,6 +13,8 @@ const StyledSearchBar = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 2.5rem;
+  border-bottom: 1px solid var(--light-grey);
+  border-top: 1px solid var(--light-grey);
 
   div {
     display: flex;
