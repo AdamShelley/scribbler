@@ -11,7 +11,7 @@ export const StyledSidebar = styled.div`
   position: relative;
 
   div {
-    background-color: var(--background);
+    background-color: var(--dark-grey);
     padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
@@ -126,7 +126,8 @@ export const StyledSidebar = styled.div`
     .selected-scribble {
       border: 1px solid var(--dark-grey);
       border-left: 1px solid var(--text-color);
-      background-color: var(--background);
+      /* background-color: var(--background); */
+
       border-radius: 5px;
       border-top-left-radius: 0px;
       border-bottom-left-radius: 0px;
@@ -142,13 +143,12 @@ export const StyledSidebar = styled.div`
   }
 
   button:first-of-type {
-    /* margin-top: 0.3rem; */
-    /* border-top: 1px solid var(--light-grey); */
+    border-top: 1px solid transparent;
   }
 
   .archive-button {
     margin: 0rem;
-    background-color: var(--dark-grey);
+    background-color: var(--background);
     color: var(--text-color);
     padding: 0rem 1rem;
     cursor: pointer;
@@ -158,7 +158,8 @@ export const StyledSidebar = styled.div`
     justify-content: space-between;
     letter-spacing: 1px;
     transition: all 0.1s ease-in;
-    border-bottom: 1px solid var(--light-grey);
+    border-bottom: 1px solid var(--dark-grey);
+    border-top: 1px solid var(--dark-grey);
 
     &:hover {
       border: 1px solid var(--light-grey);
@@ -172,7 +173,8 @@ export const StyledSidebar = styled.div`
 
     div {
       padding-left: 0;
-      background-color: var(--dark-grey);
+      /* background-color: var(--dark-grey); */
+      background-color: inherit;
       border: none;
 
       h4 {
@@ -185,29 +187,16 @@ export const StyledSidebar = styled.div`
         }
       }
     }
-
-    .bin-container {
-      opacity: 0;
-      color: var(--light-grey);
-      position: absolute;
-
-      .bin-icon {
-        margin-left: 0.5rem;
-      }
-
-      &:hover {
-        color: var(--text-color);
-      }
-    }
   }
 
   .delete-all-container {
-    width: 35%;
+    width: 50%;
+    height: 2rem;
     align-self: center;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     border: 1px solid var(--light-grey);
-    border-top: none;
+    background-color: var(--background);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -223,6 +212,9 @@ export const StyledSidebar = styled.div`
       &:hover {
         color: #ddd;
       }
+    }
+
+    &:hover {
     }
   }
 `;

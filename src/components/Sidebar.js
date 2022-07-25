@@ -95,7 +95,6 @@ const Sidebar = ({
     );
   };
 
-  // To do
   const deleteAllScribblesInBin = () => {
     console.log("Delete all scribbles");
 
@@ -108,6 +107,17 @@ const Sidebar = ({
 
   const copyScribbleHandler = () => {
     console.log("Copy scribble");
+  };
+
+  const showConfirmDeleteButton = () => {
+    setShowConfirm(true);
+    const confirmTimeout = setTimeout(() => {
+      setShowConfirm(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(confirmTimeout);
+    };
   };
 
   return (
@@ -215,24 +225,6 @@ const Sidebar = ({
 
       {showBin && deleted.length > 0 && (
         <>
-          <div className="delete-all-container">
-            {!showConfirm && (
-              <button
-                onClick={() => setShowConfirm(true)}
-                className="delete-all-button"
-              >
-                Delete All
-              </button>
-            )}
-            {showConfirm && (
-              <button
-                onClick={deleteAllScribblesInBin}
-                className="delete-all-button"
-              >
-                Confirm - this cannot be undone
-              </button>
-            )}
-          </div>
           <ul>
             {deleted
               ? deleted.map((scribble) => (
@@ -253,6 +245,24 @@ const Sidebar = ({
                 ))
               : ""}
           </ul>
+          <div className="delete-all-container">
+            {!showConfirm && (
+              <button
+                onClick={showConfirmDeleteButton}
+                className="delete-all-button"
+              >
+                Delete All
+              </button>
+            )}
+            {showConfirm && (
+              <button
+                onClick={deleteAllScribblesInBin}
+                className="delete-all-button"
+              >
+                Confirm Deletion
+              </button>
+            )}
+          </div>
         </>
       )}
       {/* {showBin && deleted.length === 0 && <ul>Empty</ul>} */}
