@@ -251,7 +251,7 @@ const Sidebar = ({
                 onClick={showConfirmDeleteButton}
                 className="delete-all-button"
               >
-                Delete All
+                Empty Bin
               </button>
             )}
             {showConfirm && (

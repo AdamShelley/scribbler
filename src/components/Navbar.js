@@ -4,6 +4,8 @@ import NavBurger from "./NavBurger";
 import { useAuth } from "../utils/auth";
 import { CSSTransition } from "react-transition-group";
 import { Link } from "react-router-dom";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const StyledNavbar = styled.div`
   position: relative;
@@ -130,12 +132,56 @@ const StyledNavbar = styled.div`
       }
     }
   }
+
+  .dropdown {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    svg {
+      margin-left: 0.4rem;
+      font-size: 0.8rem;
+    }
+
+    ul {
+      list-style: none;
+      position: absolute;
+      top: 90%;
+      left: 0;
+      background-color: var(--dark-grey);
+      border: 1px solid var(--background);
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      z-index: 99;
+
+      li {
+        padding: 1rem 2rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--text-color);
+          color: var(--background);
+        }
+      }
+    }
+  }
 `;
 
 const Navbar = ({ navTitle, unsaved }) => {
   const [showNav, setShowNav] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const nodeRef = React.useRef(null);
   const auth = useAuth();
+
+  const showMenu = () => {
+    setShowDropdown((prev) => !prev);
+  };
 
   return (
     <StyledNavbar>
@@ -160,7 +206,21 @@ const Navbar = ({ navTitle, unsaved }) => {
 
       <div className="avatar-container">
         {!auth.user && <button onClick={auth.signinWithGithub}>Sign in</button>}
-        {auth.user && <p>{auth.user?.name}</p>}
+        {auth.user && (
+          <div onClick={showMenu} className="dropdown">
+            <p>
+              {auth.user?.name}
+              <FontAwesomeIcon icon={faChevronDown} />
+            </p>
+            {showDropdown && (
+              <ul>
+                <li>Settings</li>
+                <li>Signout</li>
+              </ul>
+            )}
+          </div>
+        )}
+
         {auth.user && (
           <img
             src={auth.user?.photoUrl}
