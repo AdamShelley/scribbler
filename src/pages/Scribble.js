@@ -64,6 +64,7 @@ const Scribble = ({ setUnsaved, setNavTitle }) => {
 
     setScribbles((scribbles) => [...scribbles, blankScribble]);
     setSelectedScribble(blankScribble);
+    setNavTitle("No title");
   };
 
   // Keeps the non-saved markdown persistent.

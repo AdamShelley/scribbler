@@ -12,6 +12,7 @@ import {
   getDocs,
   serverTimestamp,
   deleteDoc,
+  getDoc,
 } from "firebase/firestore";
 
 const firestore = getFirestore();
@@ -62,6 +63,21 @@ export async function getAllUserScribbles(uid, col = "scribbles") {
   } catch (err) {
     console.log("There has been an issue fetching user scribbles");
     console.log(err);
+  }
+}
+
+export async function getSingleDocument(docId, col = "scribbles") {
+  if (!docId) return;
+
+  try {
+    const docRef = doc(firestore, col, docId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return docSnap.data();
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 

@@ -149,8 +149,8 @@ const StyledNavbar = styled.div`
     ul {
       list-style: none;
       position: absolute;
-      top: 90%;
-      left: 0;
+      top: 80%;
+      right: -20%;
       background-color: var(--dark-grey);
       border: 1px solid var(--background);
       border-radius: 5px;
@@ -159,10 +159,12 @@ const StyledNavbar = styled.div`
       z-index: 99;
 
       li {
-        padding: 1rem 2rem;
+        padding: 0.5rem 2rem;
         font-size: 0.9rem;
         font-weight: 500;
         cursor: pointer;
+        user-select: none;
+        white-space: nowrap;
 
         &:hover {
           background-color: var(--text-color);
@@ -214,8 +216,9 @@ const Navbar = ({ navTitle, unsaved }) => {
             </p>
             {showDropdown && (
               <ul>
+                <li>Your Account</li>
                 <li>Settings</li>
-                <li>Signout</li>
+                <li onClick={auth.signout}>Signout</li>
               </ul>
             )}
           </div>

@@ -5,6 +5,7 @@ import {
   archiveScribble,
   restoreScribble,
   getAllUserScribbles,
+  getSingleDocument,
 } from "./db";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,23 +28,20 @@ export const saveScribbleToDatabase = async (
       title,
     });
 
-    console.log(selectedScribble);
-    // setSelectedScribble((prev) => []);
     selectedScribble.title = title;
     selectedScribble.body = markdown;
-    // Remove current scribble & reinsert
 
-    scribbles.forEach((scribble) => {
-      if (scribble.id === selectedScribble.id) {
-        scribble = {
-          body: markdown,
-          title,
-          unsaved: false,
-        };
-      }
-    });
-    getAllUserScribbles(userId).then((result) => setScribbles(result));
-    toast.success("The update was successful!", toastOptions);
+    const updatedDoc = await getSingleDocument(selectedScribble.id);
+
+    console.log(updatedDoc);
+
+    const prevScribbles = scribbles.filter(
+      (scribble) => scribble.id !== selectedScribble.id
+    );
+
+    setScribbles([...prevScribbles, updatedDoc]);
+
+    toast.success("The update was successful", toastOptions);
   } else {
     // Create new document
 

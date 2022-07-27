@@ -170,6 +170,7 @@ const Sidebar = ({
                     : ""
                 }`}
               >
+                {scribble.id}
                 <h3>{scribble.title}</h3>
                 {scribble?.unsaved && <div className="save-dot"></div>}
               </li>
