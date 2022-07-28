@@ -24,12 +24,10 @@ export const saveScribbleToDatabase = async (
 
   if (selectedScribble.id) {
     updateScribble(selectedScribble.id, {
+      ...selectedScribble,
       body: markdown,
       title,
     });
-
-    selectedScribble.title = title;
-    selectedScribble.body = markdown;
 
     const updatedDoc = await getSingleDocument(selectedScribble.id);
 
@@ -38,6 +36,8 @@ export const saveScribbleToDatabase = async (
     const prevScribbles = scribbles.filter(
       (scribble) => scribble.id !== selectedScribble.id
     );
+
+    console.log("setting scribble");
 
     setScribbles([...prevScribbles, updatedDoc]);
 
