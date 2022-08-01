@@ -31,15 +31,23 @@ export const saveScribbleToDatabase = async (
 
     const updatedDoc = await getSingleDocument(selectedScribble.id);
 
-    console.log(updatedDoc);
+    // Get the index of the scribble
+
+    const findIndex = scribbles.findIndex(
+      (scribbles) => scribbles.id === selectedScribble.id
+    );
+
+    // Remove the old scribble
 
     const prevScribbles = scribbles.filter(
       (scribble) => scribble.id !== selectedScribble.id
     );
 
-    console.log("setting scribble");
+    // Replace with the new one in the correct Index
 
-    setScribbles([...prevScribbles, updatedDoc]);
+    prevScribbles.splice(findIndex, 0, updatedDoc);
+
+    setScribbles(prevScribbles);
 
     toast.success("The update was successful", toastOptions);
   } else {
