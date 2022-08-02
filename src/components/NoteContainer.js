@@ -17,6 +17,7 @@ import {
 import {
   saveScribbleToDatabase,
   deleteScribbleHandler,
+  moveScribbleToBin,
 } from "../utils/HandleScribbles";
 import useKeyPress from "../utils/useKeyPress";
 
@@ -27,6 +28,8 @@ const NoteContainer = ({
   setSelectedScribble,
   updateScribblesWithoutDatabasePush,
   resetSaveDot,
+  setArchived,
+  setDeleted,
 }) => {
   const [markdown, setMarkdown] = useState(
     selectedScribble ? selectedScribble : "#### Write some markdown here"
@@ -56,14 +59,21 @@ const NoteContainer = ({
   };
 
   const deleteScribbleHandler = () => {
-    deleteScribble(selectedScribble.id);
-    const scribbleList = scribbles.filter((scribble) => {
-      return scribble.id !== selectedScribble.id;
-    });
+    // deleteScribble(selectedScribble.id);
+    // const scribbleList = scribbles.filter((scribble) => {
+    //   return scribble.id !== selectedScribble.id;
+    // });
 
-    setScribbles(scribbleList);
-    setSelectedScribble(scribbleList[0]);
-    toast.success("Scribble deleted", toastOptions);
+    // setScribbles(scribbleList);
+    // setSelectedScribble(scribbleList[0]);
+    // toast.success("Scribble deleted", toastOptions);
+    moveScribbleToBin(
+      selectedScribble,
+      setScribbles,
+      setDeleted,
+      setArchived,
+      auth.user.uid
+    );
   };
 
   return (

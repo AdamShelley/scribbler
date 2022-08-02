@@ -9,6 +9,7 @@ export const StyledSidebar = styled.div`
   background-color: #1b1b1b;
   max-height: 90vh;
   position: relative;
+  overflow-x: scroll;
 
   div {
     background-color: var(--dark-grey);

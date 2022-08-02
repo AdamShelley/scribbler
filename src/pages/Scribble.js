@@ -119,6 +119,8 @@ const Scribble = ({ setUnsaved, setNavTitle }) => {
             updateScribblesWithoutDatabasePush
           }
           resetSaveDot={resetSaveDot}
+          setDeleted={setDeleted}
+          setArchived={setArchived}
         />
       </StyledContainer>
     </div>
