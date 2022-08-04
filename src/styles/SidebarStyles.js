@@ -10,6 +10,7 @@ export const StyledSidebar = styled.div`
   max-height: 90vh;
   position: relative;
   overflow-x: scroll;
+  scroll-behavior: smooth;
 
   div {
     background-color: var(--dark-grey);
@@ -105,6 +106,9 @@ export const StyledSidebar = styled.div`
     h3 {
       font-size: 0.9rem;
       font-weight: 500;
+      white-space: nowrap;
+      overflow-y: hidden;
+      max-width: 100%;
     }
 
     button {
@@ -128,7 +132,7 @@ export const StyledSidebar = styled.div`
       border: 1px solid var(--dark-grey);
       border-left: 1px solid var(--text-color);
       /* background-color: var(--background); */
-
+      overflow-y: hidden;
       border-radius: 5px;
       border-top-left-radius: 0px;
       border-bottom-left-radius: 0px;
@@ -139,6 +143,8 @@ export const StyledSidebar = styled.div`
       }
 
       h3 {
+        white-space: nowrap;
+        overflow-y: hidden;
       }
     }
   }

@@ -170,7 +170,7 @@ const Sidebar = ({
                     : ""
                 }`}
               >
-                <h3>{scribble.title}</h3>
+                <h3>{scribble.title.slice(0, 35)}</h3>
                 {scribble?.unsaved && <div className="save-dot"></div>}
               </li>
             ))

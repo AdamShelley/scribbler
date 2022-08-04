@@ -170,6 +170,11 @@ const StyledNavbar = styled.div`
           background-color: var(--text-color);
           color: var(--background);
         }
+
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
       }
     }
   }
@@ -216,8 +221,12 @@ const Navbar = ({ navTitle, unsaved }) => {
             </p>
             {showDropdown && (
               <ul>
-                <li>Your Account</li>
-                <li>Settings</li>
+                <li>
+                  <Link to="/account">Your Account</Link>
+                </li>
+                <li>
+                  <Link to="/settings">Settings</Link>
+                </li>
                 <li onClick={auth.signout}>Signout</li>
               </ul>
             )}
