@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEyeSlash, faEye } from "@fortawesome/free-solid-svg-icons";
-import { toast, ToastContainer } from "react-toastify";
+import {
+  faEyeSlash,
+  faEye,
+  faFloppyDisk,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EmptyNote from "./EmptyNote";
 import Note from "./Note";
-import { deleteScribble } from "../utils/db";
 import { useAuth } from "../utils/auth";
-import { toastOptions } from "../utils/toastOptions";
 import Button from "../styles/Button";
 import {
   StyledScribbleContainer,
@@ -90,14 +93,17 @@ const NoteContainer = ({
             icon={showResults ? faEyeSlash : faEye}
             onClick={() => setShowResults((prev) => !prev)}
           />
-          <Button
+
+          <FontAwesomeIcon
+            className="show-results"
+            icon={faFloppyDisk}
             onClick={saveScribbleToDatabaseHandler}
-            disabled={saving}
-            margin="0 0.3rem"
-          >
-            {saving ? "Saving" : "Save"}
-          </Button>
-          <Button onClick={deleteScribbleHandler}>Delete</Button>
+          />
+          <FontAwesomeIcon
+            className="show-results"
+            icon={faTrash}
+            onClick={deleteScribbleHandler}
+          />
         </div>
       </StyledSearchBar>
       <StyledNoteContainer>

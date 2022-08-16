@@ -186,7 +186,7 @@ export const StyledSidebar = styled.div`
 
       h4 {
         font-size: 0.8rem;
-        font-weight: 500;
+        font-weight: 600;
         margin-left: 0.5rem;
 
         &:hover {
