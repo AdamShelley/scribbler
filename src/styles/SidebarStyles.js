@@ -207,6 +207,8 @@ export const StyledSidebar = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
 
     button {
       border: none;

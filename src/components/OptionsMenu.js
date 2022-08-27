@@ -61,6 +61,8 @@ const Menu = ({
 }) => {
   const { anchorPoint, show } = useContextMenu();
 
+  console.log(anchorPoint);
+
   if (currentRightClickedScribble === null) return;
 
   let menuChoices;
@@ -119,7 +121,7 @@ const Menu = ({
     return (
       <StyledOptionsMenu
         className="menu"
-        style={{ top: anchorPoint.y, left: anchorPoint.x }}
+        style={{ top: anchorPoint.y - 50, left: anchorPoint.x }}
       >
         {menuChoices}
       </StyledOptionsMenu>

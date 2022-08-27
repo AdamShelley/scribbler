@@ -51,6 +51,7 @@ const StyledNoteContainer = styled.div`
   flex-grow: 100;
   cursor: auto;
   position: relative;
+  /* background-color: var(--nav-color); */
 `;
 
 export { StyledScribbleContainer, StyledSearchBar, StyledNoteContainer };
