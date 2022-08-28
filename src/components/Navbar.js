@@ -6,6 +6,7 @@ import { CSSTransition } from "react-transition-group";
 import { Link } from "react-router-dom";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Modal from "./Modal";
 
 const StyledNavbar = styled.div`
   position: relative;
@@ -183,11 +184,21 @@ const StyledNavbar = styled.div`
 const Navbar = ({ navTitle, unsaved }) => {
   const [showNav, setShowNav] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [email, setEmail] = useState("");
+
   const nodeRef = React.useRef(null);
   const auth = useAuth();
 
   const showMenu = () => {
     setShowDropdown((prev) => !prev);
+  };
+
+  const triggerModal = () => setShowModal(true);
+  const closeModalHandler = () => setShowModal(false);
+
+  const sendEmailLink = () => {
+    auth.signInWithEmailLinkHandler(email);
   };
 
   return (
@@ -212,7 +223,21 @@ const Navbar = ({ navTitle, unsaved }) => {
       </div>
 
       <div className="avatar-container">
-        {!auth.user && <button onClick={auth.signinWithGithub}>Sign in</button>}
+        {!auth.user && (
+          <button onClick={auth.signinWithGithub}>Sign in with Github</button>
+        )}
+        {!auth.user && (
+          <div>
+            <button onClick={triggerModal}>Sign in with Email</button>
+            {showModal && (
+              <Modal
+                setEmail={setEmail}
+                closeModalHandler={closeModalHandler}
+                signInWithLink={sendEmailLink}
+              />
+            )}
+          </div>
+        )}
         {auth.user && (
           <div onClick={showMenu} className="dropdown">
             <p>

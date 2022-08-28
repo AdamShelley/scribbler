@@ -1,12 +1,15 @@
-import React, { useState, useContext, createContext, useCallback } from "react";
-import { Router } from "react-router-dom";
-import { firebase, auth } from "../firebase";
+import React, { useEffect, useState, useContext, createContext } from "react";
+import { actionCodeSettings } from "../utils/actionCodeSettings";
+
 import {
   getAuth,
   GithubAuthProvider,
   signInWithPopup,
   signOut,
   onAuthStateChanged,
+  sendSignInLinkToEmail,
+  isSignInWithEmailLink,
+  signInWithEmailLink,
 } from "firebase/auth";
 
 import { createUser } from "./db";
@@ -24,6 +27,21 @@ function useProvideAuth() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const auth = getAuth();
+
+  useEffect(() => {
+    // Get saved email
+    const saved_email = window.localStorage.getItem("emailForSignIn");
+
+    console.log(saved_email);
+
+    if (isSignInWithEmailLink(auth, window.location.href) && !!saved_email) {
+      signInWithEmailLink(auth, saved_email, window.location.href).then(
+        (result) => {
+          console.log(result);
+        }
+      );
+    }
+  }, []);
 
   const handleUser = (rawUser) => {
     if (rawUser) {
@@ -60,6 +78,24 @@ function useProvideAuth() {
       });
   };
 
+  const signInWithEmailLinkHandler = async (email) => {
+    if (!email) return;
+
+    try {
+      await sendSignInLinkToEmail(auth, email, actionCodeSettings).then(() => {
+        // The link was successfully sent. Inform the user.
+        // Save the email locally so you don't need to ask the user for it again
+        // if they open the link on the same device.
+        console.log("Signin in with email");
+        window.localStorage.setItem("emailForSignIn", email);
+        // ...
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    window.localStorage.setItem("emailForSignIn", email);
+  };
+
   const signout = () => {
     signOut(auth)
       .then(() => {
@@ -74,6 +110,7 @@ function useProvideAuth() {
     user,
     loading,
     signinWithGithub,
+    signInWithEmailLinkHandler,
     signout,
     checkSignedIn,
   };
