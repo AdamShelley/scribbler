@@ -21,7 +21,7 @@ const StyledNavbar = styled.div`
     align-items: center;
     height: 100%;
 
-    .burger-nav {
+    /* .burger-nav {
       padding: 1rem;
       z-index: 99;
       height: 100%;
@@ -45,7 +45,7 @@ const StyledNavbar = styled.div`
           height: 2px;
           width: 2rem;
           min-width: 80%;
-          /* max-width: 2rem; */
+          max-width: 2rem;
           margin-bottom: 3px;
           transform: scale(1);
           transition: all 0.2s ease-in-out;
@@ -56,7 +56,7 @@ const StyledNavbar = styled.div`
           transform: scale(1.1);
         }
       }
-    }
+    } */
 
     .logo-container {
       margin-left: 2rem;
@@ -81,7 +81,7 @@ const StyledNavbar = styled.div`
   }
 
   .note-name {
-    margin-left: 10rem;
+    margin-left: 3rem;
     flex: 5;
     h4 {
       font-weight: 400;
@@ -95,18 +95,24 @@ const StyledNavbar = styled.div`
   .avatar-container {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: flex-end;
+    margin-right: 1rem;
     flex: 1;
 
+    > div {
+      margin-right: 1rem;
+    }
+
     button {
-      padding: 0.4rem 1rem;
+      padding: 0.2rem 0.5rem;
+      width: 100%;
       background-color: var(--background);
-      border: 1px solid var(--text-color);
+      border: 1px solid var(--light-grey);
       color: var(--text-color);
       font-size: 0.8rem;
       font-weight: 500;
       font-family: inherit;
-      border-radius: 2px;
+      border-radius: 5px;
       cursor: pointer;
       transition: all 0.1s ease-in;
 
@@ -204,13 +210,13 @@ const Navbar = ({ navTitle, unsaved }) => {
   return (
     <StyledNavbar>
       <div>
-        <div className="burger-nav" onClick={() => setShowNav((prev) => !prev)}>
+        {/* <div className="burger-nav" onClick={() => setShowNav((prev) => !prev)}>
           <div>
             <span></span>
             <span></span>
             <span></span>
           </div>
-        </div>
+        </div> */}
         <div className="logo-container">
           <Link to="/">
             <h1>Scribbler</h1>
@@ -224,7 +230,9 @@ const Navbar = ({ navTitle, unsaved }) => {
 
       <div className="avatar-container">
         {!auth.user && (
-          <button onClick={auth.signinWithGithub}>Sign in with Github</button>
+          <div>
+            <button onClick={auth.signinWithGithub}>Sign in with Github</button>
+          </div>
         )}
         {!auth.user && (
           <div>

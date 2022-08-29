@@ -122,14 +122,6 @@ const Sidebar = ({
 
   return (
     <StyledSidebar>
-      <div>
-        <h3>Organizer</h3>
-        <div>
-          <FontAwesomeIcon icon={faFilter} />
-          <FontAwesomeIcon onClick={createNewScribble} icon={faPlus} />
-        </div>
-      </div>
-
       <OptionsMenu
         currentRightClickedScribble={currentRightClickedScribble}
         archiveScribbleHandler={archiveScribbleHandler}
@@ -151,9 +143,19 @@ const Sidebar = ({
         onClick={() => setShowScribbles((prev) => !prev)}
         onContextMenu={() => setCurrentRightClickedScribble(null)}
       >
-        <div>
-          <FontAwesomeIcon icon={!showScribbles ? faArrowUp : faArrowDown} />
-          <h4>| Scribbles |</h4>
+        <div className="scribble-button-container">
+          <div>
+            <FontAwesomeIcon icon={!showScribbles ? faArrowUp : faArrowDown} />
+            <h4>| Scribbles |</h4>
+          </div>
+
+          <FontAwesomeIcon
+            onClick={(e) => {
+              e.stopPropagation();
+              createNewScribble();
+            }}
+            icon={faPlus}
+          />
         </div>
       </button>
       {showScribbles && scribbles.length > 0 && (
@@ -188,8 +190,10 @@ const Sidebar = ({
         onContextMenu={() => setCurrentRightClickedScribble(null)}
       >
         <div>
-          <FontAwesomeIcon icon={!showArchive ? faArrowUp : faArrowDown} />
-          <h4>| Archive |</h4>
+          <div>
+            <FontAwesomeIcon icon={!showArchive ? faArrowUp : faArrowDown} />
+            <h4>| Archive |</h4>
+          </div>
         </div>
       </button>
       {showArchive && archived.length > 0 && (
@@ -218,8 +222,10 @@ const Sidebar = ({
         onContextMenu={() => setCurrentRightClickedScribble(null)}
       >
         <div>
-          <FontAwesomeIcon icon={!showBin ? faArrowUp : faArrowDown} />
-          <h4>| Bin |</h4>
+          <div>
+            <FontAwesomeIcon icon={!showBin ? faArrowUp : faArrowDown} />
+            <h4>| Bin |</h4>
+          </div>
         </div>
       </button>
 

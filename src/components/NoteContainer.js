@@ -5,13 +5,14 @@ import {
   faEye,
   faFloppyDisk,
   faTrash,
+  faFilter,
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EmptyNote from "./EmptyNote";
 import Note from "./Note";
 import { useAuth } from "../utils/auth";
-import Button from "../styles/Button";
+
 import {
   StyledScribbleContainer,
   StyledSearchBar,
@@ -19,7 +20,6 @@ import {
 } from "../styles/NoteStyles";
 import {
   saveScribbleToDatabase,
-  deleteScribbleHandler,
   moveScribbleToBin,
 } from "../utils/HandleScribbles";
 import useKeyPress from "../utils/useKeyPress";
@@ -62,14 +62,6 @@ const NoteContainer = ({
   };
 
   const deleteScribbleHandler = () => {
-    // deleteScribble(selectedScribble.id);
-    // const scribbleList = scribbles.filter((scribble) => {
-    //   return scribble.id !== selectedScribble.id;
-    // });
-
-    // setScribbles(scribbleList);
-    // setSelectedScribble(scribbleList[0]);
-    // toast.success("Scribble deleted", toastOptions);
     moveScribbleToBin(
       selectedScribble,
       setScribbles,
@@ -79,14 +71,23 @@ const NoteContainer = ({
     );
   };
 
+  const filterResults = () => {};
+
   return (
     <StyledScribbleContainer>
       <StyledSearchBar>
-        <FontAwesomeIcon
-          className="show-results"
-          icon={showMarkdown ? faEyeSlash : faEye}
-          onClick={() => setShowMarkdown((prev) => !prev)}
-        />
+        <div>
+          <FontAwesomeIcon
+            className="show-results"
+            icon={faFilter}
+            onClick={filterResults}
+          />
+          <FontAwesomeIcon
+            className="show-results"
+            icon={showMarkdown ? faEyeSlash : faEye}
+            onClick={() => setShowMarkdown((prev) => !prev)}
+          />
+        </div>
         <div>
           <FontAwesomeIcon
             className="show-results"

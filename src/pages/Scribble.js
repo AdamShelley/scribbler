@@ -5,6 +5,7 @@ import NoteContainer from "../components/NoteContainer";
 
 import { getAllUserScribbles } from "../utils/db";
 import { useAuth } from "../utils/auth";
+import Splash from "../components/Splash";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -98,30 +99,36 @@ const Scribble = ({ setUnsaved, setNavTitle }) => {
   return (
     <div>
       <StyledContainer>
-        <Sidebar
-          scribbles={scribbles}
-          selectedScribble={selectedScribble}
-          changeScribble={changeScribble}
-          setScribbles={setScribbles}
-          setSelectedScribble={setSelectedScribble}
-          createNewScribble={createBlankScribble}
-          archived={archived}
-          setArchived={setArchived}
-          deleted={deleted}
-          setDeleted={setDeleted}
-        />
-        <NoteContainer
-          scribbles={scribbles}
-          selectedScribble={selectedScribble}
-          setSelectedScribble={setSelectedScribble}
-          setScribbles={setScribbles}
-          updateScribblesWithoutDatabasePush={
-            updateScribblesWithoutDatabasePush
-          }
-          resetSaveDot={resetSaveDot}
-          setDeleted={setDeleted}
-          setArchived={setArchived}
-        />
+        {auth.user ? (
+          <>
+            <Sidebar
+              scribbles={scribbles}
+              selectedScribble={selectedScribble}
+              changeScribble={changeScribble}
+              setScribbles={setScribbles}
+              setSelectedScribble={setSelectedScribble}
+              createNewScribble={createBlankScribble}
+              archived={archived}
+              setArchived={setArchived}
+              deleted={deleted}
+              setDeleted={setDeleted}
+            />
+            <NoteContainer
+              scribbles={scribbles}
+              selectedScribble={selectedScribble}
+              setSelectedScribble={setSelectedScribble}
+              setScribbles={setScribbles}
+              updateScribblesWithoutDatabasePush={
+                updateScribblesWithoutDatabasePush
+              }
+              resetSaveDot={resetSaveDot}
+              setDeleted={setDeleted}
+              setArchived={setArchived}
+            />
+          </>
+        ) : (
+          <Splash />
+        )}
       </StyledContainer>
     </div>
   );

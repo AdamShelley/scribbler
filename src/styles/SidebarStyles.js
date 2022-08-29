@@ -18,7 +18,7 @@ export const StyledSidebar = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 2.5rem;
+    height: 100%;
     border-bottom: 1px solid var(--light-grey);
     border-top: 1px solid var(--light-grey);
 
@@ -34,15 +34,6 @@ export const StyledSidebar = styled.div`
       display: flex;
       align-items: center;
       justify-content: flex-end;
-
-      svg {
-        margin: 0 0.5rem;
-        cursor: pointer;
-
-        &:hover {
-          opacity: 0.8;
-        }
-      }
     }
 
     span {
@@ -95,6 +86,8 @@ export const StyledSidebar = styled.div`
       }
 
       .save-dot {
+        width: 8px;
+        height: 8px;
         background-color: var(--light-grey);
         max-width: 8px;
         max-height: 8px;
@@ -149,15 +142,15 @@ export const StyledSidebar = styled.div`
     }
   }
 
-  button:first-of-type {
-    border-top: 1px solid transparent;
-  }
-
   .archive-button {
+    height: 2.5rem;
+    min-height: 2.5rem;
     margin: 0rem;
+    margin-top: 0.1rem;
+    padding-left: 1rem;
     background-color: var(--background);
     color: var(--text-color);
-    padding: 0rem 1rem;
+    /* padding: 0rem 1rem; */
     cursor: pointer;
     font-family: inherit;
     border: 1px solid transparent;
@@ -165,12 +158,8 @@ export const StyledSidebar = styled.div`
     justify-content: space-between;
     letter-spacing: 1px;
     transition: all 0.1s ease-in;
-    border-bottom: 1px solid var(--dark-grey);
-    border-top: 1px solid var(--dark-grey);
-
-    &:hover {
-      border: 1px solid var(--light-grey);
-    }
+    border-top: 1px solid var(--light-grey);
+    border-bottom: 1px solid var(--light-grey);
 
     &:hover .bin-container {
       opacity: 1;
@@ -180,9 +169,11 @@ export const StyledSidebar = styled.div`
 
     div {
       padding-left: 0;
-      /* background-color: var(--dark-grey); */
       background-color: inherit;
       border: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
       h4 {
         font-size: 0.8rem;
@@ -194,6 +185,29 @@ export const StyledSidebar = styled.div`
         }
       }
     }
+
+    .scribble-button-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      > div {
+      }
+
+      > svg {
+        font-size: 1rem;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+
+  button:first-of-type {
+    margin-top: 0;
   }
 
   .delete-all-container {
