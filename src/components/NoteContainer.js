@@ -22,7 +22,6 @@ import {
   saveScribbleToDatabase,
   moveScribbleToBin,
 } from "../utils/HandleScribbles";
-import useKeyPress from "../utils/useKeyPress";
 
 const NoteContainer = ({
   scribbles,
@@ -43,9 +42,8 @@ const NoteContainer = ({
   );
   const [showResults, setShowResults] = useState(false);
   const [showMarkdown, setShowMarkdown] = useState(true);
-  const [saving, setSaving] = useState(false);
+
   const auth = useAuth();
-  const keyPressed = useKeyPress();
 
   const saveScribbleToDatabaseHandler = () => {
     saveScribbleToDatabase(
@@ -81,11 +79,13 @@ const NoteContainer = ({
             className="show-results"
             icon={faFilter}
             onClick={filterResults}
+            data-tip="Filter by: "
           />
           <FontAwesomeIcon
             className="show-results"
             icon={showMarkdown ? faEyeSlash : faEye}
             onClick={() => setShowMarkdown((prev) => !prev)}
+            data-tip="Show/Hide Pad"
           />
         </div>
         <div>
@@ -93,17 +93,20 @@ const NoteContainer = ({
             className="show-results"
             icon={showResults ? faEyeSlash : faEye}
             onClick={() => setShowResults((prev) => !prev)}
+            data-tip="Show/Hide Markdown Preview"
           />
 
           <FontAwesomeIcon
             className="show-results"
             icon={faFloppyDisk}
             onClick={saveScribbleToDatabaseHandler}
+            data-tip="Save"
           />
           <FontAwesomeIcon
             className="show-results"
             icon={faTrash}
             onClick={deleteScribbleHandler}
+            data-tip="Delete"
           />
         </div>
       </StyledSearchBar>

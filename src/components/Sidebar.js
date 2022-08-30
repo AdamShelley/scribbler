@@ -18,6 +18,7 @@ import {
   moveScribbleToBin,
 } from "../utils/HandleScribbles";
 import OptionsMenu from "./OptionsMenu";
+import ReactTooltip from "react-tooltip";
 
 const Sidebar = ({
   scribbles,
@@ -155,6 +156,7 @@ const Sidebar = ({
               createNewScribble();
             }}
             icon={faPlus}
+            data-tip="New Scribble"
           />
         </div>
       </button>
