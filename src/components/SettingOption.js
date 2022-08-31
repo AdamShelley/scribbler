@@ -7,7 +7,9 @@ const SettingOption = ({
   defaultChoice,
   updateSetting,
 }) => {
-  const [currentSetting, setCurrentSetting] = useState(defaultChoice);
+  const [currentSetting, setCurrentSetting] = useState(
+    defaultChoice ? "Yes" : "No"
+  );
 
   const changeOption = (e) => {
     setCurrentSetting(e.target.value);
@@ -21,10 +23,11 @@ const SettingOption = ({
       <h5>{optionText}</h5>
       <div className="option-choices">
         {choices &&
-          choices.map((choice) => (
+          choices.map((choice, index) => (
             <button
               value={choice}
-              className={currentSetting === choice && "highlighted-setting"}
+              key={choice + index}
+              className={currentSetting === choice ? "highlighted-setting" : ""}
               onClick={changeOption}
             >
               {choice}

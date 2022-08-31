@@ -32,8 +32,6 @@ function useProvideAuth() {
     // Get saved email
     const saved_email = window.localStorage.getItem("emailForSignIn");
 
-    console.log(saved_email);
-
     if (isSignInWithEmailLink(auth, window.location.href) && !!saved_email) {
       signInWithEmailLink(auth, saved_email, window.location.href).then(
         (result) => {
@@ -56,7 +54,6 @@ function useProvideAuth() {
   };
 
   const checkSignedIn = () => {
-    console.log(auth);
     onAuthStateChanged(auth, (user) => {
       if (user) {
         handleUser(user);
@@ -123,5 +120,11 @@ const formatUser = (user) => {
     name: user.displayName,
     provider: user.providerData[0].providerId,
     photoUrl: user.photoURL,
+    options: {
+      expandScribbles: true,
+      expandArchive: true,
+      expandBin: false,
+      showMD: false,
+    },
   };
 };

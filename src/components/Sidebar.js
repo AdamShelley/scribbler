@@ -31,11 +31,12 @@ const Sidebar = ({
   createNewScribble,
   setScribbles,
   setSelectedScribble,
+  options,
 }) => {
-  const [showArchive, setShowArchive] = useState(true);
-  const [showBin, setShowBin] = useState(false);
+  const [showScribbles, setShowScribbles] = useState(options.expandScribbles);
+  const [showArchive, setShowArchive] = useState(options.expandArchive);
+  const [showBin, setShowBin] = useState(options.expandBin);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [showScribbles, setShowScribbles] = useState(true);
   const [currentRightClickedScribble, setCurrentRightClickedScribble] =
     useState(null);
   const { user } = useAuth();
@@ -160,6 +161,7 @@ const Sidebar = ({
           />
         </div>
       </button>
+
       {showScribbles && scribbles.length > 0 && (
         <ul>
           {scribbles ? (

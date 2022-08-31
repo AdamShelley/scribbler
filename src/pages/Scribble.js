@@ -14,7 +14,7 @@ const StyledContainer = styled.div`
   width: 100%;
 `;
 
-const Scribble = ({ setUnsaved, setNavTitle }) => {
+const Scribble = ({ setUnsaved, setNavTitle, options }) => {
   const [scribbles, setScribbles] = useState([]);
   const [archived, setArchived] = useState([]);
   const [deleted, setDeleted] = useState([]);
@@ -92,11 +92,6 @@ const Scribble = ({ setUnsaved, setNavTitle }) => {
     setUnsaved(false);
   };
 
-  // console.log("Scribbles");
-  // console.table(scribbles);
-  // console.log("Archived");
-  // console.log(archived);
-
   return (
     <div>
       <StyledContainer>
@@ -113,6 +108,7 @@ const Scribble = ({ setUnsaved, setNavTitle }) => {
               setArchived={setArchived}
               deleted={deleted}
               setDeleted={setDeleted}
+              options={options}
             />
             <NoteContainer
               scribbles={scribbles}
@@ -125,6 +121,7 @@ const Scribble = ({ setUnsaved, setNavTitle }) => {
               resetSaveDot={resetSaveDot}
               setDeleted={setDeleted}
               setArchived={setArchived}
+              options={options}
             />
           </>
         ) : (

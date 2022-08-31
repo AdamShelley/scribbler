@@ -32,11 +32,20 @@ function App() {
           <Route
             path="/"
             element={
-              <Scribble setUnsaved={setUnsaved} setNavTitle={setNavTitle} />
+              user?.options && (
+                <Scribble
+                  setUnsaved={setUnsaved}
+                  setNavTitle={setNavTitle}
+                  options={user.options}
+                />
+              )
             }
           />
           <Route path="/account" element={<Account />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route
+            path="/settings"
+            element={user?.options && <Settings options={user.options} />}
+          />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </Router>
