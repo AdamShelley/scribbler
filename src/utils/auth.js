@@ -26,6 +26,7 @@ export const useAuth = () => useContext(authContext);
 function useProvideAuth() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userSettings, setUserSettings] = useState(null);
   const auth = getAuth();
 
   useEffect(() => {
@@ -80,12 +81,8 @@ function useProvideAuth() {
 
     try {
       await sendSignInLinkToEmail(auth, email, actionCodeSettings).then(() => {
-        // The link was successfully sent. Inform the user.
-        // Save the email locally so you don't need to ask the user for it again
-        // if they open the link on the same device.
         console.log("Signin in with email");
         window.localStorage.setItem("emailForSignIn", email);
-        // ...
       });
     } catch (error) {
       console.log(error);
@@ -120,11 +117,5 @@ const formatUser = (user) => {
     name: user.displayName,
     provider: user.providerData[0].providerId,
     photoUrl: user.photoURL,
-    options: {
-      expandScribbles: true,
-      expandArchive: true,
-      expandBin: false,
-      showMD: false,
-    },
   };
 };

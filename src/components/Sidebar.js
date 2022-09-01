@@ -5,8 +5,6 @@ import { StyledSidebar } from "../styles/SidebarStyles";
 import {
   faArrowDown,
   faArrowUp,
-  faTrash,
-  faFilter,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,7 +16,6 @@ import {
   moveScribbleToBin,
 } from "../utils/HandleScribbles";
 import OptionsMenu from "./OptionsMenu";
-import ReactTooltip from "react-tooltip";
 
 const Sidebar = ({
   scribbles,
@@ -33,9 +30,9 @@ const Sidebar = ({
   setSelectedScribble,
   options,
 }) => {
-  const [showScribbles, setShowScribbles] = useState(options.expandScribbles);
-  const [showArchive, setShowArchive] = useState(options.expandArchive);
-  const [showBin, setShowBin] = useState(options.expandBin);
+  const [showScribbles, setShowScribbles] = useState(true);
+  const [showArchive, setShowArchive] = useState(true);
+  const [showBin, setShowBin] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [currentRightClickedScribble, setCurrentRightClickedScribble] =
     useState(null);

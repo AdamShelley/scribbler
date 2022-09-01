@@ -18,17 +18,18 @@ import {
 const firestore = getFirestore();
 
 export async function createUser(uid, data) {
+  // console.log("creating user");
   try {
     const newUserRef = doc(firestore, "users", uid);
     setDoc(newUserRef, { uid, ...data }, { merge: true });
+
+    createSettings(uid);
   } catch (err) {
     console.log(err);
   }
 }
 
 export async function createScribble(uid, data) {
-  console.log("Create Scribble function called");
-  console.log(uid, data);
   try {
     return await addDoc(collection(firestore, "scribbles"), {
       authorId: uid,
@@ -39,6 +40,35 @@ export async function createScribble(uid, data) {
     });
   } catch (err) {
     console.log(err);
+  }
+}
+
+export async function createSettings(uid) {
+  // console.log("checking for settings");
+  const settings = doc(firestore, "settings", uid);
+
+  const settingsSnapshot = await getDoc(settings);
+
+  if (settingsSnapshot.exists()) {
+    console.log("doc exists");
+  } else {
+    try {
+      await addDoc(
+        collection(firestore, "settings"),
+        {
+          userId: uid,
+          options: {
+            expandScribbles: true,
+            expandArchive: false,
+            expandBin: false,
+            showMD: false,
+          },
+        },
+        { merge: true }
+      );
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 
@@ -122,8 +152,8 @@ export async function restoreScribble(scribble, prevLoc) {
   }
 }
 
-export async function deleteScribble(id, collection = "deleted") {
-  deleteDoc(doc(firestore, collection, id));
+export async function deleteScribble(uid, collection = "deleted") {
+  deleteDoc(doc(firestore, collection, uid));
 }
 
 export default firestore;

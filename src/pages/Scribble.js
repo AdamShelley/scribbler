@@ -23,6 +23,10 @@ const Scribble = ({ setUnsaved, setNavTitle, options }) => {
   const auth = useAuth();
 
   useEffect(() => {
+    console.log("Fetching all scribbles");
+
+    // Rerenders caused by changing the state for each separately
+
     const fetchScribbles = async () => {
       const fetchedScribbles = await getAllUserScribbles(auth.user.uid);
       setScribbles(fetchedScribbles);

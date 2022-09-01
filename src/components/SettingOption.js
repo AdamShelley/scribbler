@@ -14,7 +14,7 @@ const SettingOption = ({
   const changeOption = (e) => {
     setCurrentSetting(e.target.value);
     updateSetting({
-      [name]: e.target.value,
+      [name]: e.target.value === "Yes" ? true : false,
     });
   };
 
