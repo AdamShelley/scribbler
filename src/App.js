@@ -18,6 +18,7 @@ function App() {
 
   useEffect(() => {
     if (!user) {
+      console.log("Checking user signin");
       auth.checkSignedIn();
       setUser(auth.user);
     }

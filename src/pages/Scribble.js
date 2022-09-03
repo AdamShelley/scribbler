@@ -26,6 +26,7 @@ const Scribble = ({ setUnsaved, setNavTitle, options }) => {
     console.log("Fetching all scribbles");
 
     // Rerenders caused by changing the state for each separately
+    // But why is the user being created 3 times?
 
     const fetchScribbles = async () => {
       const fetchedScribbles = await getAllUserScribbles(auth.user.uid);

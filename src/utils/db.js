@@ -22,6 +22,7 @@ export async function createUser(uid, data) {
   try {
     const newUserRef = doc(firestore, "users", uid);
     setDoc(newUserRef, { uid, ...data }, { merge: true });
+    console.log("Created new User");
 
     createSettings(uid);
   } catch (err) {
@@ -44,28 +45,24 @@ export async function createScribble(uid, data) {
 }
 
 export async function createSettings(uid) {
-  // console.log("checking for settings");
+  // const settingsRef = doc(firestore, "settings", uid);
   const settings = doc(firestore, "settings", uid);
+  const settingsDoc = await getDoc(settings);
 
-  const settingsSnapshot = await getDoc(settings);
+  console.log(settingsDoc.data());
 
-  if (settingsSnapshot.exists()) {
-    console.log("doc exists");
+  if (settingsDoc.exists()) {
+    console.log("settings doc exists");
   } else {
+    console.log("settings doc creation");
+    await setDoc(
+      settings,
+      {
+        test: true,
+      },
+      { merge: true }
+    );
     try {
-      await addDoc(
-        collection(firestore, "settings"),
-        {
-          userId: uid,
-          options: {
-            expandScribbles: true,
-            expandArchive: false,
-            expandBin: false,
-            showMD: false,
-          },
-        },
-        { merge: true }
-      );
     } catch (err) {
       console.log(err);
     }
