@@ -3,50 +3,60 @@ import SettingOption from "../components/SettingOption";
 
 import { StyledContainer } from "../styles/SettingsStyles";
 import { useAuth } from "../utils/auth";
+import { updateSettings } from "../utils/db";
 
-const Settings = () => {
+const Settings = ({ settings, setSettings }) => {
   const auth = useAuth();
 
+  console.log(settings);
+
   const saveSettings = (updatedSetting) => {
-    console.log("Updating settings");
+    console.log("Updating settings:");
     // Send the update to the database
+    updateSettings(auth.user.uid, updatedSetting);
+    setSettings((previousSettings) => ({
+      ...previousSettings,
+      ...updatedSetting,
+    }));
   };
 
   return (
     <StyledContainer>
-      <div className="page-container">
-        <h2>Settings</h2>
-        <div className="settings-container settings">
-          <SettingOption
-            name="expandScribbles"
-            optionText="Expand Scribble section on load"
-            choices={["Yes", "No"]}
-            defaultChoice={true}
-            updateSetting={saveSettings}
-          />
-          <SettingOption
-            name="expandArchive"
-            optionText="Expand archive section on load"
-            choices={["Yes", "No"]}
-            defaultChoice={true}
-            updateSetting={saveSettings}
-          />
-          <SettingOption
-            name="expandBin"
-            optionText="Expand Bin section  on load"
-            choices={["Yes", "No"]}
-            defaultChoice={false}
-            updateSetting={saveSettings}
-          />
-          <SettingOption
-            name="showMD"
-            optionText="Hide markdown preview"
-            choices={["Yes", "No"]}
-            defaultChoice={false}
-            updateSetting={saveSettings}
-          />
+      {settings && (
+        <div className="page-container">
+          <h2>Settings</h2>
+          <div className="settings-container settings">
+            <SettingOption
+              name="expandScribbles"
+              optionText="Expand Scribble section on load"
+              choices={["Yes", "No"]}
+              defaultChoice={settings.expandScribbles}
+              updateSetting={saveSettings}
+            />
+            <SettingOption
+              name="expandArchive"
+              optionText="Expand archive section on load"
+              choices={["Yes", "No"]}
+              defaultChoice={settings.expandArchive}
+              updateSetting={saveSettings}
+            />
+            <SettingOption
+              name="expandBin"
+              optionText="Expand Bin section  on load"
+              choices={["Yes", "No"]}
+              defaultChoice={settings.expandBin}
+              updateSetting={saveSettings}
+            />
+            <SettingOption
+              name="showMD"
+              optionText="Hide markdown preview"
+              choices={["Yes", "No"]}
+              defaultChoice={settings.showMD}
+              updateSetting={saveSettings}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </StyledContainer>
   );
 };

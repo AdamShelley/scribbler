@@ -17,18 +17,65 @@ import {
 
 const firestore = getFirestore();
 
+// USER & SETTINGS
+
 export async function createUser(uid, data) {
   // console.log("creating user");
   try {
     const newUserRef = doc(firestore, "users", uid);
     setDoc(newUserRef, { uid, ...data }, { merge: true });
     console.log("Created new User");
-
+    //Create new user settings if non available
     createSettings(uid);
   } catch (err) {
     console.log(err);
   }
 }
+
+export async function getUserSettings(uid) {
+  if (!uid) return;
+
+  try {
+    const docRef = doc(firestore, "settings", uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return docSnap.data();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function createSettings(uid) {
+  const settings = doc(firestore, "settings", uid);
+  const settingsDoc = await getDoc(settings);
+  if (!settingsDoc.exists()) {
+    return await setDoc(
+      settings,
+      {
+        expandScribbles: true,
+        expandArchive: false,
+        expandBin: false,
+        showMD: false,
+      },
+      { merge: true }
+    );
+  } else {
+    return settingsDoc.data();
+  }
+}
+
+export async function updateSettings(uid, data) {
+  const existingSettings = doc(firestore, "settings", uid);
+
+  return await updateDoc(existingSettings, {
+    ...data,
+    timestamp: serverTimestamp(),
+  });
+}
+
+// Scribble functions
 
 export async function createScribble(uid, data) {
   try {
@@ -44,30 +91,7 @@ export async function createScribble(uid, data) {
   }
 }
 
-export async function createSettings(uid) {
-  // const settingsRef = doc(firestore, "settings", uid);
-  const settings = doc(firestore, "settings", uid);
-  const settingsDoc = await getDoc(settings);
-
-  console.log(settingsDoc.data());
-
-  if (settingsDoc.exists()) {
-    console.log("settings doc exists");
-  } else {
-    console.log("settings doc creation");
-    await setDoc(
-      settings,
-      {
-        test: true,
-      },
-      { merge: true }
-    );
-    try {
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
+// Creates settings if the user has no settings in firebase already
 
 export async function getAllUserScribbles(uid, col = "scribbles") {
   if (!uid) return;

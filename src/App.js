@@ -9,11 +9,13 @@ import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import { useAuth } from "./utils/auth";
 import Navbar from "./components/Navbar";
+import { getUserSettings } from "./utils/db";
 
 function App() {
   const [unsaved, setUnsaved] = useState(false);
   const [user, setUser] = useState(null);
   const [navTitle, setNavTitle] = useState("");
+  const [settings, setSettings] = useState("");
   const auth = useAuth();
 
   useEffect(() => {
@@ -21,6 +23,15 @@ function App() {
       console.log("Checking user signin");
       auth.checkSignedIn();
       setUser(auth.user);
+    }
+
+    if (user) {
+      // Check for user Settings
+      const getSettings = async () => {
+        const settings = await getUserSettings(auth.user.uid);
+        setSettings(settings);
+      };
+      getSettings();
     }
   }, [auth, setUser, user]);
 
@@ -33,11 +44,18 @@ function App() {
           <Route
             path="/"
             element={
-              <Scribble setUnsaved={setUnsaved} setNavTitle={setNavTitle} />
+              <Scribble
+                setUnsaved={setUnsaved}
+                setNavTitle={setNavTitle}
+                settings={settings}
+              />
             }
           />
-          <Route path="/account" element={<Account />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/account" element={<Account settings={settings} />} />
+          <Route
+            path="/settings"
+            element={<Settings settings={settings} setSettings={setSettings} />}
+          />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </Router>

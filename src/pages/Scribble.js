@@ -14,7 +14,7 @@ const StyledContainer = styled.div`
   width: 100%;
 `;
 
-const Scribble = ({ setUnsaved, setNavTitle, options }) => {
+const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
   const [scribbles, setScribbles] = useState([]);
   const [archived, setArchived] = useState([]);
   const [deleted, setDeleted] = useState([]);
@@ -113,7 +113,7 @@ const Scribble = ({ setUnsaved, setNavTitle, options }) => {
               setArchived={setArchived}
               deleted={deleted}
               setDeleted={setDeleted}
-              options={options}
+              settings={settings}
             />
             <NoteContainer
               scribbles={scribbles}
@@ -126,7 +126,7 @@ const Scribble = ({ setUnsaved, setNavTitle, options }) => {
               resetSaveDot={resetSaveDot}
               setDeleted={setDeleted}
               setArchived={setArchived}
-              options={options}
+              settings={settings}
             />
           </>
         ) : (

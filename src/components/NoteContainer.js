@@ -32,7 +32,7 @@ const NoteContainer = ({
   resetSaveDot,
   setArchived,
   setDeleted,
-  options,
+  settings,
 }) => {
   const [markdown, setMarkdown] = useState(
     selectedScribble ? selectedScribble : "#### Write some markdown here"
@@ -41,7 +41,7 @@ const NoteContainer = ({
   const [title, setTitle] = useState(
     selectedScribble ? selectedScribble.title : ""
   );
-  const [showResults, setShowResults] = useState(options?.showMD);
+  const [showResults, setShowResults] = useState(settings.showMD);
   const [showMarkdown, setShowMarkdown] = useState(true);
 
   const auth = useAuth();

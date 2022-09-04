@@ -42,12 +42,12 @@ function useProvideAuth() {
     }
   }, []);
 
-  const handleUser = (rawUser) => {
+  const handleUser = async (rawUser) => {
     if (rawUser) {
       const user = formatUser(rawUser);
 
-      createUser(user.uid, user);
       setUser(user);
+      createUser(user.uid, user);
     } else {
       setUser(false);
       return false;
