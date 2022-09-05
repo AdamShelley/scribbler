@@ -8,8 +8,6 @@ import { updateSettings } from "../utils/db";
 const Settings = ({ settings, setSettings }) => {
   const auth = useAuth();
 
-  console.log(settings);
-
   const saveSettings = (updatedSetting) => {
     console.log("Updating settings:");
     // Send the update to the database

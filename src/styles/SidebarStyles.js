@@ -7,10 +7,13 @@ export const StyledSidebar = styled.div`
   min-width: 25vw;
   border-right: 1px solid var(--light-grey);
   background-color: #1b1b1b;
-  max-height: 90vh;
+  /* min-height: 80vh; */
+  /* max-height: 100vh; */
+  height: 100%;
+  max-height: 100vh;
   position: relative;
   overflow-x: scroll;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
 
   div {
     background-color: var(--dark-grey);

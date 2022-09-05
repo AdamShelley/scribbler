@@ -18,7 +18,16 @@ body {
   background-color: var(--background);
   color: var(--text-color);
   font-family: 'Montserrat', sans-serif;
+  
 }
+
+.App {
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 
 
 .slide-in-left-enter {

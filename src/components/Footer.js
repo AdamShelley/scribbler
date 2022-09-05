@@ -5,9 +5,11 @@ const StyledFooter = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 2rem;
-  min-height: 5rem;
+  padding: 1rem 2rem;
   border-top: 1px solid white;
+  margin-top: auto;
+
+  min-height: 2rem;
 
   ul {
     list-style: none;

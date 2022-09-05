@@ -14,6 +14,7 @@ const StyledNavbar = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 4rem;
+  min-height: 4rem;
   background-color: var(--nav-color);
 
   div {
@@ -101,6 +102,11 @@ const StyledNavbar = styled.div`
 
     > div {
       margin-right: 1rem;
+
+      p {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+      }
     }
 
     button {
@@ -127,6 +133,7 @@ const StyledNavbar = styled.div`
     }
 
     img {
+      margin: 0 0.5rem;
       width: 2.2rem;
       height: 2.2rem;
       cursor: pointer;

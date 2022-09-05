@@ -9,7 +9,8 @@ export const StyledContainer = styled.div`
 
   .settings-container {
     padding: 1rem;
-    background-color: #1e293a;
+    /* background-color: #1e293a; */
+    background-color: var(--nav-color);
     margin-top: 2rem;
     border-radius: 4px;
     border: 1px solid var(--dark-grey);
@@ -37,7 +38,7 @@ export const StyledContainer = styled.div`
         > button {
           cursor: pointer;
           border: 2px solid var(--light-grey);
-          background-color: inherit;
+          background-color: var(--background);
           color: inherit;
           font-size: 1rem;
           padding: 1rem;
@@ -53,7 +54,7 @@ export const StyledContainer = styled.div`
         }
 
         .highlighted-setting {
-          background-color: var(--nav-color);
+          background-color: inherit;
           border: 2px solid var(--text-color);
         }
       }

@@ -10,8 +10,9 @@ import ReactTooltip from "react-tooltip";
 
 const StyledContainer = styled.div`
   display: flex;
-  height: 90vh;
   width: 100%;
+  height: 100%;
+  /* max-height: 80vh; */
 `;
 
 const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
@@ -98,7 +99,7 @@ const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
   };
 
   return (
-    <div>
+    <div style={{ height: "100%", overflow: "hidden" }}>
       <StyledContainer>
         {auth.user ? (
           <>
