@@ -13,8 +13,8 @@ const StyledOptionsMenu = styled.ul`
   display: flex;
   flex-direction: column;
   position: absolute;
-  background-color: var(--dark-grey);
-  border: 1px solid var(--light-grey);
+  background-color: var(--text-color);
+  border: 1px solid var(--dark-grey);
   font-size: 0.8rem;
   padding: 0.5rem 0 !important;
   border-radius: 3px;
@@ -38,12 +38,11 @@ const StyledOptionsMenu = styled.ul`
   span {
     margin-left: 0.8rem;
     font-weight: 600;
-    color: var(--text-color);
+    color: var(--background);
   }
-
   svg {
     font-weight: 100;
-    color: #ddd;
+    color: var(--background);
   }
 `;
 

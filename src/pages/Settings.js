@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SettingOption from "../components/SettingOption";
 
 import { StyledContainer } from "../styles/SettingsStyles";
 import { useAuth } from "../utils/auth";
 import { updateSettings } from "../utils/db";
 
-const Settings = ({ settings, setSettings }) => {
+const Settings = ({ settings, setSettings, setNavTitle }) => {
   const auth = useAuth();
 
   const saveSettings = (updatedSetting) => {
@@ -17,6 +17,10 @@ const Settings = ({ settings, setSettings }) => {
       ...updatedSetting,
     }));
   };
+
+  useEffect(() => {
+    setNavTitle("");
+  }, [setNavTitle]);
 
   return (
     <StyledContainer>

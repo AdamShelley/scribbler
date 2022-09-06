@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import "./App.css";
 import GlobalStyle from "./styles/globalStyles";
 import Scribble from "./pages/Scribble";
@@ -51,10 +52,19 @@ function App() {
               />
             }
           />
-          <Route path="/account" element={<Account settings={settings} />} />
+          <Route
+            path="/account"
+            element={<Account settings={settings} setNavTitle={setNavTitle} />}
+          />
           <Route
             path="/settings"
-            element={<Settings settings={settings} setSettings={setSettings} />}
+            element={
+              <Settings
+                settings={settings}
+                setSettings={setSettings}
+                setNavTitle={setNavTitle}
+              />
+            }
           />
           <Route path="/contact" element={<Contact />} />
         </Routes>

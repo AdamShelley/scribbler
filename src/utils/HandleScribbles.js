@@ -49,7 +49,7 @@ export const saveScribbleToDatabase = async (
 
     setScribbles(prevScribbles);
 
-    toast.success("The update was successful", toastOptions);
+    toast.success("Scribble Saved!", toastOptions);
   } else {
     // Create new document
 
@@ -83,7 +83,7 @@ export const deleteScribbleFromDatabase = async (
     const deletedScribbles = await getAllUserScribbles(userId, "deleted");
     setDeleted(deletedScribbles);
 
-    toast.success("Scribble deleted", toastOptions);
+    toast.success("Scribble Deleted", toastOptions);
   } catch (err) {
     console.log(err);
   }
@@ -112,7 +112,7 @@ export const moveScribbleToBin = async (
     const deletedScribbles = await getAllUserScribbles(userId, "deleted");
     setDelete(deletedScribbles);
 
-    toast.success(`Scribble Deleted`, toastOptions);
+    toast.success(`Scribble moved to Bin`, toastOptions);
   } catch (err) {
     console.log(err);
   }

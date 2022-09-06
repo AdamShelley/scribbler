@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import NavBurger from "./NavBurger";
 import { useAuth } from "../utils/auth";
-import { CSSTransition } from "react-transition-group";
 import { Link } from "react-router-dom";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,43 +19,6 @@ const StyledNavbar = styled.div`
     display: flex;
     align-items: center;
     height: 100%;
-
-    /* .burger-nav {
-      padding: 1rem;
-      z-index: 99;
-      height: 100%;
-      background-color: var(--light-grey);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      div {
-        height: 100%;
-        width: 100%;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-        cursor: pointer;
-
-        span {
-          background-color: var(--text-color);
-          height: 2px;
-          width: 2rem;
-          min-width: 80%;
-          max-width: 2rem;
-          margin-bottom: 3px;
-          transform: scale(1);
-          transition: all 0.2s ease-in-out;
-        }
-
-        &:hover span {
-          background-color: #ccc;
-          transform: scale(1.1);
-        }
-      }
-    } */
 
     .logo-container {
       margin-left: 2rem;
@@ -195,12 +156,10 @@ const StyledNavbar = styled.div`
 `;
 
 const Navbar = ({ navTitle, unsaved }) => {
-  const [showNav, setShowNav] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
 
-  const nodeRef = React.useRef(null);
   const auth = useAuth();
 
   const showMenu = () => {
@@ -217,13 +176,6 @@ const Navbar = ({ navTitle, unsaved }) => {
   return (
     <StyledNavbar>
       <div>
-        {/* <div className="burger-nav" onClick={() => setShowNav((prev) => !prev)}>
-          <div>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div> */}
         <div className="logo-container">
           <Link to="/">
             <h1>Scribbler</h1>
@@ -281,16 +233,6 @@ const Navbar = ({ navTitle, unsaved }) => {
           ></img>
         )}
       </div>
-
-      <CSSTransition
-        in={showNav}
-        timeout={300}
-        classNames="slide-in-left"
-        mountOnEnter
-        unmountOnExit
-      >
-        <NavBurger setShowNav={setShowNav} />
-      </CSSTransition>
     </StyledNavbar>
   );
 };

@@ -28,7 +28,7 @@ export const StyledContainer = styled.div`
 
       h5 {
         font-size: 0.9rem;
-        font-weight: 400;
+        font-weight: 500;
         letter-spacing: 0.5px;
       }
 
@@ -54,9 +54,37 @@ export const StyledContainer = styled.div`
         }
 
         .highlighted-setting {
-          background-color: inherit;
           border: 2px solid var(--text-color);
         }
+      }
+    }
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    width: 40%;
+
+    .button-container {
+      margin-top: 2rem;
+    }
+
+    .profile-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 1rem;
+
+      label {
+      }
+
+      input {
+        margin-left: 1rem;
+        padding: 0.5rem;
+        width: 60%;
       }
     }
   }
