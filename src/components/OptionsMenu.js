@@ -13,15 +13,16 @@ const StyledOptionsMenu = styled.ul`
   display: flex;
   flex-direction: column;
   position: absolute;
-  background-color: var(--text-color);
-  border: 1px solid var(--dark-grey);
+  background-color: var(--background);
+  border: 1px solid var(--light-grey);
   font-size: 0.8rem;
-  padding: 0.5rem 0 !important;
-  border-radius: 3px;
+  padding: 0 !important;
+  border-radius: 2px;
   z-index: 99;
+  box-shadow: 4px 9px 16px -3px rgba(0, 0, 0, 0.75);
 
   li {
-    padding: 0.8rem 1rem !important;
+    padding: 1rem 1rem !important;
     margin: 0 !important;
     height: 1.5rem !important;
     border-left: none !important;
@@ -30,19 +31,22 @@ const StyledOptionsMenu = styled.ul`
     justify-content: flex-start !important;
 
     &:hover {
-      border-radius: 0;
-      background-color: var(--light-grey);
+      span {
+        color: #ccc;
+      }
     }
   }
 
   span {
     margin-left: 0.8rem;
     font-weight: 600;
-    color: var(--background);
+    color: var(--text-color);
   }
   svg {
     font-weight: 100;
-    color: var(--background);
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
   }
 `;
 

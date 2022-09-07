@@ -121,19 +121,23 @@ const StyledNavbar = styled.div`
       font-size: 0.8rem;
     }
 
-    ul {
-      list-style: none;
+    div {
       position: absolute;
-      top: 80%;
-      right: -20%;
-      background-color: var(--dark-grey);
-      border: 1px solid var(--background);
-      border-radius: 5px;
+      top: 100%;
+      right: -100%;
+      background-color: var(--background);
+      border: 1px solid var(--light-grey);
+      border-radius: 2px;
       display: flex;
       flex-direction: column;
+      min-height: 6.5rem; // Temp fix
       z-index: 99;
+      box-shadow: 4px 9px 16px -3px rgba(0, 0, 0, 0.75);
 
-      li {
+      a {
+        width: 100%;
+        text-decoration: none;
+        color: inherit;
         padding: 0.5rem 2rem;
         font-size: 0.9rem;
         font-weight: 500;
@@ -144,11 +148,6 @@ const StyledNavbar = styled.div`
         &:hover {
           background-color: var(--text-color);
           color: var(--background);
-        }
-
-        a {
-          text-decoration: none;
-          color: inherit;
         }
       }
     }
@@ -212,15 +211,13 @@ const Navbar = ({ navTitle, unsaved }) => {
               <FontAwesomeIcon icon={faChevronDown} />
             </p>
             {showDropdown && (
-              <ul>
-                <li>
-                  <Link to="/account">Your Account</Link>
-                </li>
-                <li>
-                  <Link to="/settings">Settings</Link>
-                </li>
-                <li onClick={auth.signout}>Signout</li>
-              </ul>
+              <div>
+                <Link to="/account">Your Account</Link>
+                <Link to="/settings">Settings</Link>
+                <Link to="/" onClick={auth.signout}>
+                  Signout
+                </Link>
+              </div>
             )}
           </div>
         )}

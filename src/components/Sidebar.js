@@ -30,9 +30,9 @@ const Sidebar = ({
   setSelectedScribble,
   settings,
 }) => {
-  const [showScribbles, setShowScribbles] = useState(settings.expandScribbles);
-  const [showArchive, setShowArchive] = useState(settings.expandArchive);
-  const [showBin, setShowBin] = useState(settings.expandBin);
+  const [showScribbles, setShowScribbles] = useState(settings?.expandScribbles);
+  const [showArchive, setShowArchive] = useState(settings?.expandArchive);
+  const [showBin, setShowBin] = useState(settings?.expandBin);
   const [showConfirm, setShowConfirm] = useState(false);
   const [currentRightClickedScribble, setCurrentRightClickedScribble] =
     useState(null);

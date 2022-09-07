@@ -19,7 +19,7 @@ const Account = ({ setNavTitle }) => {
           <input
             name="email-address"
             type="email"
-            placeholder={auth.user.email}
+            placeholder={auth.user?.email}
           />
         </div>
         <div className="button-container">
