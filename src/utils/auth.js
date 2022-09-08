@@ -26,7 +26,6 @@ export const useAuth = () => useContext(authContext);
 function useProvideAuth() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [userSettings, setUserSettings] = useState(null);
   const auth = getAuth();
 
   useEffect(() => {

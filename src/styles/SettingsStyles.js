@@ -45,7 +45,7 @@ export const StyledContainer = styled.div`
           margin: 0 0.5rem;
           font-weight: 900;
           border-radius: 3px;
-          width: 5rem;
+          min-width: 5rem;
           transition: all 0.1s ease-in;
 
           &:hover {

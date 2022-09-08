@@ -24,8 +24,6 @@ const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
   const auth = useAuth();
 
   useEffect(() => {
-    console.log("Fetching all scribbles");
-
     // Rerenders caused by changing the state for each separately
     // But why is the user being created 3 times?
 
@@ -101,7 +99,7 @@ const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
   return (
     <div style={{ height: "100%", overflow: "hidden" }}>
       <StyledContainer>
-        {auth.user ? (
+        {auth.user && settings ? (
           <>
             <Sidebar
               scribbles={scribbles}

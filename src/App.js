@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  replace,
+} from "react-router-dom";
 
 import "./App.css";
 import GlobalStyle from "./styles/globalStyles";
@@ -52,21 +58,28 @@ function App() {
               />
             }
           />
-          <Route
-            path="/account"
-            element={<Account settings={settings} setNavTitle={setNavTitle} />}
-          />
-          <Route
-            path="/settings"
-            element={
-              <Settings
-                settings={settings}
-                setSettings={setSettings}
-                setNavTitle={setNavTitle}
-              />
-            }
-          />
+          {user && (
+            <Route
+              path="/account"
+              element={
+                <Account settings={settings} setNavTitle={setNavTitle} />
+              }
+            />
+          )}
+          {user && (
+            <Route
+              path="/settings"
+              element={
+                <Settings
+                  settings={settings}
+                  setSettings={setSettings}
+                  setNavTitle={setNavTitle}
+                />
+              }
+            />
+          )}
           <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
       <Footer />

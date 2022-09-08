@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 const SettingOption = ({
   name,
@@ -7,14 +8,48 @@ const SettingOption = ({
   defaultChoice,
   updateSetting,
 }) => {
-  const [currentSetting, setCurrentSetting] = useState(
-    defaultChoice ? "Yes" : "No"
-  );
+  const [currentSetting, setCurrentSetting] = useState("");
+
+  useEffect(() => {
+    switchCurrentSetting(defaultChoice);
+  }, [defaultChoice]);
+
+  const switchCurrentSetting = (choice) => {
+    switch (choice) {
+      case true:
+        setCurrentSetting("Yes");
+        break;
+      case false:
+        setCurrentSetting("No");
+        break;
+      case "Newest":
+        setCurrentSetting("Newest");
+        break;
+      case "Oldest":
+        setCurrentSetting("Oldest");
+        break;
+      case "A-Z":
+        setCurrentSetting("A-Z");
+        break;
+      case "Z-A":
+        setCurrentSetting("Z-A");
+        break;
+      default:
+        setCurrentSetting("No");
+        break;
+    }
+  };
 
   const changeOption = (e) => {
-    setCurrentSetting(e.target.value);
+    if (currentSetting !== e.target.value) {
+      setCurrentSetting(e.target.value);
+      sendUpdate(e.target.value);
+    }
+  };
+
+  const sendUpdate = (newValue) => {
     updateSetting({
-      [name]: e.target.value === "Yes" ? true : false,
+      [name]: newValue,
     });
   };
 

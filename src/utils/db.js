@@ -58,6 +58,7 @@ export async function createSettings(uid) {
         expandArchive: false,
         expandBin: false,
         showMD: false,
+        scribbleOrder: 1,
       },
       { merge: true }
     );

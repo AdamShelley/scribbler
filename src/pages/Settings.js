@@ -56,6 +56,13 @@ const Settings = ({ settings, setSettings, setNavTitle }) => {
               defaultChoice={settings.showMD}
               updateSetting={saveSettings}
             />
+            <SettingOption
+              name="scribbleOrder"
+              optionText="Order of Scribbles on startup"
+              choices={["Newest", "Oldest", "A-Z", "Z-A"]}
+              defaultChoice={settings?.scribbleOrder}
+              updateSetting={saveSettings}
+            />
           </div>
         </div>
       )}

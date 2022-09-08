@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 // import { fasquaregithub } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const StyledFooter = styled.div`
   display: flex;
@@ -62,9 +61,7 @@ const Footer = () => {
             </a>
           </span>
         </li>
-        <li>
-          Github <FontAwesomeIcon />
-        </li>
+        <li>Github</li>
       </ul>
     </StyledFooter>
   );
