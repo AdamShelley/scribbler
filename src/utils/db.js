@@ -68,6 +68,7 @@ export async function createSettings(uid) {
 }
 
 export async function updateSettings(uid, data) {
+  console.log(data);
   const existingSettings = doc(firestore, "settings", uid);
 
   return await updateDoc(existingSettings, {

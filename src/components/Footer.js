@@ -11,7 +11,7 @@ const StyledFooter = styled.div`
   background-color: var(--nav-color);
   margin-top: auto;
 
-  min-height: 2rem;
+  min-height: 3rem;
 
   ul {
     list-style: none;

@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
 export const StyledContainer = styled.div`
-  padding: 5rem;
+  padding: 0 5rem;
+  padding-top: 5rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  height: 100vh;
 
   .settings-container {
     padding: 1rem;
@@ -33,7 +35,8 @@ export const StyledContainer = styled.div`
       }
 
       .option-choices {
-        margin-left: 5rem;
+        margin-left: 2rem;
+        display: flex;
 
         > button {
           cursor: pointer;

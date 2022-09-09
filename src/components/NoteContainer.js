@@ -41,7 +41,9 @@ const NoteContainer = ({
   const [title, setTitle] = useState(
     selectedScribble ? selectedScribble.title : ""
   );
-  const [showResults, setShowResults] = useState(settings.showMD);
+  const [showResults, setShowResults] = useState(
+    settings.showMD === "Yes" ? true : false
+  );
   const [showMarkdown, setShowMarkdown] = useState(true);
 
   const auth = useAuth();

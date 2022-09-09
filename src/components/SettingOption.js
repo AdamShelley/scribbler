@@ -8,37 +8,37 @@ const SettingOption = ({
   defaultChoice,
   updateSetting,
 }) => {
-  const [currentSetting, setCurrentSetting] = useState("");
+  const [currentSetting, setCurrentSetting] = useState(defaultChoice);
 
-  useEffect(() => {
-    switchCurrentSetting(defaultChoice);
-  }, [defaultChoice]);
+  // useEffect(() => {
+  //   switchCurrentSetting(defaultChoice);
+  // }, [defaultChoice]);
 
-  const switchCurrentSetting = (choice) => {
-    switch (choice) {
-      case true:
-        setCurrentSetting("Yes");
-        break;
-      case false:
-        setCurrentSetting("No");
-        break;
-      case "Newest":
-        setCurrentSetting("Newest");
-        break;
-      case "Oldest":
-        setCurrentSetting("Oldest");
-        break;
-      case "A-Z":
-        setCurrentSetting("A-Z");
-        break;
-      case "Z-A":
-        setCurrentSetting("Z-A");
-        break;
-      default:
-        setCurrentSetting("No");
-        break;
-    }
-  };
+  // const switchCurrentSetting = (choice) => {
+  //   switch (choice) {
+  //     case "Yes":
+  //       setCurrentSetting("Yes");
+  //       break;
+  //     case "No":
+  //       setCurrentSetting("No");
+  //       break;
+  //     case "Newest":
+  //       setCurrentSetting("Newest");
+  //       break;
+  //     case "Oldest":
+  //       setCurrentSetting("Oldest");
+  //       break;
+  //     case "A-Z":
+  //       setCurrentSetting("A-Z");
+  //       break;
+  //     case "Z-A":
+  //       setCurrentSetting("Z-A");
+  //       break;
+  //     default:
+  //       setCurrentSetting("No");
+  //       break;
+  //   }
+  // };
 
   const changeOption = (e) => {
     if (currentSetting !== e.target.value) {
