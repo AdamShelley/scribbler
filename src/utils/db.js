@@ -95,7 +95,11 @@ export async function createScribble(uid, data) {
 
 // Creates settings if the user has no settings in firebase already
 
-export async function getAllUserScribbles(uid, col = "scribbles") {
+export async function getAllUserScribbles(
+  uid,
+  col = "scribbles",
+  scribbleOrder = "Newest"
+) {
   if (!uid) return;
   try {
     const scribblesRef = collection(firestore, col);
@@ -112,10 +116,25 @@ export async function getAllUserScribbles(uid, col = "scribbles") {
       compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
     );
 
+    const orderedScribbles = await sortScribbles(scribbleList, scribbleOrder);
+
     return scribbleList;
   } catch (err) {
     console.log("There has been an issue fetching user scribbles");
     console.log(err);
+  }
+}
+
+export async function sortScribbles(data, sortMethod) {
+  console.log("Sorting scribbles on the backend");
+  switch (sortMethod) {
+    case "Newest":
+      return data.sort((a, b) =>
+        compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
+      );
+
+    default:
+      return data;
   }
 }
 

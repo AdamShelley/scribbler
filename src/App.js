@@ -39,6 +39,8 @@ function App() {
         setSettings(settings);
       };
       getSettings();
+
+      // Set localstorage with user settings
     }
   }, [auth, setUser, user]);
 

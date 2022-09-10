@@ -22,7 +22,7 @@ export const StyledContainer = styled.div`
     }
 
     .option {
-      padding: 1rem;
+      padding: 0.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
