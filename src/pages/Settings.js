@@ -11,11 +11,20 @@ const Settings = ({ settings, setSettings, setNavTitle }) => {
   const saveSettings = (updatedSetting) => {
     console.log("Updating settings:");
     // Send the update to the database
+    localStorage.removeItem("settings");
     updateSettings(auth.user.uid, updatedSetting);
+
     setSettings((previousSettings) => ({
       ...previousSettings,
       ...updatedSetting,
     }));
+
+    const newCachedSettings = {
+      ...settings,
+      ...updatedSetting,
+    };
+
+    localStorage.setItem("settings", JSON.stringify(newCachedSettings));
   };
 
   useEffect(() => {

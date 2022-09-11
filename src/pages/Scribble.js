@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
 import NoteContainer from "../components/NoteContainer";
@@ -26,36 +26,55 @@ const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
   useEffect(() => {
     // Rerenders caused by changing the state for each separately
     // But why is the user being created 3 times?
-    const fetchScribbles = async () => {
-      const fetchedScribbles = await getAllUserScribbles(
-        auth.user.uid,
-        "scribbles",
-        settings.scribbleOrder
-      );
+    const cachedScribbles = JSON.parse(sessionStorage.getItem("scribbles"));
+    const cachedArchived = JSON.parse(sessionStorage.getItem("scribbles"));
+    const cachedDeleted = JSON.parse(sessionStorage.getItem("scribbles"));
 
-      setScribbles(fetchedScribbles);
-      setSelectedScribble(fetchedScribbles[0]);
-      setNavTitle(fetchedScribbles[0]?.title);
+    if (cachedScribbles) {
+      setScribbles(cachedScribbles);
+      setArchived(cachedArchived);
+      setDeleted(cachedDeleted);
+      setSelectedScribble(cachedScribbles[0]);
+      setNavTitle(cachedScribbles[0]?.title);
+    } else {
+      const fetchScribbles = async () => {
+        const fetchedScribbles = await getAllUserScribbles(
+          auth.user.uid,
+          "scribbles"
+        );
 
-      const fetchedArchivedScribbles = await getAllUserScribbles(
-        auth.user.uid,
-        "archive"
-      );
-      setArchived(fetchedArchivedScribbles);
+        setScribbles(fetchedScribbles);
+        setSelectedScribble(fetchedScribbles[0]);
+        setNavTitle(fetchedScribbles[0]?.title);
 
-      const fetchedDeletedScribbles = await getAllUserScribbles(
-        auth.user.uid,
-        "deleted"
-      );
+        const fetchedArchivedScribbles = await getAllUserScribbles(
+          auth.user.uid,
+          "archive"
+        );
+        setArchived(fetchedArchivedScribbles);
 
-      setDeleted(fetchedDeletedScribbles);
-    };
+        const fetchedDeletedScribbles = await getAllUserScribbles(
+          auth.user.uid,
+          "deleted"
+        );
+        setDeleted(fetchedDeletedScribbles);
 
-    if (auth.user) {
-      fetchScribbles();
+        // Remember scribbles until browser closed
+        sessionStorage.setItem("scribbles", JSON.stringify(fetchedScribbles));
+        sessionStorage.setItem(
+          "archived",
+          JSON.stringify(fetchedArchivedScribbles)
+        );
+        sessionStorage.setItem(
+          "archived",
+          JSON.stringify(fetchedDeletedScribbles)
+        );
+      };
+
+      if (auth.user) {
+        fetchScribbles();
+      }
     }
-
-    // Correct filtering for scribbles
   }, [auth.user, setNavTitle]);
 
   const changeScribble = (scribble) => {

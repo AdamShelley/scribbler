@@ -1,4 +1,4 @@
-import { compareDesc, compareAsc, parseISO } from "date-fns";
+import { compareAsc, parseISO } from "date-fns";
 import "../firebase";
 import {
   getFirestore,
@@ -69,6 +69,7 @@ export async function createSettings(uid) {
 
 export async function updateSettings(uid, data) {
   console.log(data);
+
   const existingSettings = doc(firestore, "settings", uid);
 
   return await updateDoc(existingSettings, {

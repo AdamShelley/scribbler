@@ -4,7 +4,6 @@ import {
   Routes,
   Route,
   Navigate,
-  replace,
 } from "react-router-dom";
 
 import "./App.css";
@@ -28,19 +27,27 @@ function App() {
   useEffect(() => {
     if (!user) {
       console.log("Checking user signin");
+
       auth.checkSignedIn();
       setUser(auth.user);
     }
 
     if (user) {
       // Check for user Settings
-      const getSettings = async () => {
-        const settings = await getUserSettings(auth.user.uid);
-        setSettings(settings);
-      };
-      getSettings();
+      const cachedSettings = JSON.parse(localStorage.getItem("settings"));
 
-      // Set localstorage with user settings
+      if (cachedSettings) {
+        console.log("Using cached settings");
+        setSettings(cachedSettings);
+      } else {
+        const getSettings = async () => {
+          const settings = await getUserSettings(auth.user.uid);
+          setSettings(settings);
+
+          localStorage.setItem("settings", JSON.stringify(settings));
+        };
+        getSettings();
+      }
     }
   }, [auth, setUser, user]);
 
