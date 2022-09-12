@@ -20,8 +20,9 @@ export const saveScribbleToDatabase = async (
   setScribbles,
   userId
 ) => {
-  // If Scribble exists, update it
+  sessionStorage.removeItem("scribbles");
 
+  // If Scribble exists, update it
   if (selectedScribble.id) {
     updateScribble(selectedScribble.id, {
       ...selectedScribble,
@@ -32,7 +33,6 @@ export const saveScribbleToDatabase = async (
     const updatedDoc = await getSingleDocument(selectedScribble.id);
 
     // Get the index of the scribble
-
     const findIndex = scribbles.findIndex(
       (scribbles) => scribbles.id === selectedScribble.id
     );
@@ -44,10 +44,11 @@ export const saveScribbleToDatabase = async (
     );
 
     // Replace with the new one in the correct Index
-
     prevScribbles.splice(findIndex, 0, updatedDoc);
 
     setScribbles(prevScribbles);
+
+    sessionStorage.setItem("scribbles", JSON.stringify(prevScribbles));
 
     toast.success("Scribble Saved!", toastOptions);
   } else {
@@ -66,7 +67,10 @@ export const saveScribbleToDatabase = async (
 
     createScribble(userId, newScribble);
 
-    getAllUserScribbles(userId).then((result) => setScribbles(result));
+    getAllUserScribbles(userId).then((result) => {
+      setScribbles(result);
+      sessionStorage.setItem("scribbles", JSON.stringify(result));
+    });
 
     toast.success("Created new Scribble!", toastOptions);
   }
@@ -82,6 +86,8 @@ export const deleteScribbleFromDatabase = async (
 
     const deletedScribbles = await getAllUserScribbles(userId, "deleted");
     setDeleted(deletedScribbles);
+
+    sessionStorage.removeItem("deleted");
 
     toast.success("Scribble Deleted", toastOptions);
   } catch (err) {
@@ -104,13 +110,17 @@ export const moveScribbleToBin = async (
     if (currentCollection === "archive") {
       const archivedScribbles = await getAllUserScribbles(userId, "archive");
       setArchived(archivedScribbles);
+      sessionStorageRefresh("archived", archivedScribbles);
     } else {
       const userScribbles = await getAllUserScribbles(userId);
       setScribbles(userScribbles);
+      sessionStorageRefresh("scribbles", userScribbles);
     }
 
     const deletedScribbles = await getAllUserScribbles(userId, "deleted");
     setDelete(deletedScribbles);
+
+    sessionStorageRefresh("deleted", deletedScribbles);
 
     toast.success(`Scribble moved to Bin`, toastOptions);
   } catch (err) {
@@ -130,8 +140,10 @@ export const archiveScribbleInDatabase = async (
 
     const userScribbles = await getAllUserScribbles(userId);
     setScribbles(userScribbles);
+    sessionStorageRefresh("scribbles", userScribbles);
     const archivedScribbles = await getAllUserScribbles(userId, "archive");
     setArchived(archivedScribbles);
+    sessionStorageRefresh("archived", archivedScribbles);
 
     toast.success("Scribble Archived", toastOptions);
   } catch (error) {
@@ -153,9 +165,17 @@ export const restoreScribbleToMain = async (
 
     const prevLocScribbles = await getAllUserScribbles(userId, prevLoc);
     setPrevLoc(prevLocScribbles);
+    sessionStorageRefresh(prevLoc, prevLocScribbles);
     const userScribbles = await getAllUserScribbles(userId);
     setScribbles(userScribbles);
+    sessionStorageRefresh("scribbles", userScribbles);
   } catch (err) {
     console.log(err);
   }
+};
+
+const sessionStorageRefresh = (store, data) => {
+  sessionStorage.removeItem(store);
+
+  sessionStorage.setItem(store, JSON.stringify(data));
 };

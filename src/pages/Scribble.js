@@ -27,17 +27,18 @@ const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
     // Rerenders caused by changing the state for each separately
     // But why is the user being created 3 times?
     const cachedScribbles = JSON.parse(sessionStorage.getItem("scribbles"));
-    const cachedArchived = JSON.parse(sessionStorage.getItem("scribbles"));
-    const cachedDeleted = JSON.parse(sessionStorage.getItem("scribbles"));
+    const cachedArchived = JSON.parse(sessionStorage.getItem("archived"));
+    const cachedDeleted = JSON.parse(sessionStorage.getItem("deleted"));
 
     if (cachedScribbles) {
       setScribbles(cachedScribbles);
-      setArchived(cachedArchived);
-      setDeleted(cachedDeleted);
+      setArchived(cachedArchived || []);
+      setDeleted(cachedDeleted || []);
       setSelectedScribble(cachedScribbles[0]);
       setNavTitle(cachedScribbles[0]?.title);
     } else {
       const fetchScribbles = async () => {
+        console.log("Fetching scribbles from database");
         const fetchedScribbles = await getAllUserScribbles(
           auth.user.uid,
           "scribbles"

@@ -25,6 +25,11 @@ const Account = ({ setNavTitle }) => {
         <div className="button-container">
           <div className="profile-option">
             <Button padding="1rem" onClick={() => {}}>
+              Export data (JSON)
+            </Button>
+          </div>
+          <div className="profile-option">
+            <Button padding="1rem" onClick={() => {}}>
               Delete All data
             </Button>
           </div>

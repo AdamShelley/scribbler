@@ -72,6 +72,13 @@ const Settings = ({ settings, setSettings, setNavTitle }) => {
               defaultChoice={settings?.scribbleOrder}
               updateSetting={saveSettings}
             />
+            <SettingOption
+              name="autosave"
+              optionText="Autosave Timing"
+              choices={["30s", "1m", "2m", "5m", "Never"]}
+              defaultChoice={settings?.autosave || "30s"}
+              updateSetting={saveSettings}
+            />
           </div>
         </div>
       )}

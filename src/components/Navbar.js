@@ -183,7 +183,7 @@ const Navbar = ({ navTitle, unsaved }) => {
       </div>
       <div className="note-name">
         <h4>{navTitle} </h4>
-        <span>{unsaved && " - Unsaved scribble"}</span>
+        <span>{unsaved && navTitle.length > 0 && " - Unsaved scribble"}</span>
       </div>
 
       <div className="avatar-container">

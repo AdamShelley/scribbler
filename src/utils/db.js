@@ -1,4 +1,4 @@
-import { compareAsc, parseISO } from "date-fns";
+import { compareAsc, compareDesc, parseISO } from "date-fns";
 import "../firebase";
 import {
   getFirestore,
@@ -118,8 +118,8 @@ export async function getAllUserScribbles(
     );
 
     const orderedScribbles = await sortScribbles(scribbleList, scribbleOrder);
-
-    return scribbleList;
+    console.log(orderedScribbles);
+    return orderedScribbles;
   } catch (err) {
     console.log("There has been an issue fetching user scribbles");
     console.log(err);
@@ -133,7 +133,10 @@ export async function sortScribbles(data, sortMethod) {
       return data.sort((a, b) =>
         compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
       );
-
+    case "Oldest":
+      return data.sort((a, b) =>
+        compareDesc(parseISO(b.createdAt), parseISO(a.createdAt))
+      );
     default:
       return data;
   }

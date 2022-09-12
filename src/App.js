@@ -26,8 +26,6 @@ function App() {
 
   useEffect(() => {
     if (!user) {
-      console.log("Checking user signin");
-
       auth.checkSignedIn();
       setUser(auth.user);
     }
@@ -37,7 +35,6 @@ function App() {
       const cachedSettings = JSON.parse(localStorage.getItem("settings"));
 
       if (cachedSettings) {
-        console.log("Using cached settings");
         setSettings(cachedSettings);
       } else {
         const getSettings = async () => {
