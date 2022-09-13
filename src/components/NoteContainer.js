@@ -33,6 +33,7 @@ const NoteContainer = ({
   setArchived,
   setDeleted,
   settings,
+  setNavTitle,
 }) => {
   const [markdown, setMarkdown] = useState(
     selectedScribble ? selectedScribble : "#### Write some markdown here"
@@ -59,6 +60,7 @@ const NoteContainer = ({
       auth.user.uid
     );
 
+    setNavTitle(title);
     resetSaveDot(selectedScribble);
   };
 
@@ -73,6 +75,25 @@ const NoteContainer = ({
   };
 
   const filterResults = () => {};
+
+  // const keyHandler = (e, markdown) => {
+  //   e.preventDefault();
+
+  //   if (!(e.which === 115 && e.ctrlKey) && !(e.which === 19)) {
+  //     console.log("ctrl + s pressed");
+  //     saveScribbleToDatabase(
+  //       markdown,
+  //       title,
+  //       scribbles,
+  //       selectedScribble,
+  //       setSelectedScribble,
+  //       setScribbles,
+  //       auth.user.uid
+  //     );
+  //   } else {
+  //     return;
+  //   }
+  // };
 
   return (
     <StyledScribbleContainer>
@@ -135,6 +156,7 @@ const NoteContainer = ({
               updateScribblesWithoutDatabasePush={
                 updateScribblesWithoutDatabasePush
               }
+              // keyHandler={keyHandler}
             />
           )}
         </div>

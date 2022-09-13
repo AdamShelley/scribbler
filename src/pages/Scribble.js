@@ -152,6 +152,7 @@ const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
               setDeleted={setDeleted}
               setArchived={setArchived}
               settings={settings}
+              setNavTitle={setNavTitle}
             />
           </>
         ) : (

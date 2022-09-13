@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -49,6 +49,7 @@ const Note = ({
   showResults,
   showMarkdown,
   updateScribblesWithoutDatabasePush,
+  keyHandler,
 }) => {
   useEffect(() => {
     setMarkdown(selectedScribble.body);
@@ -69,7 +70,11 @@ const Note = ({
   };
 
   return (
-    <StyledNoteContainer showResults={showResults}>
+    <StyledNoteContainer
+      showResults={showResults}
+      tabIndex="1"
+      onKeyDown={keyHandler}
+    >
       {showMarkdown && (
         <textarea
           onChange={updateMarkdown}

@@ -5,7 +5,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-
 import "./App.css";
 import GlobalStyle from "./styles/globalStyles";
 import Scribble from "./pages/Scribble";
@@ -47,6 +46,16 @@ function App() {
       }
     }
   }, [auth, setUser, user]);
+
+  useEffect(() => {
+    // Setup save timer
+    const autosaveTimer = setInterval(() => {
+      // Function to autosave on correct option
+      console.log("autosave");
+    }, [settings?.autosaveTimer || 30000]);
+
+    return () => clearInterval(autosaveTimer);
+  }, [settings.autosaveTimer]);
 
   return (
     <div className="App">
