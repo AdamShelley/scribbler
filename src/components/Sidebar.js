@@ -16,6 +16,7 @@ import {
   moveScribbleToBin,
 } from "../utils/HandleScribbles";
 import OptionsMenu from "./OptionsMenu";
+import { useEffect } from "react";
 
 const Sidebar = ({
   scribbles,

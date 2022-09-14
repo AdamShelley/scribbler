@@ -34,7 +34,7 @@ const SettingOption = ({
               className={currentSetting === choice ? "highlighted-setting" : ""}
               onClick={changeOption}
             >
-              {choice}
+              {isNaN(choice) ? choice : choice / 1000}
             </button>
           ))}
       </div>

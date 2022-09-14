@@ -74,8 +74,8 @@ const Settings = ({ settings, setSettings, setNavTitle }) => {
             />
             <SettingOption
               name="autosave"
-              optionText="Autosave Timing"
-              choices={["30s", "1m", "2m", "5m", "Never"]}
+              optionText="Autosave Timing (s)"
+              choices={["30000", "60000", "120000", "300000", "Never"]}
               defaultChoice={settings?.autosave || "30s"}
               updateSetting={saveSettings}
             />

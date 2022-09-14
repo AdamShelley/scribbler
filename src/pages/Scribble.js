@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
 import NoteContainer from "../components/NoteContainer";
@@ -7,7 +7,6 @@ import { getAllUserScribbles } from "../utils/db";
 import { useAuth } from "../utils/auth";
 import Splash from "../components/Splash";
 import ReactTooltip from "react-tooltip";
-import { orderScribbles } from "../utils/orderScribbles";
 
 const StyledContainer = styled.div`
   display: flex;

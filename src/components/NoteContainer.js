@@ -22,6 +22,8 @@ import {
   saveScribbleToDatabase,
   moveScribbleToBin,
 } from "../utils/HandleScribbles";
+import { useEffect } from "react";
+import { useCallback } from "react";
 
 const NoteContainer = ({
   scribbles,
@@ -49,7 +51,7 @@ const NoteContainer = ({
 
   const auth = useAuth();
 
-  const saveScribbleToDatabaseHandler = () => {
+  const saveScribbleToDatabaseHandler = useCallback(() => {
     saveScribbleToDatabase(
       markdown,
       title,
@@ -62,7 +64,17 @@ const NoteContainer = ({
 
     setNavTitle(title);
     resetSaveDot(selectedScribble);
-  };
+  }, [
+    markdown,
+    title,
+    scribbles,
+    selectedScribble,
+    setSelectedScribble,
+    setScribbles,
+    auth.user.uid,
+    resetSaveDot,
+    setNavTitle,
+  ]);
 
   const deleteScribbleHandler = () => {
     moveScribbleToBin(
@@ -75,6 +87,18 @@ const NoteContainer = ({
   };
 
   const filterResults = () => {};
+
+  useEffect(() => {
+    // Setup save timer
+    const autosaveTimer = setInterval(() => {
+      // Function to autosave on correct option
+
+      saveScribbleToDatabaseHandler();
+      console.log("autosave");
+    }, [settings?.autosave || 30000]);
+
+    return () => clearInterval(autosaveTimer);
+  }, [settings?.autosave, saveScribbleToDatabaseHandler]);
 
   // const keyHandler = (e, markdown) => {
   //   e.preventDefault();
@@ -146,7 +170,7 @@ const NoteContainer = ({
             />
           ) : (
             <Note
-              markdown={markdown}
+              markdown={markdown ? markdown : "oh"}
               setMarkdown={setMarkdown}
               scribbles={scribbles}
               selectedScribble={selectedScribble}

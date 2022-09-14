@@ -54,11 +54,12 @@ export async function createSettings(uid) {
     return await setDoc(
       settings,
       {
-        expandScribbles: true,
-        expandArchive: false,
-        expandBin: false,
+        expandScribbles: "Yes",
+        expandArchive: "Yes",
+        expandBin: "No",
         showMD: false,
-        scribbleOrder: 1,
+        scribbleOrder: "Newest",
+        autosave: 30000,
       },
       { merge: true }
     );
