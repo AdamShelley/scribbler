@@ -92,32 +92,11 @@ const NoteContainer = ({
     // Setup save timer
     const autosaveTimer = setInterval(() => {
       // Function to autosave on correct option
-
       saveScribbleToDatabaseHandler();
-      console.log("autosave");
     }, [settings?.autosave || 30000]);
 
     return () => clearInterval(autosaveTimer);
   }, [settings?.autosave, saveScribbleToDatabaseHandler]);
-
-  // const keyHandler = (e, markdown) => {
-  //   e.preventDefault();
-
-  //   if (!(e.which === 115 && e.ctrlKey) && !(e.which === 19)) {
-  //     console.log("ctrl + s pressed");
-  //     saveScribbleToDatabase(
-  //       markdown,
-  //       title,
-  //       scribbles,
-  //       selectedScribble,
-  //       setSelectedScribble,
-  //       setScribbles,
-  //       auth.user.uid
-  //     );
-  //   } else {
-  //     return;
-  //   }
-  // };
 
   return (
     <StyledScribbleContainer>
