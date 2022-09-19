@@ -1,6 +1,6 @@
 export const toastOptions = {
   position: "bottom-right",
-  autoClose: 3000,
+  autoClose: 2000,
   hideProgressBar: true,
   closeOnClick: true,
   pauseOnHover: true,

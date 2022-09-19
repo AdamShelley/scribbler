@@ -50,7 +50,7 @@ export const saveScribbleToDatabase = async (
 
     sessionStorage.setItem("scribbles", JSON.stringify(prevScribbles));
 
-    toast.success("Scribble Saved!", toastOptions);
+    toast.success("Scribble Saved!", { ...toastOptions, toastId: "Saving" });
   } else {
     // Create new document
 
