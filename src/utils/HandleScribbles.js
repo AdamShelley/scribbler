@@ -89,7 +89,7 @@ export const deleteScribbleFromDatabase = async (
 
     sessionStorage.removeItem("deleted");
 
-    toast.success("Scribble Deleted", toastOptions);
+    toast.success("Scribble Deleted", { ...toastOptions, toastId: "deleted" });
   } catch (err) {
     console.log(err);
   }

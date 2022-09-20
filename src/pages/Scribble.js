@@ -37,10 +37,10 @@ const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
       setNavTitle(cachedScribbles[0]?.title);
     } else {
       const fetchScribbles = async () => {
-        console.log("Fetching scribbles from database");
         const fetchedScribbles = await getAllUserScribbles(
           auth.user.uid,
-          "scribbles"
+          "scribbles",
+          settings.scribbleOrder
         );
 
         setScribbles(fetchedScribbles);
@@ -49,13 +49,15 @@ const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
 
         const fetchedArchivedScribbles = await getAllUserScribbles(
           auth.user.uid,
-          "archive"
+          "archive",
+          settings.scribbleOrder
         );
         setArchived(fetchedArchivedScribbles);
 
         const fetchedDeletedScribbles = await getAllUserScribbles(
           auth.user.uid,
-          "deleted"
+          "deleted",
+          settings.scribbleOrder
         );
         setDeleted(fetchedDeletedScribbles);
 
@@ -66,16 +68,16 @@ const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
           JSON.stringify(fetchedArchivedScribbles)
         );
         sessionStorage.setItem(
-          "archived",
+          "deleted",
           JSON.stringify(fetchedDeletedScribbles)
         );
       };
 
-      if (auth.user) {
+      if (auth.user && settings) {
         fetchScribbles();
       }
     }
-  }, [auth.user, setNavTitle]);
+  }, [auth.user, setNavTitle, settings]);
 
   const changeScribble = (scribble) => {
     setSelectedScribble(scribble);

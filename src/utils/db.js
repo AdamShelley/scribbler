@@ -1,4 +1,3 @@
-import { compareAsc, compareDesc, parseISO } from "date-fns";
 import "../firebase";
 import {
   getFirestore,
@@ -89,6 +88,7 @@ export async function createScribble(uid, data) {
       archived: false,
       deleted: false,
       unsaved: false,
+      timestamp: serverTimestamp(),
     });
   } catch (err) {
     console.log(err);
@@ -114,12 +114,8 @@ export async function getAllUserScribbles(
       scribbleList.push({ ...doc.data(), id: doc.id });
     });
 
-    scribbleList.sort((a, b) =>
-      compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
-    );
-
     const orderedScribbles = await sortScribbles(scribbleList, scribbleOrder);
-    console.log(orderedScribbles);
+
     return orderedScribbles;
   } catch (err) {
     console.log("There has been an issue fetching user scribbles");
@@ -128,16 +124,15 @@ export async function getAllUserScribbles(
 }
 
 export async function sortScribbles(data, sortMethod) {
-  console.log("Sorting scribbles on the backend");
   switch (sortMethod) {
     case "Newest":
-      return data.sort((a, b) =>
-        compareAsc(parseISO(a.createdAt), parseISO(b.createdAt))
-      );
+      return data.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
     case "Oldest":
-      return data.sort((a, b) =>
-        compareDesc(parseISO(b.createdAt), parseISO(a.createdAt))
-      );
+      return data.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    case "A-Z":
+      return data.sort((a, b) => a.title.localeCompare(b.title));
+    case "Z-A":
+      return data.sort((a, b) => b.title.localeCompare(a.title));
     default:
       return data;
   }

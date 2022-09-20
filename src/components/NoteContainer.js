@@ -45,7 +45,7 @@ const NoteContainer = ({
     selectedScribble ? selectedScribble.title : ""
   );
   const [showResults, setShowResults] = useState(
-    settings.showMD === "Yes" ? true : false
+    settings?.showMD === "Yes" ? false : true
   );
   const [showMarkdown, setShowMarkdown] = useState(true);
 
