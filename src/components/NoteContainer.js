@@ -90,12 +90,13 @@ const NoteContainer = ({
 
   useEffect(() => {
     // Setup save timer
-    const autosaveTimer = setInterval(() => {
-      // Function to autosave on correct option
-      saveScribbleToDatabaseHandler();
-    }, [settings?.autosave || 30000]);
-
-    return () => clearInterval(autosaveTimer);
+    if (settings.autosave !== "Never") {
+      const autosaveTimer = setInterval(() => {
+        // Function to autosave on correct option
+        saveScribbleToDatabaseHandler();
+      }, [settings?.autosave || 30000]);
+      return () => clearInterval(autosaveTimer);
+    }
   }, [settings?.autosave, saveScribbleToDatabaseHandler]);
 
   return (
