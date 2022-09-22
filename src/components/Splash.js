@@ -1,8 +1,12 @@
 import React from "react";
+import NoteContainer from "./NoteContainer";
 
 const Splash = () => {
   return (
-    <div>This area will be a playground to test out the app before signin</div>
+    <div>
+      <h2>Playground</h2>
+      <NoteContainer testing />
+    </div>
   );
 };
 

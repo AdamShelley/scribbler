@@ -10,7 +10,15 @@ const Settings = ({ settings, setSettings, setNavTitle }) => {
 
   const saveSettings = (updatedSetting) => {
     console.log("Updating settings:");
+
     // Send the update to the database
+
+    if (updatedSetting.scribbleOrder) {
+      sessionStorage.removeItem("scribbles");
+      sessionStorage.removeItem("sarchived");
+      sessionStorage.removeItem("deleted");
+    }
+
     localStorage.removeItem("settings");
     updateSettings(auth.user.uid, updatedSetting);
 

@@ -36,6 +36,7 @@ const NoteContainer = ({
   setDeleted,
   settings,
   setNavTitle,
+  testing,
 }) => {
   const [markdown, setMarkdown] = useState(
     selectedScribble ? selectedScribble : "#### Write some markdown here"
@@ -71,7 +72,7 @@ const NoteContainer = ({
     selectedScribble,
     setSelectedScribble,
     setScribbles,
-    auth.user.uid,
+    auth?.user?.uid,
     resetSaveDot,
     setNavTitle,
   ]);
