@@ -24,17 +24,22 @@ const Account = ({ setNavTitle }) => {
         </div>
         <div className="button-container">
           <div className="profile-option">
-            <Button padding="1rem" onClick={() => {}}>
-              Export data (JSON)
+            <label htmlFor="export">Export JSON data to .txt file</label>
+            <Button name="export" padding="1rem" onClick={() => {}}>
+              Export
             </Button>
           </div>
           <div className="profile-option">
-            <Button padding="1rem" onClick={() => {}}>
-              Delete All data
+            <label htmlFor="delete-data">Delete all scribbles</label>
+            <Button name="delete-data" padding="1rem" onClick={() => {}}>
+              Delete
             </Button>
           </div>
           <div className="profile-option">
-            <Button padding="1rem" onClick={() => {}}>
+            <label htmlFor="delete-profile">
+              Delete all data and profile (There is no going back)
+            </label>
+            <Button name="delete-profile" padding="1rem" onClick={() => {}}>
               Delete my profile
             </Button>
           </div>

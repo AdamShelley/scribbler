@@ -19,7 +19,6 @@ const StyledButton = styled.button`
 `;
 
 const Button = (props) => {
-  console.log();
   return <StyledButton {...props}>{props.children}</StyledButton>;
 };
 

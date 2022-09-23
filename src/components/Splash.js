@@ -5,7 +5,7 @@ const Splash = () => {
   return (
     <div>
       <h2>Playground</h2>
-      <NoteContainer testing />
+      {/* <NoteContainer testing /> */}
     </div>
   );
 };
