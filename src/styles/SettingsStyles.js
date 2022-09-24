@@ -71,7 +71,8 @@ export const StyledContainer = styled.div`
     width: 40%;
 
     .button-container {
-      margin-top: 2rem;
+      margin-top: 3rem;
+      border-top: 1px solid var(--text-color);
     }
 
     .profile-option {
@@ -79,9 +80,10 @@ export const StyledContainer = styled.div`
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      margin-top: 1rem;
+      margin-top: 2rem;
 
       label {
+        font-size: 0.9rem;
       }
 
       input {

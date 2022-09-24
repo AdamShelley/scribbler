@@ -7,6 +7,7 @@ const StyledButton = styled.button`
   border: ${(props) => props.border || "1px solid var(--text-color)"};
   padding: ${(props) => props.padding || "0.3rem 0.8rem"};
   margin: ${(props) => props.margin || "0 0.5rem"};
+  min-width: ${(props) => props.minWidth || "100%"};
   font-size: 0.7rem;
   font-family: inherit;
   border-radius: 2px;

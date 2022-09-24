@@ -15,7 +15,7 @@ const Account = ({ setNavTitle }) => {
       <h2>Profile</h2>
       <div className="settings-container profile">
         <div className="profile-option">
-          <label for="email-address">Email Address</label>
+          <label htmlFor="email-address">Email Address</label>
           <input
             name="email-address"
             type="email"
@@ -25,13 +25,23 @@ const Account = ({ setNavTitle }) => {
         <div className="button-container">
           <div className="profile-option">
             <label htmlFor="export">Export JSON data to .txt file</label>
-            <Button name="export" padding="1rem" onClick={() => {}}>
+            <Button
+              name="export"
+              padding="1rem"
+              minWidth="10rem"
+              onClick={() => {}}
+            >
               Export
             </Button>
           </div>
           <div className="profile-option">
             <label htmlFor="delete-data">Delete all scribbles</label>
-            <Button name="delete-data" padding="1rem" onClick={() => {}}>
+            <Button
+              name="delete-data"
+              padding="1rem"
+              minWidth="10rem"
+              onClick={() => {}}
+            >
               Delete
             </Button>
           </div>
@@ -39,7 +49,12 @@ const Account = ({ setNavTitle }) => {
             <label htmlFor="delete-profile">
               Delete all data and profile (There is no going back)
             </label>
-            <Button name="delete-profile" padding="1rem" onClick={() => {}}>
+            <Button
+              name="delete-profile"
+              padding="1rem"
+              minWidth="10rem"
+              onClick={() => {}}
+            >
               Delete my profile
             </Button>
           </div>
