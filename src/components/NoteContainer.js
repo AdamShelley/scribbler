@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import EmptyNote from "./EmptyNote";
 import Note from "./Note";
 import { useAuth } from "../utils/auth";
-
+import Tooltips from "../utils/Tooltips";
 import {
   StyledScribbleContainer,
   StyledSearchBar,
@@ -104,11 +104,13 @@ const NoteContainer = ({
     <StyledScribbleContainer>
       <StyledSearchBar>
         <div>
-          <FontAwesomeIcon
-            className="show-results"
-            icon={faFilter}
-            onClick={filterResults}
-          />
+          <Tooltips text="Filter: ">
+            <FontAwesomeIcon
+              className="show-results"
+              icon={faFilter}
+              onClick={filterResults}
+            />
+          </Tooltips>
           <FontAwesomeIcon
             className="show-results"
             icon={showMarkdown ? faEyeSlash : faEye}
