@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledContainer = styled.div`
   padding: 0 5rem;
-  padding-top: 5rem;
+  padding-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

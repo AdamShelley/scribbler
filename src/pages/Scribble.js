@@ -13,7 +13,7 @@ const StyledContainer = styled.div`
   height: 100%;
 `;
 
-const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
+const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
   const [scribbles, setScribbles] = useState([]);
   const [archived, setArchived] = useState([]);
   const [deleted, setDeleted] = useState([]);
@@ -152,6 +152,7 @@ const Scribble = ({ setUnsaved, setNavTitle, settings }) => {
               setDeleted={setDeleted}
               setArchived={setArchived}
               settings={settings}
+              setSettings={setSettings}
               setNavTitle={setNavTitle}
             />
           </>

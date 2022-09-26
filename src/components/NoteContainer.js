@@ -24,6 +24,7 @@ import {
 } from "../utils/HandleScribbles";
 import { useEffect } from "react";
 import { useCallback } from "react";
+import { sortScribbles, updateSettings } from "../utils/db";
 
 const NoteContainer = ({
   scribbles,
@@ -35,6 +36,7 @@ const NoteContainer = ({
   setArchived,
   setDeleted,
   settings,
+  setSettings,
   setNavTitle,
   testing,
 }) => {
@@ -87,7 +89,39 @@ const NoteContainer = ({
     );
   };
 
-  const filterResults = () => {};
+  const filterResults = async () => {
+    // Update user settings
+
+    const options = ["Newest", "Oldest", "A-Z", "Z-A"];
+
+    let currentScribbleOrder = settings.scribbleOrder;
+    let currentOrderIndex = options.indexOf(currentScribbleOrder);
+
+    const newOrder = options[currentOrderIndex++ % options.length];
+    console.log(newOrder);
+
+    sessionStorage.removeItem("scribbles");
+    sessionStorage.removeItem("sarchived");
+    sessionStorage.removeItem("deleted");
+
+    localStorage.removeItem("settings");
+    updateSettings(auth.user.uid, newOrder);
+
+    setSettings((previousSettings) => ({
+      ...previousSettings,
+      ...newOrder,
+    }));
+
+    const newCachedSettings = {
+      ...settings,
+      ...newOrder,
+    };
+
+    localStorage.setItem("settings", JSON.stringify(newCachedSettings));
+
+    // Send request to DB to sort scribbles
+    await sortScribbles(scribbles, "Z-A");
+  };
 
   useEffect(() => {
     // Setup save timer
@@ -104,36 +138,43 @@ const NoteContainer = ({
     <StyledScribbleContainer>
       <StyledSearchBar>
         <div>
-          <Tooltips text="Filter: ">
+          <Tooltips text={`Filter: ${settings?.scribbleOrder}`}>
             <FontAwesomeIcon
               className="show-results"
               icon={faFilter}
               onClick={filterResults}
             />
           </Tooltips>
-          <FontAwesomeIcon
-            className="show-results"
-            icon={showMarkdown ? faEyeSlash : faEye}
-            onClick={() => setShowMarkdown((prev) => !prev)}
-          />
+          <Tooltips text="Show Editor">
+            <FontAwesomeIcon
+              className="show-results"
+              icon={showMarkdown ? faEyeSlash : faEye}
+              onClick={() => setShowMarkdown((prev) => !prev)}
+            />
+          </Tooltips>
         </div>
         <div>
-          <FontAwesomeIcon
-            className="show-results"
-            icon={showResults ? faEyeSlash : faEye}
-            onClick={() => setShowResults((prev) => !prev)}
-          />
-
-          <FontAwesomeIcon
-            className="show-results"
-            icon={faFloppyDisk}
-            onClick={saveScribbleToDatabaseHandler}
-          />
-          <FontAwesomeIcon
-            className="show-results"
-            icon={faTrash}
-            onClick={deleteScribbleHandler}
-          />
+          <Tooltips text="Show results">
+            <FontAwesomeIcon
+              className="show-results"
+              icon={showResults ? faEyeSlash : faEye}
+              onClick={() => setShowResults((prev) => !prev)}
+            />
+          </Tooltips>
+          <Tooltips text="Save">
+            <FontAwesomeIcon
+              className="show-results"
+              icon={faFloppyDisk}
+              onClick={saveScribbleToDatabaseHandler}
+            />
+          </Tooltips>
+          <Tooltips text="Delete">
+            <FontAwesomeIcon
+              className="show-results"
+              icon={faTrash}
+              onClick={deleteScribbleHandler}
+            />
+          </Tooltips>
         </div>
       </StyledSearchBar>
       <StyledNoteContainer>

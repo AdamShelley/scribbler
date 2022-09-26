@@ -60,6 +60,7 @@ function App() {
                 setUnsaved={setUnsaved}
                 setNavTitle={setNavTitle}
                 settings={settings}
+                setSettings={setSettings}
               />
             }
           />

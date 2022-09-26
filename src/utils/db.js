@@ -124,6 +124,8 @@ export async function getAllUserScribbles(
 }
 
 export async function sortScribbles(data, sortMethod) {
+  // console.log("Sorting Scribbles");
+  // console.log(sortMethod);
   switch (sortMethod) {
     case "Newest":
       return data.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
