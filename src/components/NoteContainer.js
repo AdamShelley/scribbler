@@ -97,18 +97,25 @@ const NoteContainer = ({
     let currentScribbleOrder = settings.scribbleOrder;
     let currentOrderIndex = options.indexOf(currentScribbleOrder);
 
-    const newOrder = options[currentOrderIndex++ % options.length];
-    console.log(newOrder);
+    let newIndex = currentOrderIndex;
+
+    if (newIndex === options.length - 1) {
+      newIndex = 0;
+    } else {
+      newIndex++;
+    }
+
+    const newOrder = { scribbleOrder: options[newIndex] };
 
     sessionStorage.removeItem("scribbles");
-    sessionStorage.removeItem("sarchived");
+    sessionStorage.removeItem("archived");
     sessionStorage.removeItem("deleted");
 
     localStorage.removeItem("settings");
     updateSettings(auth.user.uid, newOrder);
 
-    setSettings((previousSettings) => ({
-      ...previousSettings,
+    setSettings((settings) => ({
+      ...settings,
       ...newOrder,
     }));
 
