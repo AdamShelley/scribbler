@@ -45,14 +45,13 @@ const Tooltips = (props) => {
   const showTooltip = () => {
     timer = setTimeout(() => {
       setActive(true);
-    }, [400]);
-
-    return () => clearTimeout(timer);
+    }, [100]);
   };
 
   const hideTooltip = () => {
-    setActive(false);
     clearTimeout(timer);
+    clearInterval(timer);
+    setActive(false);
   };
 
   return (

@@ -26,10 +26,6 @@ const StyledNoteContainer = styled.div`
     border-right: 1px solid var(--light-grey);
     min-width: 20%;
     overflow-x: scroll;
-
-    /* Testing */
-    /* resize: horizontal; */
-    /* background-color: #1b1b1b; */
   }
 
   .result-container {

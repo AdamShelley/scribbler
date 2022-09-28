@@ -25,6 +25,7 @@ import {
 import { useEffect } from "react";
 import { useCallback } from "react";
 import { sortScribbles, updateSettings } from "../utils/db";
+import { filterOrder } from "../utils/filterOrder";
 
 const NoteContainer = ({
   scribbles,
@@ -92,20 +93,7 @@ const NoteContainer = ({
   const filterResults = async () => {
     // Update user settings
 
-    const options = ["Newest", "Oldest", "A-Z", "Z-A"];
-
-    let currentScribbleOrder = settings.scribbleOrder;
-    let currentOrderIndex = options.indexOf(currentScribbleOrder);
-
-    let newIndex = currentOrderIndex;
-
-    if (newIndex === options.length - 1) {
-      newIndex = 0;
-    } else {
-      newIndex++;
-    }
-
-    const newOrder = { scribbleOrder: options[newIndex] };
+    const newOrder = filterOrder(settings.scribbleOrder);
 
     sessionStorage.removeItem("scribbles");
     sessionStorage.removeItem("archived");
@@ -145,7 +133,7 @@ const NoteContainer = ({
     <StyledScribbleContainer>
       <StyledSearchBar>
         <div>
-          <Tooltips text={`Filter: ${settings?.scribbleOrder}`}>
+          <Tooltips text={`Order: ${settings?.scribbleOrder}`}>
             <FontAwesomeIcon
               className="show-results"
               icon={faFilter}
