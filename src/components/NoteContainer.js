@@ -24,8 +24,9 @@ import {
 } from "../utils/HandleScribbles";
 import { useEffect } from "react";
 import { useCallback } from "react";
-import { sortScribbles, updateSettings } from "../utils/db";
+import { sortScribbles } from "../utils/db";
 import { filterOrder } from "../utils/filterOrder";
+import { storageSettings } from "../utils/storageSettings";
 
 const NoteContainer = ({
   scribbles,
@@ -92,28 +93,9 @@ const NoteContainer = ({
 
   const filterResults = async () => {
     // Update user settings
-
     const newOrder = filterOrder(settings.scribbleOrder);
-
-    sessionStorage.removeItem("scribbles");
-    sessionStorage.removeItem("archived");
-    sessionStorage.removeItem("deleted");
-
-    localStorage.removeItem("settings");
-    updateSettings(auth.user.uid, newOrder);
-
-    setSettings((settings) => ({
-      ...settings,
-      ...newOrder,
-    }));
-
-    const newCachedSettings = {
-      ...settings,
-      ...newOrder,
-    };
-
-    localStorage.setItem("settings", JSON.stringify(newCachedSettings));
-
+    // Update local storage
+    storageSettings(auth.user.uid, newOrder, settings, setSettings);
     // Send request to DB to sort scribbles
     await sortScribbles(scribbles, "Z-A");
   };

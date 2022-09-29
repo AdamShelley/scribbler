@@ -3,36 +3,14 @@ import SettingOption from "../components/SettingOption";
 
 import { StyledContainer } from "../styles/SettingsStyles";
 import { useAuth } from "../utils/auth";
-import { updateSettings } from "../utils/db";
+import { storageSettings } from "../utils/storageSettings";
 
 const Settings = ({ settings, setSettings, setNavTitle }) => {
   const auth = useAuth();
 
   const saveSettings = (updatedSetting) => {
-    console.log("Updating settings:");
-
-    // Send the update to the database
-
-    if (updatedSetting.scribbleOrder) {
-      sessionStorage.removeItem("scribbles");
-      sessionStorage.removeItem("sarchived");
-      sessionStorage.removeItem("deleted");
-    }
-
-    localStorage.removeItem("settings");
-    updateSettings(auth.user.uid, updatedSetting);
-
-    setSettings((previousSettings) => ({
-      ...previousSettings,
-      ...updatedSetting,
-    }));
-
-    const newCachedSettings = {
-      ...settings,
-      ...updatedSetting,
-    };
-
-    localStorage.setItem("settings", JSON.stringify(newCachedSettings));
+    // Send the update to the database & update localstorage
+    storageSettings(auth.user.uid, updatedSetting, settings, setSettings);
   };
 
   useEffect(() => {
