@@ -11,7 +11,7 @@ const TooltipContainer = styled.div`
   .tooltip {
     position: absolute;
     transform: translateY(-2.5rem);
-    padding: 0.6rem;
+    padding: 0.6rem 1.2rem;
     border: 1px solid var(--light-grey);
     background-color: var(--background);
     color: var(--text-color);
