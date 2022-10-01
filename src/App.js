@@ -47,10 +47,18 @@ function App() {
     }
   }, [auth, setUser, user]);
 
+  useEffect(() => {
+    setNavTitle("");
+  }, [setNavTitle]);
+
   return (
     <div className="App">
       <Router>
-        <Navbar unsaved={unsaved} navTitle={navTitle} />
+        <Navbar
+          unsaved={unsaved}
+          navTitle={navTitle}
+          setNavTitle={setNavTitle}
+        />
         <GlobalStyle />
         <Routes>
           <Route

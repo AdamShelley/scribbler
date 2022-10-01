@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "./Modal";
+import { useEffect } from "react";
 
 const StyledNavbar = styled.div`
   position: relative;
@@ -154,7 +155,7 @@ const StyledNavbar = styled.div`
   }
 `;
 
-const Navbar = ({ navTitle, unsaved }) => {
+const Navbar = ({ navTitle, setNavTitle, unsaved }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
@@ -171,6 +172,10 @@ const Navbar = ({ navTitle, unsaved }) => {
   const sendEmailLink = () => {
     auth.signInWithEmailLinkHandler(email);
   };
+
+  const logoutHandler = () => auth.signout();
+
+  console.log(navTitle);
 
   return (
     <StyledNavbar>
@@ -189,12 +194,12 @@ const Navbar = ({ navTitle, unsaved }) => {
       <div className="avatar-container">
         {!auth.user && (
           <div>
-            <button onClick={auth.signinWithGithub}>Sign in with Github</button>
+            <button onClick={auth.signinWithGithub}>Github Signin</button>
           </div>
         )}
         {!auth.user && (
           <div>
-            <button onClick={triggerModal}>Sign in with Email</button>
+            <button onClick={triggerModal}>Email Signin</button>
             {showModal && (
               <Modal
                 setEmail={setEmail}
@@ -214,7 +219,7 @@ const Navbar = ({ navTitle, unsaved }) => {
               <div>
                 <Link to="/account">Your Account</Link>
                 <Link to="/settings">Settings</Link>
-                <Link to="/" onClick={auth.signout}>
+                <Link to="/" onClick={logoutHandler}>
                   Signout
                 </Link>
               </div>
@@ -222,13 +227,7 @@ const Navbar = ({ navTitle, unsaved }) => {
           </div>
         )}
 
-        {auth.user && (
-          <img
-            src={auth.user?.photoUrl}
-            alt="avatar"
-            onClick={auth.signout}
-          ></img>
-        )}
+        {auth.user && <img src={auth.user?.photoUrl} alt="avatar"></img>}
       </div>
     </StyledNavbar>
   );

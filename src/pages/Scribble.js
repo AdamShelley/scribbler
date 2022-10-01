@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
 import NoteContainer from "../components/NoteContainer";
-
 import { getAllUserScribbles } from "../utils/db";
 import { useAuth } from "../utils/auth";
 import Splash from "../components/Splash";
@@ -28,7 +27,7 @@ const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
     const cachedArchived = JSON.parse(sessionStorage.getItem("archived"));
     const cachedDeleted = JSON.parse(sessionStorage.getItem("deleted"));
 
-    if (cachedScribbles) {
+    if (cachedScribbles && auth.user) {
       setScribbles(cachedScribbles);
       setArchived(cachedArchived || []);
       setDeleted(cachedDeleted || []);
@@ -75,6 +74,10 @@ const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
       if (auth.user && settings) {
         fetchScribbles();
       }
+    }
+
+    if (!auth.user) {
+      setNavTitle("");
     }
   }, [auth.user, setNavTitle, settings]);
 
