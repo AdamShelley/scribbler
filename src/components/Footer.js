@@ -26,10 +26,10 @@ const StyledFooter = styled.div`
 
       a {
         color: #ccc;
-        transition: all 0.2s ease-in;
+        transition: all 0.1s ease-in;
         cursor: pointer;
         text-decoration: none;
-        font-weight: 800;
+        font-weight: 600;
 
         &:hover {
           color: #a3a3a3;

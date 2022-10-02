@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import NoteContainer from "./NoteContainer";
 import hero1 from "../img/hero1.png";
+import Button from "../styles/Button";
 
 const StyledSplashContainer = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ const StyledSplashContainer = styled.div`
   padding: 1rem;
   /* background-color: var(--text-color);
   color: var(--background); */
+  overflow: scroll;
 
   h2 {
     font-size: 2rem;
@@ -23,17 +25,31 @@ const StyledSplashContainer = styled.div`
 
   div {
     margin-top: 5rem;
-    border: 1px solid var(--light-grey);
-    border-radius: 2px;
-    width: 50%;
+    max-width: 50%;
     max-width: 50%;
     height: 30rem;
-    background-color: var(--light-grey);
-    background-image: url(hero1);
+  }
+
+  .img-container {
+    border: 2px solid var(--light-grey);
+    border-radius: 2px;
+    box-shadow: 2px 2px 10px rgba(255, 255, 255, 0.2);
 
     img {
       height: 100%;
       width: 100%;
+    }
+  }
+
+  .features {
+    padding: 1rem;
+
+    ul {
+      list-style: none;
+
+      li {
+        margin-top: 3rem;
+      }
     }
   }
 `;
@@ -44,24 +60,32 @@ const Splash = () => {
       <h2>Welcome to Scribbler</h2>
       <p>Simplicity unlocked</p>
 
-      <div>
+      <div className="img-container">
         <img src={hero1} alt="Scribbler main page"></img>
       </div>
 
       <div className="features">
         <ul>
-          <li>Feature 1</li>
-          <li>Feature 2</li>
-          <li>Feature 3</li>
+          <li>
+            <h4>Don't forget again</h4>
+            <p>Take notes, study, make lists</p>
+          </li>
+          <li>
+            <h4>Easy to use</h4>
+            <p>No crazy gimmicks, just markdown text</p>
+          </li>
+
+          <li>
+            <h4>Free to use</h4>
+            <p>No cost, this is created for fun</p>
+          </li>
         </ul>
       </div>
-      <div className="features">
-        <ul>
-          <li>Feature 1</li>
-          <li>Feature 2</li>
-          <li>Feature 3</li>
-        </ul>
-      </div>
+
+      {/* <h3>Try Scribbler</h3> */}
+      {/* <Button minWidth="10%" padding=".5rem" margin="1rem">
+        Top
+      </Button> */}
     </StyledSplashContainer>
   );
 };

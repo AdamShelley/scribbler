@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "./Modal";
-import { useEffect } from "react";
+import Button from "../styles/Button";
 
 const StyledNavbar = styled.div`
   position: relative;
@@ -155,7 +155,7 @@ const StyledNavbar = styled.div`
   }
 `;
 
-const Navbar = ({ navTitle, setNavTitle, unsaved }) => {
+const Navbar = ({ navTitle, unsaved }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
@@ -175,8 +175,6 @@ const Navbar = ({ navTitle, setNavTitle, unsaved }) => {
 
   const logoutHandler = () => auth.signout();
 
-  console.log(navTitle);
-
   return (
     <StyledNavbar>
       <div>
@@ -194,12 +192,22 @@ const Navbar = ({ navTitle, setNavTitle, unsaved }) => {
       <div className="avatar-container">
         {!auth.user && (
           <div>
-            <button onClick={auth.signinWithGithub}>Github Signin</button>
+            <Button
+              style={{ whiteSpace: "nowrap", padding: ".5rem" }}
+              onClick={auth.signinWithGithub}
+            >
+              Github Signin
+            </Button>
           </div>
         )}
         {!auth.user && (
           <div>
-            <button onClick={triggerModal}>Email Signin</button>
+            <Button
+              style={{ whiteSpace: "nowrap", padding: ".5rem" }}
+              onClick={triggerModal}
+            >
+              Email Signin
+            </Button>
             {showModal && (
               <Modal
                 setEmail={setEmail}
