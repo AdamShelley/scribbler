@@ -5,6 +5,8 @@ import NoteContainer from "../components/NoteContainer";
 import { getAllUserScribbles } from "../utils/db";
 import { useAuth } from "../utils/auth";
 import Splash from "../components/Splash";
+import { toast } from "react-toastify";
+import { toastOptions } from "../utils/toastOptions";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -89,7 +91,12 @@ const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
   const createBlankScribble = () => {
     // If a blank scribble already exists, do not create a new one.
     const blankExists = scribbles.find((scribble) => scribble.temp);
-    if (blankExists) return;
+    if (blankExists) {
+      return toast.error("You already have a blank page", {
+        ...toastOptions,
+        toastId: "Saving",
+      });
+    }
 
     const blankScribble = {
       body: "# Unsaved Scribble",

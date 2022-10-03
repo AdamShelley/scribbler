@@ -31,7 +31,10 @@ function App() {
 
     if (user) {
       // Check for user Settings
-      const cachedSettings = JSON.parse(localStorage.getItem("settings"));
+      let cachedSettings;
+      if (localStorage.getItem("settings")) {
+        cachedSettings = JSON.parse(localStorage.getItem("settings"));
+      }
 
       if (cachedSettings) {
         setSettings(cachedSettings);

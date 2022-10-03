@@ -18,7 +18,7 @@ const StyledOptionsMenu = styled.ul`
   font-size: 0.8rem;
   padding: 0 !important;
   border-radius: 2px;
-  z-index: 99;
+  z-index: 999;
   box-shadow: 4px 9px 16px -3px rgba(0, 0, 0, 0.75);
 
   li {

@@ -45,7 +45,7 @@ export const saveScribbleToDatabase = async (
 
     // Replace with the new one in the correct Index
     prevScribbles.splice(findIndex, 0, updatedDoc);
-
+    console.log(updatedDoc);
     setScribbles(prevScribbles);
 
     sessionStorage.setItem("scribbles", JSON.stringify(prevScribbles));
@@ -69,6 +69,7 @@ export const saveScribbleToDatabase = async (
 
     getAllUserScribbles(userId).then((result) => {
       setScribbles(result);
+      setSelectedScribble(result[0]);
       sessionStorage.setItem("scribbles", JSON.stringify(result));
     });
 

@@ -168,9 +168,9 @@ const Sidebar = ({
       {showScribbles && scribbles.length > 0 && (
         <ul>
           {scribbles ? (
-            scribbles.map((scribble) => (
+            scribbles.map((scribble, index) => (
               <li
-                key={scribble.id || "temp"}
+                key={scribble?.id || `temp-${index}`}
                 onClick={() => changeScribble(scribble)}
                 onContextMenu={() => setCurrentRightClickedScribble(scribble)}
                 className={`${
@@ -179,7 +179,7 @@ const Sidebar = ({
                     : ""
                 }`}
               >
-                <h3>{scribble.title.slice(0, 35)}</h3>
+                <h3>{scribble?.title?.slice(0, 35)}</h3>
                 {scribble?.unsaved && <div className="save-dot"></div>}
               </li>
             ))

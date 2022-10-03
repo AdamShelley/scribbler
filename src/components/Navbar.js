@@ -116,16 +116,21 @@ const StyledNavbar = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    white-space: no-wrap;
 
     svg {
       margin-left: 0.4rem;
       font-size: 0.8rem;
     }
 
+    p {
+      white-space: nowrap;
+    }
+
     div {
       position: absolute;
       top: 100%;
-      right: -100%;
+      right: 0%;
       background-color: var(--background);
       border: 1px solid var(--light-grey);
       border-radius: 2px;
@@ -175,6 +180,8 @@ const Navbar = ({ navTitle, unsaved }) => {
 
   const logoutHandler = () => auth.signout();
 
+  // console.log(auth.user);
+
   return (
     <StyledNavbar>
       <div>
@@ -220,7 +227,7 @@ const Navbar = ({ navTitle, unsaved }) => {
         {auth.user && (
           <div onClick={showMenu} className="dropdown">
             <p>
-              {auth.user?.name}
+              {auth.user?.name || auth.user?.email}
               <FontAwesomeIcon icon={faChevronDown} />
             </p>
             {showDropdown && (
@@ -235,7 +242,9 @@ const Navbar = ({ navTitle, unsaved }) => {
           </div>
         )}
 
-        {auth.user && <img src={auth.user?.photoUrl} alt="avatar"></img>}
+        {auth.user && auth.user.photoUrl && (
+          <img src={auth.user?.photoUrl} alt="avatar"></img>
+        )}
       </div>
     </StyledNavbar>
   );

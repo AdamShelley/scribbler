@@ -68,6 +68,7 @@ const NoteContainer = ({
     );
 
     setNavTitle(title);
+
     resetSaveDot(selectedScribble);
   }, [
     markdown,
