@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import NoteContainer from "./NoteContainer";
 import hero1 from "../img/hero1.png";
-import Button from "../styles/Button";
 
 const StyledSplashContainer = styled.div`
   display: flex;
@@ -10,10 +8,8 @@ const StyledSplashContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  margin-top: 2rem;
-  padding: 1rem;
-  /* background-color: var(--text-color);
-  color: var(--background); */
+  padding: 2rem;
+  padding-top: 5rem;
   overflow: scroll;
 
   h2 {
@@ -82,10 +78,10 @@ const Splash = () => {
         </ul>
       </div>
 
-      {/* <h3>Try Scribbler</h3> */}
-      {/* <Button minWidth="10%" padding=".5rem" margin="1rem">
-        Top
-      </Button> */}
+      <div>
+        * Authentication is automated using Google. Scribbler does not store any
+        passwords.
+      </div>
     </StyledSplashContainer>
   );
 };
