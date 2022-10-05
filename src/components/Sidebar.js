@@ -160,7 +160,6 @@ const Sidebar = ({
               createNewScribble();
             }}
             icon={faPlus}
-            data-tip="New Scribble"
           />
         </div>
       </button>

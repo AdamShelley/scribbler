@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-
 import Button from "../styles/Button";
 
 const StyledModal = styled.div`
@@ -23,6 +22,16 @@ const StyledModal = styled.div`
     white-space: nowrap;
     margin-right: 1rem;
     font-weight: 500;
+
+    span {
+      cursor: pointer;
+    }
+  }
+
+  .auth-warning {
+    position: absolute;
+    top: 100%;
+    padding: 1rem;
   }
 
   input {
@@ -40,32 +49,63 @@ const StyledModal = styled.div`
 `;
 
 const Modal = ({ closeModalHandler, signInWithLink, setEmail }) => {
+  const [showAuthWarning, setShowAuthWarning] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+
   return (
     <StyledModal>
-      <div>
-        <label htmlFor="email-signup">Enter your email *</label>
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          name="email-signup"
-          type="email"
-        />
-        <Button
-          onClick={signInWithLink}
-          maxWidth="15%"
-          minWidth="10%"
-          style={{ whiteSpace: "nowrap", padding: ".5rem" }}
-        >
-          Sign-in
-        </Button>
-        <Button
-          onClick={closeModalHandler}
-          maxWidth="15%"
-          minWidth="10%"
-          style={{ whiteSpace: "nowrap", padding: ".5rem" }}
-        >
-          Cancel
-        </Button>
-      </div>
+      {!emailSent && (
+        <div>
+          <label htmlFor="email-signup">
+            Enter your email{" "}
+            <span
+              onMouseEnter={() => setShowAuthWarning(true)}
+              onMouseLeave={() =>
+                setTimeout(() => setShowAuthWarning(false), [3000])
+              }
+            >
+              *
+            </span>
+          </label>
+          {showAuthWarning && (
+            <p className="auth-warning">
+              [Authentication is automated using Google. Scribbler does not
+              store any passwords.]
+            </p>
+          )}
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            name="email-signup"
+            type="email"
+          />
+          <Button
+            onClick={() => {
+              signInWithLink();
+              setEmailSent(true);
+            }}
+            maxWidth="15%"
+            minWidth="10%"
+            style={{ whiteSpace: "nowrap", padding: ".5rem" }}
+          >
+            Sign-in
+          </Button>
+          <Button
+            onClick={closeModalHandler}
+            maxWidth="15%"
+            minWidth="10%"
+            style={{ whiteSpace: "nowrap", padding: ".5rem" }}
+          >
+            Cancel
+          </Button>
+        </div>
+      )}
+
+      {emailSent && (
+        <div>
+          <p>Please check your email for a sign in link.</p>
+          <Button onClick={() => setEmailSent(false)}>Go back</Button>
+        </div>
+      )}
     </StyledModal>
   );
 };

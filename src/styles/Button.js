@@ -9,7 +9,7 @@ const StyledButton = styled.button`
   margin: ${(props) => props.margin || "0 0.5rem"};
   min-width: ${(props) => props.minWidth || "100%"};
   max-width: ${(props) => props.maxWidth || "100%"};
-  font-size: 0.7rem;
+  font-size: ${(props) => props.fontSize || "0.7rem"};
   font-family: inherit;
   border-radius: 2px;
   cursor: pointer;

@@ -124,11 +124,13 @@ const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
 
   const resetSaveDot = (currentScribble) => {
     if (currentScribble.temp) return;
-    setScribbles((previousScribbles) =>
-      previousScribbles.map((scrib) =>
-        scrib.id === currentScribble.id ? { ...scrib, unsaved: false } : scrib
-      )
+
+    const newOrder = scribbles.map((scrib) =>
+      scrib.id === currentScribble.id ? { ...scrib, unsaved: false } : scrib
     );
+
+    setScribbles(newOrder);
+
     setUnsaved(false);
   };
 

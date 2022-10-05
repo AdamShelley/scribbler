@@ -80,7 +80,7 @@ function useProvideAuth() {
 
     try {
       await sendSignInLinkToEmail(auth, email, actionCodeSettings).then(() => {
-        console.log("Signin in with email");
+        console.log("Signin with email");
         window.localStorage.setItem("emailForSignIn", email);
       });
     } catch (error) {
@@ -93,6 +93,9 @@ function useProvideAuth() {
     signOut(auth)
       .then(() => {
         setUser(false);
+        sessionStorage.removeItem("scribbles");
+        sessionStorage.removeItem("archived");
+        sessionStorage.removeItem("deleted");
       })
       .catch((err) => {
         console.log(err);

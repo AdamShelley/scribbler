@@ -68,11 +68,12 @@ export const StyledContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     padding: 1rem;
-    width: 40%;
+    width: 50%;
 
     .button-container {
       margin-top: 3rem;
       border-top: 1px solid var(--text-color);
+      width: 100%;
     }
 
     .profile-option {
@@ -84,6 +85,12 @@ export const StyledContainer = styled.div`
 
       label {
         font-size: 0.9rem;
+        font-weight: 700;
+
+        span {
+          margin-left: 0.2rem;
+          color: rgba(255, 255, 255, 0.55);
+        }
       }
 
       input {

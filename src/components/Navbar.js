@@ -175,6 +175,7 @@ const Navbar = ({ navTitle, unsaved }) => {
   const closeModalHandler = () => setShowModal(false);
 
   const sendEmailLink = () => {
+    console.log("Sending email to " + email);
     auth.signInWithEmailLinkHandler(email);
   };
 

@@ -29,7 +29,7 @@ const StyledSplashContainer = styled.div`
   .img-container {
     border: 2px solid var(--light-grey);
     border-radius: 2px;
-    box-shadow: 2px 2px 10px rgba(255, 255, 255, 0.2);
+    box-shadow: 2px 2px 10px rgba(255, 255, 255, 0.1);
 
     img {
       height: 100%;
@@ -76,11 +76,6 @@ const Splash = () => {
             <p>No cost, this is created for fun</p>
           </li>
         </ul>
-      </div>
-
-      <div>
-        * Authentication is automated using Google. Scribbler does not store any
-        passwords.
       </div>
     </StyledSplashContainer>
   );

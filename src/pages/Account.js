@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { StyledContainer } from "../styles/SettingsStyles";
 import { useAuth } from "../utils/auth";
 import Button from "../styles/Button";
+import { exportTxtFile } from "../utils/exportJSON";
 
 const Account = ({ setNavTitle }) => {
   const auth = useAuth();
@@ -16,20 +17,19 @@ const Account = ({ setNavTitle }) => {
       <div className="settings-container profile">
         <div className="profile-option">
           <label htmlFor="email-address">Email Address</label>
-          <input
-            name="email-address"
-            type="email"
-            placeholder={auth.user?.email}
-          />
+          <p>{auth?.user?.email}</p>
         </div>
         <div className="button-container">
           <div className="profile-option">
             <label htmlFor="export">Export JSON data to .txt file</label>
             <Button
+              value="download"
               name="export"
               padding="1rem"
               minWidth="10rem"
-              onClick={() => {}}
+              fontSize=".9rem"
+              style={{ fontWeight: 900 }}
+              onClick={exportTxtFile}
             >
               Export
             </Button>
@@ -40,6 +40,8 @@ const Account = ({ setNavTitle }) => {
               name="delete-data"
               padding="1rem"
               minWidth="10rem"
+              style={{ fontWeight: 900 }}
+              fontSize=".9rem"
               onClick={() => {}}
             >
               Delete
@@ -47,12 +49,14 @@ const Account = ({ setNavTitle }) => {
           </div>
           <div className="profile-option">
             <label htmlFor="delete-profile">
-              Delete all data and profile (There is no going back)
+              Delete all data and profile <span>(This cannot be undone)</span>
             </label>
             <Button
               name="delete-profile"
               padding="1rem"
               minWidth="10rem"
+              fontSize=".9rem"
+              style={{ fontWeight: 900 }}
               onClick={() => {}}
             >
               Delete my profile
