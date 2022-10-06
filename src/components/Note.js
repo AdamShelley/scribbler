@@ -67,7 +67,7 @@ const Note = ({
 
   return (
     <StyledNoteContainer
-      showResults={showResults}
+      // showResults={showResults}
       tabIndex="1"
       onKeyDown={keyHandler}
     >

@@ -56,7 +56,7 @@ export async function createSettings(uid) {
         expandScribbles: "Yes",
         expandArchive: "Yes",
         expandBin: "No",
-        showMD: false,
+        showMD: "No",
         scribbleOrder: "Newest",
         autosave: 30000,
       },
@@ -168,8 +168,6 @@ export async function archiveScribble(
   prevLoc = "scribbles"
 ) {
   try {
-    console.log([data, loc, prevLoc]);
-
     await deleteScribble(data.id, prevLoc);
     await addDoc(collection(firestore, loc), {
       ...data,
@@ -196,6 +194,25 @@ export async function restoreScribble(scribble, prevLoc) {
 
 export async function deleteScribble(uid, collection = "deleted") {
   deleteDoc(doc(firestore, collection, uid));
+}
+
+export async function deleteAllScribbles(uid) {
+  try {
+    const buckets = ["scribbles", "archive", "deleted"];
+
+    for (let col in buckets) {
+      const scribblesRef = collection(firestore, buckets[col]);
+      const scribbleQuery = query(scribblesRef, where("authorId", "==", uid));
+      const scribblesSnapshot = await getDocs(scribbleQuery);
+      scribblesSnapshot.forEach((doc) => {
+        deleteDoc(doc.ref);
+      });
+      // Clear session storage
+      sessionStorage.removeItem(buckets[col]);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export default firestore;

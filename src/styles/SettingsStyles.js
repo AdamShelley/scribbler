@@ -69,6 +69,7 @@ export const StyledContainer = styled.div`
     align-items: flex-start;
     padding: 1rem;
     width: 50%;
+    position: relative;
 
     .button-container {
       margin-top: 3rem;
@@ -82,6 +83,7 @@ export const StyledContainer = styled.div`
       justify-content: space-between;
       width: 100%;
       margin-top: 2rem;
+      position: relative;
 
       label {
         font-size: 0.9rem;
@@ -97,6 +99,20 @@ export const StyledContainer = styled.div`
         margin-left: 1rem;
         padding: 0.5rem;
         width: 60%;
+      }
+
+      .confirm-modal {
+        position: absolute;
+        right: -35%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          margin-right: 1rem;
+          font-size: 2rem;
+          color: var(--text-color);
+        }
       }
     }
   }
