@@ -18,6 +18,11 @@ const StyledButton = styled.button`
   &:hover {
     background-color: var(--dark-grey);
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }
 `;
 
 const Button = (props) => {

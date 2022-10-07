@@ -55,6 +55,7 @@ const Account = ({ setNavTitle }) => {
               minWidth="10rem"
               style={{ fontWeight: 900 }}
               fontSize=".9rem"
+              disabled={checkDeleteScribbles}
               onClick={() => {
                 setTimeout(() => {
                   setCheckDeleteScribbles(false);
@@ -88,6 +89,7 @@ const Account = ({ setNavTitle }) => {
               padding="1rem"
               minWidth="10rem"
               fontSize=".9rem"
+              disabled={checkDeleteUser}
               style={{ fontWeight: 900 }}
               onClick={() => {
                 setTimeout(() => {
