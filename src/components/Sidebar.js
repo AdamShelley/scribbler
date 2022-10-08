@@ -16,6 +16,7 @@ import {
   moveScribbleToBin,
 } from "../utils/HandleScribbles";
 import OptionsMenu from "./OptionsMenu";
+import { duplicateScribble } from "../utils/db";
 
 const Sidebar = ({
   scribbles,
@@ -111,7 +112,7 @@ const Sidebar = ({
   };
 
   const copyScribbleHandler = () => {
-    console.log("Copy scribble");
+    duplicateScribble(currentRightClickedScribble.id, user.uid);
   };
 
   const showConfirmDeleteButton = () => {

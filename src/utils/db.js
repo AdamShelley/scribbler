@@ -79,6 +79,7 @@ export async function updateSettings(uid, data) {
 // Scribble functions
 
 export async function createScribble(uid, data) {
+  console.log(data);
   try {
     return await addDoc(collection(firestore, "scribbles"), {
       authorId: uid,
@@ -212,6 +213,20 @@ export async function deleteAllScribbles(uid) {
     }
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function duplicateScribble(docId, uid) {
+  try {
+    const existingDoc = await getSingleDocument(docId);
+
+    existingDoc.title = `${existingDoc.title}-2`;
+
+    await createScribble(uid, existingDoc);
+
+    // Localstorage not updated
+  } catch (err) {
+    console.log(err);
   }
 }
 
