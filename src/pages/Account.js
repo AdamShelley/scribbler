@@ -48,7 +48,9 @@ const Account = ({ setNavTitle }) => {
             </Button>
           </div>
           <div className="profile-option">
-            <label htmlFor="delete-data">Delete all scribbles</label>
+            <label htmlFor="delete-data">
+              Delete all scribbles <span>(This cannot be undone)</span>
+            </label>
             <Button
               name="delete-data"
               padding="1rem"

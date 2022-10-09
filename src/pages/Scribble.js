@@ -166,6 +166,7 @@ const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
               settings={settings}
               setSettings={setSettings}
               setNavTitle={setNavTitle}
+              setUnsaved={setUnsaved}
             />
           </>
         ) : (

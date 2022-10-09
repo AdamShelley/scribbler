@@ -6,6 +6,8 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "./Modal";
 import Button from "../styles/Button";
+import { toast } from "react-toastify";
+import { toastOptions } from "../utils/toastOptions";
 
 const StyledNavbar = styled.div`
   position: relative;
@@ -160,6 +162,10 @@ const StyledNavbar = styled.div`
   }
 `;
 
+const isValidEmail = (email) => {
+  return /\S+@\S+\.\S+/.test(email);
+};
+
 const Navbar = ({ navTitle, unsaved }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -175,8 +181,17 @@ const Navbar = ({ navTitle, unsaved }) => {
   const closeModalHandler = () => setShowModal(false);
 
   const sendEmailLink = () => {
-    console.log("Sending email to " + email);
-    auth.signInWithEmailLinkHandler(email);
+    // Validate email
+    const validEmail = isValidEmail(email);
+
+    console.log(validEmail);
+
+    if (!validEmail) {
+      toast.error("Please enter a valid email", toastOptions);
+    } else {
+      console.log("Sending email to " + email);
+      auth.signInWithEmailLinkHandler(email);
+    }
   };
 
   const logoutHandler = () => auth.signout();

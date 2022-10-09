@@ -14,9 +14,9 @@ import {
   archiveScribbleInDatabase,
   restoreScribbleToMain,
   moveScribbleToBin,
+  duplicateScribbleHandler,
 } from "../utils/HandleScribbles";
 import OptionsMenu from "./OptionsMenu";
-import { duplicateScribble } from "../utils/db";
 
 const Sidebar = ({
   scribbles,
@@ -112,7 +112,12 @@ const Sidebar = ({
   };
 
   const copyScribbleHandler = () => {
-    duplicateScribble(currentRightClickedScribble.id, user.uid);
+    duplicateScribbleHandler(
+      currentRightClickedScribble.id,
+      user.uid,
+      setScribbles,
+      setSelectedScribble
+    );
   };
 
   const showConfirmDeleteButton = () => {
@@ -223,6 +228,7 @@ const Sidebar = ({
             : ""}
         </ul>
       )}
+      {showArchive && archived.length === 0 && <p>Archive is empty!</p>}
       <button
         className="archive-button"
         onClick={() => setShowBin((prev) => !prev)}
@@ -278,7 +284,7 @@ const Sidebar = ({
           </div>
         </>
       )}
-      {/* {showBin && deleted.length === 0 && <ul>Empty</ul>} */}
+      {showBin && deleted.length === 0 && <p>Your bin is empty!</p>}
     </StyledSidebar>
   );
 };

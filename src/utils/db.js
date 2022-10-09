@@ -220,11 +220,9 @@ export async function duplicateScribble(docId, uid) {
   try {
     const existingDoc = await getSingleDocument(docId);
 
-    existingDoc.title = `${existingDoc.title}-2`;
+    existingDoc.title = `${existingDoc.title} -copy`;
 
     await createScribble(uid, existingDoc);
-
-    // Localstorage not updated
   } catch (err) {
     console.log(err);
   }

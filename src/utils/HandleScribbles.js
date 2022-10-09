@@ -6,6 +6,7 @@ import {
   restoreScribble,
   getAllUserScribbles,
   getSingleDocument,
+  duplicateScribble,
 } from "./db";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -172,6 +173,24 @@ export const restoreScribbleToMain = async (
   } catch (err) {
     console.log(err);
   }
+};
+
+export const duplicateScribbleHandler = async (
+  docId,
+  userId,
+  setScribbles,
+  setSelectedScribble
+) => {
+  sessionStorage.removeItem("scribbles");
+  await duplicateScribble(docId, userId);
+
+  getAllUserScribbles(userId).then((result) => {
+    setScribbles(result);
+    setSelectedScribble(result[0]);
+    sessionStorage.setItem("scribbles", JSON.stringify(result));
+  });
+
+  toast.success("Scribble Copied", toastOptions);
 };
 
 const sessionStorageRefresh = (store, data) => {

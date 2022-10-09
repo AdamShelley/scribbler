@@ -46,6 +46,13 @@ const StyledModal = styled.div`
     font-family: inherit;
     width: 25rem;
   }
+
+  .check-email-display {
+    p {
+      margin-right: 1rem;
+      white-space: nowrap;
+    }
+  }
 `;
 
 const Modal = ({ closeModalHandler, signInWithLink, setEmail }) => {
@@ -101,9 +108,20 @@ const Modal = ({ closeModalHandler, signInWithLink, setEmail }) => {
       )}
 
       {emailSent && (
-        <div>
+        <div className="check-email-display">
           <p>Please check your email for a sign in link.</p>
-          <Button onClick={() => setEmailSent(false)}>Go back</Button>
+          <Button
+            maxWidth="15%"
+            minWidth="20%"
+            margin="0 2rem"
+            style={{
+              whiteSpace: "nowrap",
+              padding: ".5rem",
+            }}
+            onClick={() => setEmailSent(false)}
+          >
+            Go back
+          </Button>
         </div>
       )}
     </StyledModal>
