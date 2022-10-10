@@ -5,8 +5,8 @@ const TooltipContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
+  overflow: visible;
 
   .tooltip {
     position: absolute;
@@ -15,12 +15,12 @@ const TooltipContainer = styled.div`
     border: 1px solid var(--light-grey);
     background-color: var(--background);
     color: var(--text-color);
-    z-index: 99;
     border-radius: 2px;
     user-select: none;
     box-shadow: 4px 9px 16px -3px rgba(0, 0, 0, 0.75);
     font-size: 0.9rem;
     font-family: inherit;
+    z-index: 90;
 
     &::after {
       content: "";

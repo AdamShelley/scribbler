@@ -124,7 +124,12 @@ const Menu = ({
     return (
       <StyledOptionsMenu
         className="menu"
-        style={{ top: anchorPoint.y - 50, left: anchorPoint.x }}
+        style={{
+          top: anchorPoint.y - 50,
+          left: anchorPoint.x,
+          zIndex: 99,
+          position: "absolute",
+        }}
       >
         {menuChoices}
       </StyledOptionsMenu>

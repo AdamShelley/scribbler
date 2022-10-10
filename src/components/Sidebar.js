@@ -228,7 +228,9 @@ const Sidebar = ({
             : ""}
         </ul>
       )}
-      {showArchive && archived.length === 0 && <p>Archive is empty!</p>}
+      {showArchive && archived.length === 0 && (
+        <p className="empty-section">The archive is empty!</p>
+      )}
       <button
         className="archive-button"
         onClick={() => setShowBin((prev) => !prev)}
@@ -284,7 +286,9 @@ const Sidebar = ({
           </div>
         </>
       )}
-      {showBin && deleted.length === 0 && <p>Your bin is empty!</p>}
+      {showBin && deleted.length === 0 && (
+        <p className="empty-section">Your bin is empty!</p>
+      )}
     </StyledSidebar>
   );
 };

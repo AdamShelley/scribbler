@@ -10,7 +10,8 @@ export const StyledSidebar = styled.div`
   height: 100%;
   max-height: 100vh;
   position: relative;
-  overflow-x: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 
   div {
     background-color: var(--dark-grey);
@@ -50,7 +51,7 @@ export const StyledSidebar = styled.div`
   }
 
   ul {
-    padding: 0 2rem;
+    padding: 0 1.5rem;
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -204,6 +205,13 @@ export const StyledSidebar = styled.div`
         }
       }
     }
+  }
+
+  .empty-section {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    padding: 1rem;
   }
 
   button:first-of-type {

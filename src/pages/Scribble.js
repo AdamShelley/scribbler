@@ -12,6 +12,7 @@ const StyledContainer = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
+  /* position: relative; */
 `;
 
 const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {

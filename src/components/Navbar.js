@@ -48,6 +48,7 @@ const StyledNavbar = styled.div`
   .note-name {
     margin-left: 3rem;
     flex: 5;
+
     h4 {
       font-weight: 400;
     }
@@ -119,6 +120,7 @@ const StyledNavbar = styled.div`
     justify-content: center;
     cursor: pointer;
     white-space: no-wrap;
+    /* z-index: 1000; */
 
     svg {
       margin-left: 0.4rem;
@@ -209,7 +211,7 @@ const Navbar = ({ navTitle, unsaved }) => {
       </div>
       <div className="note-name">
         <h4>{navTitle} </h4>
-        <span>{unsaved && navTitle?.length > 0 && " - Unsaved scribble"}</span>
+        <span>{unsaved && navTitle?.length > 0 && "  - Unsaved scribble"}</span>
       </div>
 
       <div className="avatar-container">
