@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
 import styled from "styled-components";
 import hero1 from "../img/hero1.png";
 
@@ -77,6 +78,7 @@ const Splash = () => {
           </li>
         </ul>
       </div>
+      <ToastContainer closeButton={false} />
     </StyledSplashContainer>
   );
 };

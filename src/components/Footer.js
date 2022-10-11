@@ -30,6 +30,7 @@ const StyledFooter = styled.div`
         cursor: pointer;
         text-decoration: none;
         font-weight: 600;
+        border-bottom: 1px solid var(--light-grey);
 
         &:hover {
           color: #a3a3a3;
@@ -61,7 +62,15 @@ const Footer = () => {
             </a>
           </span>
         </li>
-        <li>Github</li>
+        <li>
+          <a
+            href="https://github.com/AdamShelley"
+            target="_blank"
+            rel=" noopener noreferrer"
+          >
+            Github
+          </a>
+        </li>
       </ul>
     </StyledFooter>
   );

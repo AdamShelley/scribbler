@@ -211,7 +211,8 @@ export const StyledSidebar = styled.div`
     display: flex;
     align-items: center;
     /* justify-content: center; */
-    padding: 1rem;
+    padding: 1.5rem;
+    font-size: 0.9rem;
   }
 
   button:first-of-type {

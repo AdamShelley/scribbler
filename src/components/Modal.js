@@ -55,9 +55,24 @@ const StyledModal = styled.div`
   }
 `;
 
-const Modal = ({ closeModalHandler, signInWithLink, setEmail }) => {
+const Modal = ({
+  closeModalHandler,
+  signInWithLink,
+  setEmail,
+  showError,
+  setShowError,
+}) => {
   const [showAuthWarning, setShowAuthWarning] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
+
+  const handleSignIn = () => {
+    const result = signInWithLink();
+    if (result) {
+      setEmailSent(true);
+    } else {
+      setShowError(true);
+    }
+  };
 
   return (
     <StyledModal>
@@ -84,12 +99,10 @@ const Modal = ({ closeModalHandler, signInWithLink, setEmail }) => {
             onChange={(e) => setEmail(e.target.value)}
             name="email-signup"
             type="email"
+            placeholder={showError ? "Please enter a valid email address" : ""}
           />
           <Button
-            onClick={() => {
-              signInWithLink();
-              setEmailSent(true);
-            }}
+            onClick={handleSignIn}
             maxWidth="15%"
             minWidth="10%"
             style={{ whiteSpace: "nowrap", padding: ".5rem" }}

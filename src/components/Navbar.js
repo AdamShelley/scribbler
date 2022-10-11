@@ -172,6 +172,7 @@ const Navbar = ({ navTitle, unsaved }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
+  const [showError, setShowError] = useState(false);
 
   const auth = useAuth();
 
@@ -186,13 +187,13 @@ const Navbar = ({ navTitle, unsaved }) => {
     // Validate email
     const validEmail = isValidEmail(email);
 
-    console.log(validEmail);
-
     if (!validEmail) {
       toast.error("Please enter a valid email", toastOptions);
+      return false;
     } else {
       console.log("Sending email to " + email);
       auth.signInWithEmailLinkHandler(email);
+      return true;
     }
   };
 
@@ -238,6 +239,8 @@ const Navbar = ({ navTitle, unsaved }) => {
                 setEmail={setEmail}
                 closeModalHandler={closeModalHandler}
                 signInWithLink={sendEmailLink}
+                showError={showError}
+                setShowError={setShowError}
               />
             )}
           </div>
