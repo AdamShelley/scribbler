@@ -8,6 +8,7 @@ import Modal from "./Modal";
 import Button from "../styles/Button";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
+import { useEffect } from "react";
 
 const StyledNavbar = styled.div`
   position: relative;
@@ -168,7 +169,7 @@ const isValidEmail = (email) => {
   return /\S+@\S+\.\S+/.test(email);
 };
 
-const Navbar = ({ navTitle, unsaved }) => {
+const Navbar = ({ navTitle, tempScribbles }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
@@ -199,7 +200,14 @@ const Navbar = ({ navTitle, unsaved }) => {
 
   const logoutHandler = () => auth.signout();
 
-  // console.log(auth.user);
+  const checkUnsaved = () => {
+    return (
+      tempScribbles &&
+      tempScribbles.some(
+        (scribble) => scribble.title === navTitle && scribble.unsaved
+      )
+    );
+  };
 
   return (
     <StyledNavbar>
@@ -212,7 +220,8 @@ const Navbar = ({ navTitle, unsaved }) => {
       </div>
       <div className="note-name">
         <h4>{navTitle} </h4>
-        <span>{unsaved && navTitle?.length > 0 && "  - Unsaved scribble"}</span>
+
+        <span>{checkUnsaved() && "  - Unsaved scribble"}</span>
       </div>
 
       <div className="avatar-container">

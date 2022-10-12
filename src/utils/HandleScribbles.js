@@ -27,6 +27,7 @@ export const saveScribbleToDatabase = async (
   if (selectedScribble.id) {
     updateScribble(selectedScribble.id, {
       ...selectedScribble,
+      unsaved: false,
       body: markdown,
       title,
     });

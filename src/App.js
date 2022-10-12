@@ -21,6 +21,8 @@ function App() {
   const [user, setUser] = useState(null);
   const [navTitle, setNavTitle] = useState("");
   const [settings, setSettings] = useState("");
+  const [tempScribbles, setTempScribbles] = useState("");
+
   const auth = useAuth();
 
   useEffect(() => {
@@ -58,9 +60,9 @@ function App() {
     <div className="App">
       <Router>
         <Navbar
-          unsaved={unsaved}
           navTitle={navTitle}
           setNavTitle={setNavTitle}
+          tempScribbles={tempScribbles}
         />
         <GlobalStyle />
         <Routes>
@@ -68,10 +70,10 @@ function App() {
             path="/"
             element={
               <Scribble
-                setUnsaved={setUnsaved}
                 setNavTitle={setNavTitle}
                 settings={settings}
                 setSettings={setSettings}
+                setTempScribbles={setTempScribbles}
               />
             }
           />

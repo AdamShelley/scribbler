@@ -40,7 +40,6 @@ const NoteContainer = ({
   settings,
   setSettings,
   setNavTitle,
-  setUnsaved,
 }) => {
   const auth = useAuth();
   const [markdown, setMarkdown] = useState(
@@ -69,7 +68,6 @@ const NoteContainer = ({
 
     setNavTitle(title);
     resetSaveDot(selectedScribble);
-    setUnsaved(false);
   }, [
     markdown,
     title,
@@ -80,7 +78,6 @@ const NoteContainer = ({
     auth?.user?.uid,
     resetSaveDot,
     setNavTitle,
-    setUnsaved,
   ]);
 
   const deleteScribbleHandler = () => {

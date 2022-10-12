@@ -15,7 +15,7 @@ const StyledContainer = styled.div`
   /* position: relative; */
 `;
 
-const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
+const Scribble = ({ setNavTitle, settings, setSettings, setTempScribbles }) => {
   const [scribbles, setScribbles] = useState([]);
   const [archived, setArchived] = useState([]);
   const [deleted, setDeleted] = useState([]);
@@ -32,6 +32,7 @@ const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
 
     if (cachedScribbles && auth.user) {
       setScribbles(cachedScribbles);
+      setTempScribbles(cachedScribbles);
       setArchived(cachedArchived || []);
       setDeleted(cachedDeleted || []);
       setSelectedScribble(cachedScribbles[0]);
@@ -45,6 +46,7 @@ const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
         );
 
         setScribbles(fetchedScribbles);
+        setTempScribbles(fetchedScribbles);
         setSelectedScribble(fetchedScribbles[0]);
         setNavTitle(fetchedScribbles[0]?.title);
 
@@ -82,7 +84,7 @@ const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
     if (!auth.user) {
       setNavTitle("");
     }
-  }, [auth.user, setNavTitle, settings]);
+  }, [auth.user, setNavTitle, settings, setTempScribbles]);
 
   const changeScribble = (scribble) => {
     setSelectedScribble(scribble);
@@ -112,15 +114,15 @@ const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
 
   // Keeps the non-saved markdown persistent.
   const updateScribblesWithoutDatabasePush = (currentScribble, body, title) => {
-    setScribbles((previousScribbles) =>
+    const newList = (previousScribbles) =>
       previousScribbles.map((scrib) =>
         scrib.id === currentScribble.id
           ? { ...scrib, body, title, unsaved: true }
           : scrib
-      )
-    );
+      );
 
-    setUnsaved(true);
+    setScribbles(newList);
+    setTempScribbles(newList);
   };
 
   const resetSaveDot = (currentScribble) => {
@@ -131,8 +133,7 @@ const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
     );
 
     setScribbles(newOrder);
-
-    setUnsaved(false);
+    setTempScribbles(newOrder);
   };
 
   return (
@@ -167,7 +168,6 @@ const Scribble = ({ setUnsaved, setNavTitle, settings, setSettings }) => {
               settings={settings}
               setSettings={setSettings}
               setNavTitle={setNavTitle}
-              setUnsaved={setUnsaved}
             />
           </>
         ) : (
