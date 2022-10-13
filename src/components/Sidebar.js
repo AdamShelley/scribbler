@@ -6,6 +6,7 @@ import {
   faArrowDown,
   faArrowUp,
   faPlus,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -236,11 +237,21 @@ const Sidebar = ({
         onClick={() => setShowBin((prev) => !prev)}
         onContextMenu={() => setCurrentRightClickedScribble(null)}
       >
-        <div>
+        <div className="scribble-button-container">
           <div>
             <FontAwesomeIcon icon={!showBin ? faArrowUp : faArrowDown} />
             <h4>| Bin |</h4>
           </div>
+          {showBin && (
+            <FontAwesomeIcon
+              onClick={(e) => {
+                e.stopPropagation();
+                showConfirmDeleteButton();
+              }}
+              icon={faTrashCan}
+              style={{ opacity: 0.9 }}
+            />
+          )}
         </div>
       </button>
 
@@ -266,24 +277,16 @@ const Sidebar = ({
                 ))
               : ""}
           </ul>
-          <div className="delete-all-container">
-            {!showConfirm && (
-              <button
-                onClick={showConfirmDeleteButton}
-                className="delete-all-button"
-              >
-                Empty Bin
-              </button>
-            )}
-            {showConfirm && (
+          {showConfirm && (
+            <div className="delete-all-container">
               <button
                 onClick={deleteAllScribblesInBin}
                 className="delete-all-button"
               >
                 Confirm Deletion
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </>
       )}
       {showBin && deleted.length === 0 && (

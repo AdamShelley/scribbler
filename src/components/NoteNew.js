@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import remarkBreaks from "remark-breaks";
+import { useRemark } from "react-remark";
 import { updateTitle } from "../utils/getTitle";
+import remarkBreaks from "remark-breaks";
 
 const StyledNoteContainer = styled.div`
   display: flex;
@@ -35,13 +34,11 @@ const StyledNoteContainer = styled.div`
     line-height: 2;
     font-weight: inherit;
     overflow-x: scroll;
-    /* white-space: pre; */
   }
 `;
 
-const Note = ({
+const NoteNew = ({
   markdown,
-  setMarkdown,
   selectedScribble,
   setTitle,
   showResults,
@@ -49,20 +46,24 @@ const Note = ({
   updateScribblesWithoutDatabasePush,
   keyHandler,
 }) => {
+  const [reactContent, setMarkdownSource] = useRemark({
+    remarkPlugins: [remarkBreaks],
+  });
+
   useEffect(() => {
-    setMarkdown(selectedScribble.body);
+    setMarkdownSource(selectedScribble.body);
     const title = updateTitle(selectedScribble.body);
     setTitle(title);
-  }, [setMarkdown, selectedScribble.body, setTitle]);
+  }, [setMarkdownSource, selectedScribble.body, setTitle]);
 
-  const updateMarkdown = (e) => {
-    setMarkdown(e.target.value);
-    const newTitle = updateTitle(e.target.value);
+  const updateMarkdown = (currentTarget) => {
+    setMarkdownSource(currentTarget.value);
+    const newTitle = updateTitle(currentTarget.value);
     setTitle(newTitle);
 
     updateScribblesWithoutDatabasePush(
       selectedScribble,
-      e.target.value,
+      currentTarget.value,
       newTitle
     );
   };
@@ -75,22 +76,19 @@ const Note = ({
     >
       {showMarkdown && (
         <textarea
-          onChange={updateMarkdown}
-          value={markdown}
+          onChange={({ currentTarget }) => updateMarkdown(currentTarget)}
           data-provide="markdown"
+          value={selectedScribble.body}
           disabled={selectedScribble.archived || selectedScribble.deleted}
         />
       )}
       {showResults && (
-        <div className="result-container">
-          <ReactMarkdown
-            children={markdown.replace(/\n/gi, "&nbsp; \n")}
-            remarkPlugins={[remarkGfm, remarkBreaks]}
-          />
+        <div className="result-container" style={{ whiteSpace: "pre" }}>
+          {reactContent}
         </div>
       )}
     </StyledNoteContainer>
   );
 };
 
-export default Note;
+export default NoteNew;

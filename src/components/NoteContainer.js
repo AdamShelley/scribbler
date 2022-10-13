@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EmptyNote from "./EmptyNote";
 import Note from "./Note";
+import NoteNew from "./NoteNew";
 import { useAuth } from "../utils/auth";
 import Tooltips from "../utils/Tooltips";
 import {
@@ -54,6 +55,7 @@ const NoteContainer = ({
     settings.showMD === "Yes" ? false : true
   );
   const [showMarkdown, setShowMarkdown] = useState(true);
+  const [markdownType, setMarkdownType] = useState(true);
 
   const saveScribbleToDatabaseHandler = useCallback(() => {
     saveScribbleToDatabase(
@@ -110,6 +112,37 @@ const NoteContainer = ({
     }
   }, [settings?.autosave, saveScribbleToDatabaseHandler]);
 
+  let noteType;
+
+  if (markdownType) {
+    noteType = (
+      <Note
+        markdown={markdown ? markdown : "oh"}
+        setMarkdown={setMarkdown}
+        scribbles={scribbles}
+        selectedScribble={selectedScribble}
+        setTitle={setTitle}
+        showResults={showResults}
+        showMarkdown={showMarkdown}
+        updateScribblesWithoutDatabasePush={updateScribblesWithoutDatabasePush}
+        // keyHandler={keyHandler}
+      />
+    );
+  } else {
+    noteType = (
+      <NoteNew
+        markdown={markdown ? markdown : "oh"}
+        setMarkdown={setMarkdown}
+        scribbles={scribbles}
+        selectedScribble={selectedScribble}
+        setTitle={setTitle}
+        showResults={showResults}
+        showMarkdown={showMarkdown}
+        updateScribblesWithoutDatabasePush={updateScribblesWithoutDatabasePush}
+      />
+    );
+  }
+
   return (
     <StyledScribbleContainer>
       <StyledSearchBar>
@@ -164,19 +197,7 @@ const NoteContainer = ({
               showResults={showResults}
             />
           ) : (
-            <Note
-              markdown={markdown ? markdown : "oh"}
-              setMarkdown={setMarkdown}
-              scribbles={scribbles}
-              selectedScribble={selectedScribble}
-              setTitle={setTitle}
-              showResults={showResults}
-              showMarkdown={showMarkdown}
-              updateScribblesWithoutDatabasePush={
-                updateScribblesWithoutDatabasePush
-              }
-              // keyHandler={keyHandler}
-            />
+            [noteType]
           )}
         </div>
         <ToastContainer closeButton={false} />

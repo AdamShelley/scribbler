@@ -8,7 +8,6 @@ import Modal from "./Modal";
 import Button from "../styles/Button";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
-import { useEffect } from "react";
 
 const StyledNavbar = styled.div`
   position: relative;

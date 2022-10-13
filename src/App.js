@@ -15,9 +15,9 @@ import Footer from "./components/Footer";
 import { useAuth } from "./utils/auth";
 import Navbar from "./components/Navbar";
 import { getUserSettings } from "./utils/db";
+import { ToastContainer } from "react-toastify";
 
 function App() {
-  const [unsaved, setUnsaved] = useState(false);
   const [user, setUser] = useState(null);
   const [navTitle, setNavTitle] = useState("");
   const [settings, setSettings] = useState("");
@@ -102,6 +102,7 @@ function App() {
         </Routes>
       </Router>
       <Footer />
+      <ToastContainer closeButton={false} />
     </div>
   );
 }

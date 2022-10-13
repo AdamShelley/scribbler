@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 import Button from "../styles/Button";
+import { toastOptions } from "../utils/toastOptions";
 
 const StyledModal = styled.div`
   display: flex;
