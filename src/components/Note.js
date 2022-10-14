@@ -27,6 +27,7 @@ const StyledNoteContainer = styled.div`
     border-right: 1px solid var(--light-grey);
     min-width: 20%;
     overflow-x: scroll;
+    resize: horizontal;
   }
 
   .result-container {
@@ -85,7 +86,7 @@ const Note = ({
         <div className="result-container">
           <ReactMarkdown
             children={markdown.replace(/\n/gi, "&nbsp; \n")}
-            remarkPlugins={[remarkGfm, remarkBreaks]}
+            remarkPlugins={[[remarkGfm, { singleTilde: false }], remarkBreaks]}
           />
         </div>
       )}

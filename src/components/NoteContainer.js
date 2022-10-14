@@ -55,7 +55,6 @@ const NoteContainer = ({
     settings.showMD === "Yes" ? false : true
   );
   const [showMarkdown, setShowMarkdown] = useState(true);
-  const [markdownType, setMarkdownType] = useState(true);
 
   const saveScribbleToDatabaseHandler = useCallback(() => {
     saveScribbleToDatabase(
@@ -112,37 +111,6 @@ const NoteContainer = ({
     }
   }, [settings?.autosave, saveScribbleToDatabaseHandler]);
 
-  let noteType;
-
-  if (markdownType) {
-    noteType = (
-      <Note
-        markdown={markdown ? markdown : "oh"}
-        setMarkdown={setMarkdown}
-        scribbles={scribbles}
-        selectedScribble={selectedScribble}
-        setTitle={setTitle}
-        showResults={showResults}
-        showMarkdown={showMarkdown}
-        updateScribblesWithoutDatabasePush={updateScribblesWithoutDatabasePush}
-        // keyHandler={keyHandler}
-      />
-    );
-  } else {
-    noteType = (
-      <NoteNew
-        markdown={markdown ? markdown : "oh"}
-        setMarkdown={setMarkdown}
-        scribbles={scribbles}
-        selectedScribble={selectedScribble}
-        setTitle={setTitle}
-        showResults={showResults}
-        showMarkdown={showMarkdown}
-        updateScribblesWithoutDatabasePush={updateScribblesWithoutDatabasePush}
-      />
-    );
-  }
-
   return (
     <StyledScribbleContainer>
       <StyledSearchBar>
@@ -197,7 +165,19 @@ const NoteContainer = ({
               showResults={showResults}
             />
           ) : (
-            [noteType]
+            <Note
+              markdown={markdown ? markdown : "oh"}
+              setMarkdown={setMarkdown}
+              scribbles={scribbles}
+              selectedScribble={selectedScribble}
+              setTitle={setTitle}
+              showResults={showResults}
+              showMarkdown={showMarkdown}
+              updateScribblesWithoutDatabasePush={
+                updateScribblesWithoutDatabasePush
+              }
+              // keyHandler={keyHandler}
+            />
           )}
         </div>
         <ToastContainer closeButton={false} />
