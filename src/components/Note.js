@@ -82,7 +82,7 @@ const Note = ({
           disabled={selectedScribble.archived || selectedScribble.deleted}
         />
       )}
-      {showResults && (
+      {showResults && markdown.length > 0 && (
         <div className="result-container">
           <ReactMarkdown
             children={markdown.replace(/\n/gi, "&nbsp; \n")}

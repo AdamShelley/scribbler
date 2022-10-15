@@ -9,7 +9,16 @@ const useContextMenu = () => {
     (event) => {
       event.preventDefault();
 
-      setAnchorPoint({ x: event.pageX, y: event.pageY });
+      // Prevent overflow from the sidebar
+      // Does not work for all screen sizes
+      let xAxis;
+      if (event.pageX > 240) {
+        xAxis = 240;
+      } else {
+        xAxis = event.pageX;
+      }
+
+      setAnchorPoint({ x: xAxis, y: event.pageY });
       setShow(true);
     },
     [setShow, setAnchorPoint]

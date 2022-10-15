@@ -38,7 +38,9 @@ function App() {
         cachedSettings = JSON.parse(localStorage.getItem("settings"));
       }
 
-      if (cachedSettings) {
+      console.log(cachedSettings);
+
+      if (cachedSettings && cachedSettings === undefined) {
         setSettings(cachedSettings);
       } else {
         const getSettings = async () => {

@@ -13,6 +13,8 @@ import {
   deleteDoc,
   getDoc,
 } from "firebase/firestore";
+import { deleteUser, getAuth } from "firebase/auth";
+import signinWithGithub from "./auth";
 
 const firestore = getFirestore();
 
@@ -53,6 +55,7 @@ export async function createSettings(uid) {
     return await setDoc(
       settings,
       {
+        authorId: uid,
         expandScribbles: "Yes",
         expandArchive: "Yes",
         expandBin: "No",
@@ -198,10 +201,42 @@ export async function deleteScribble(uid, collection = "deleted") {
 }
 
 export async function deleteAllScribbles(uid) {
-  try {
-    const buckets = ["scribbles", "archive", "deleted"];
+  const buckets = ["scribbles", "archive", "deleted"];
+  await deleteCollections(uid, buckets);
+}
 
+export async function duplicateScribble(docId, uid) {
+  try {
+    const existingDoc = await getSingleDocument(docId);
+
+    existingDoc.title = `${existingDoc.title} -copy`;
+    existingDoc.body = `${existingDoc.body} -copy`;
+
+    await createScribble(uid, existingDoc);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function deleteAccount(uid) {
+  // Delete scribbes, user & settings
+  const buckets = ["scribbles", "archive", "deleted", "settings"];
+  await deleteCollections(uid, buckets);
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  // Need to reauthenticate
+
+  deleteUser(user)
+    .then(() => console.log("user deleted"))
+    .catch((error) => console.log(error));
+}
+
+async function deleteCollections(uid, buckets) {
+  try {
     for (let col in buckets) {
+      console.log("deleting: " + buckets[col]);
       const scribblesRef = collection(firestore, buckets[col]);
       const scribbleQuery = query(scribblesRef, where("authorId", "==", uid));
       const scribblesSnapshot = await getDocs(scribbleQuery);
@@ -213,18 +248,6 @@ export async function deleteAllScribbles(uid) {
     }
   } catch (error) {
     console.log(error);
-  }
-}
-
-export async function duplicateScribble(docId, uid) {
-  try {
-    const existingDoc = await getSingleDocument(docId);
-
-    existingDoc.title = `${existingDoc.title} -copy`;
-
-    await createScribble(uid, existingDoc);
-  } catch (err) {
-    console.log(err);
   }
 }
 

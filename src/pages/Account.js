@@ -3,16 +3,18 @@ import { StyledContainer } from "../styles/SettingsStyles";
 import { useAuth } from "../utils/auth";
 import Button from "../styles/Button";
 import { exportTxtFile } from "../utils/exportJSON";
-import { deleteAllScribbles } from "../utils/db";
+import { deleteAllScribbles, deleteAccount } from "../utils/db";
 import { toast, ToastContainer } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const Account = ({ setNavTitle }) => {
   const [checkDeleteScribbles, setCheckDeleteScribbles] = useState(false);
   const [checkDeleteUser, setCheckDeleteUser] = useState(false);
   const auth = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setNavTitle("");
@@ -22,6 +24,15 @@ const Account = ({ setNavTitle }) => {
     deleteAllScribbles(auth.user.uid);
 
     toast.success(`All scribbles deleted`, toastOptions);
+  };
+
+  const deleteAccountFully = async () => {
+    localStorage.removeItem("settings");
+    localStorage.removeItem("emailForSignIn");
+    await deleteAccount(auth.user.uid);
+    auth.signout();
+    toast.success("Account Deleted", toastOptions);
+    navigate("/");
   };
 
   return (
@@ -109,7 +120,7 @@ const Account = ({ setNavTitle }) => {
                   minWidth="100%"
                   padding="1rem"
                   fontSize=".9rem"
-                  onClick={deleteAllFirebaseDocs}
+                  onClick={deleteAccountFully}
                 >
                   Confirm
                 </Button>

@@ -242,7 +242,7 @@ const Sidebar = ({
             <FontAwesomeIcon icon={!showBin ? faArrowUp : faArrowDown} />
             <h4>| Bin |</h4>
           </div>
-          {showBin && (
+          {showBin && deleted.length > 0 && (
             <FontAwesomeIcon
               onClick={(e) => {
                 e.stopPropagation();
