@@ -51,10 +51,10 @@ const Note = ({
   keyHandler,
 }) => {
   useEffect(() => {
-    setMarkdown(selectedScribble.body);
+    setMarkdown(selectedScribble?.body);
     const title = updateTitle(selectedScribble.body);
     setTitle(title);
-  }, [setMarkdown, selectedScribble.body, setTitle]);
+  }, [setMarkdown, selectedScribble?.body, setTitle]);
 
   const updateMarkdown = (e) => {
     setMarkdown(e.target.value);
@@ -79,7 +79,7 @@ const Note = ({
           onChange={updateMarkdown}
           value={markdown}
           data-provide="markdown"
-          disabled={selectedScribble.archived || selectedScribble.deleted}
+          disabled={selectedScribble?.archived || selectedScribble?.deleted}
         />
       )}
       {showResults && markdown.length > 0 && (

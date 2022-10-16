@@ -171,7 +171,7 @@ const Sidebar = ({
         </div>
       </button>
 
-      {showScribbles && scribbles.length > 0 && (
+      {showScribbles && scribbles?.length > 0 && (
         <ul>
           {scribbles ? (
             scribbles.map((scribble, index) => (

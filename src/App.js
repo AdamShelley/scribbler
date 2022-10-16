@@ -33,21 +33,24 @@ function App() {
 
     if (user) {
       // Check for user Settings
-      let cachedSettings;
-      if (localStorage.getItem("settings")) {
+      let cachedSettings = localStorage.getItem("settings");
+      console.log(typeof cachedSettings);
+      if (cachedSettings !== "undefined") {
+        console.log("Cached settings exist");
         cachedSettings = JSON.parse(localStorage.getItem("settings"));
       }
 
-      console.log(cachedSettings);
-
-      if (cachedSettings && cachedSettings === undefined) {
+      if (cachedSettings) {
+        console.log("Cached settings exist and is not undefined");
         setSettings(cachedSettings);
       } else {
         const getSettings = async () => {
           const settings = await getUserSettings(auth.user.uid);
-          setSettings(settings);
 
-          localStorage.setItem("settings", JSON.stringify(settings));
+          if (settings !== undefined) {
+            setSettings(settings);
+            localStorage.setItem("settings", JSON.stringify(settings));
+          }
         };
         getSettings();
       }
