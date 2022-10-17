@@ -24,7 +24,7 @@ export const saveScribbleToDatabase = async (
   sessionStorage.removeItem("scribbles");
 
   // If Scribble exists, update it
-  if (selectedScribble.id) {
+  if (selectedScribble?.id) {
     updateScribble(selectedScribble.id, {
       ...selectedScribble,
       unsaved: false,

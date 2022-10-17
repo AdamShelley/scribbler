@@ -44,7 +44,9 @@ const NoteContainer = ({
 }) => {
   const auth = useAuth();
   const [markdown, setMarkdown] = useState(
-    selectedScribble ? selectedScribble : "#### Write some markdown here"
+    selectedScribble !== undefined
+      ? selectedScribble
+      : "#### Press the + button to create a new scribble"
   );
 
   const [title, setTitle] = useState(
@@ -111,6 +113,8 @@ const NoteContainer = ({
     }
   }, [settings?.autosave, saveScribbleToDatabaseHandler]);
 
+  console.log(markdown);
+
   return (
     <StyledScribbleContainer>
       <StyledSearchBar>
@@ -156,17 +160,17 @@ const NoteContainer = ({
       </StyledSearchBar>
       <StyledNoteContainer>
         <div>
-          {scribbles?.length < 1 ? (
-            <EmptyNote
-              markdown={markdown}
-              setMarkdown={setMarkdown}
-              setTitle={setTitle}
-              scribbles={scribbles}
-              showResults={showResults}
-            />
-          ) : (
+          {markdown && scribbles?.length < 1 && (
+            //   <EmptyNote
+            //     markdown={markdown}
+            //     setMarkdown={setMarkdown}
+            //     setTitle={setTitle}
+            //     scribbles={scribbles}
+            //     showResults={showResults}
+            //   />
+            // ) : (
             <Note
-              markdown={markdown ? markdown : "oh"}
+              markdown={markdown}
               setMarkdown={setMarkdown}
               scribbles={scribbles}
               selectedScribble={selectedScribble}
@@ -176,7 +180,6 @@ const NoteContainer = ({
               updateScribblesWithoutDatabasePush={
                 updateScribblesWithoutDatabasePush
               }
-              // keyHandler={keyHandler}
             />
           )}
         </div>

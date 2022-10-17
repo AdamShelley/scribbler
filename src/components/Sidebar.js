@@ -197,6 +197,10 @@ const Sidebar = ({
         </ul>
       )}
 
+      {showScribbles && scribbles?.length === 0 && (
+        <p className="empty-section">You have no Scribbles!</p>
+      )}
+
       <button
         className="archive-button"
         onClick={() => setShowArchive((prev) => !prev)}

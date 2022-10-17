@@ -52,7 +52,7 @@ const Note = ({
 }) => {
   useEffect(() => {
     setMarkdown(selectedScribble?.body);
-    const title = updateTitle(selectedScribble.body);
+    const title = updateTitle(selectedScribble?.body || "test");
     setTitle(title);
   }, [setMarkdown, selectedScribble?.body, setTitle]);
 
