@@ -132,6 +132,8 @@ const Sidebar = ({
     };
   };
 
+  console.log(scribbles);
+
   return (
     <StyledSidebar>
       <OptionsMenu
@@ -171,7 +173,7 @@ const Sidebar = ({
         </div>
       </button>
 
-      {showScribbles && scribbles?.length > 0 && (
+      {showScribbles && scribbles?.length >= 1 && (
         <ul>
           {scribbles ? (
             scribbles.map((scribble, index) => (

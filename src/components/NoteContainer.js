@@ -11,7 +11,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EmptyNote from "./EmptyNote";
 import Note from "./Note";
-import NoteNew from "./NoteNew";
 import { useAuth } from "../utils/auth";
 import Tooltips from "../utils/Tooltips";
 import {
@@ -43,10 +42,9 @@ const NoteContainer = ({
   setNavTitle,
 }) => {
   const auth = useAuth();
+
   const [markdown, setMarkdown] = useState(
-    selectedScribble !== undefined
-      ? selectedScribble
-      : "#### Press the + button to create a new scribble"
+    selectedScribble ? selectedScribble : "#### Write some markdown here"
   );
 
   const [title, setTitle] = useState(
@@ -113,8 +111,6 @@ const NoteContainer = ({
     }
   }, [settings?.autosave, saveScribbleToDatabaseHandler]);
 
-  console.log(markdown);
-
   return (
     <StyledScribbleContainer>
       <StyledSearchBar>
@@ -160,28 +156,18 @@ const NoteContainer = ({
       </StyledSearchBar>
       <StyledNoteContainer>
         <div>
-          {markdown && scribbles?.length < 1 && (
-            //   <EmptyNote
-            //     markdown={markdown}
-            //     setMarkdown={setMarkdown}
-            //     setTitle={setTitle}
-            //     scribbles={scribbles}
-            //     showResults={showResults}
-            //   />
-            // ) : (
-            <Note
-              markdown={markdown}
-              setMarkdown={setMarkdown}
-              scribbles={scribbles}
-              selectedScribble={selectedScribble}
-              setTitle={setTitle}
-              showResults={showResults}
-              showMarkdown={showMarkdown}
-              updateScribblesWithoutDatabasePush={
-                updateScribblesWithoutDatabasePush
-              }
-            />
-          )}
+          <Note
+            markdown={markdown}
+            setMarkdown={setMarkdown}
+            scribbles={scribbles}
+            selectedScribble={selectedScribble}
+            setTitle={setTitle}
+            showResults={showResults}
+            showMarkdown={showMarkdown}
+            updateScribblesWithoutDatabasePush={
+              updateScribblesWithoutDatabasePush
+            }
+          />
         </div>
         <ToastContainer closeButton={false} />
       </StyledNoteContainer>

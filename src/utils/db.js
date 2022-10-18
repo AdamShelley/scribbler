@@ -82,7 +82,6 @@ export async function updateSettings(uid, data) {
 // Scribble functions
 
 export async function createScribble(uid, data) {
-  console.log(data);
   try {
     return await addDoc(collection(firestore, "scribbles"), {
       authorId: uid,

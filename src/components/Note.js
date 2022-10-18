@@ -52,7 +52,7 @@ const Note = ({
 }) => {
   useEffect(() => {
     setMarkdown(selectedScribble?.body);
-    const title = updateTitle(selectedScribble?.body || "test");
+    const title = updateTitle(selectedScribble?.body || "testy");
     setTitle(title);
   }, [setMarkdown, selectedScribble?.body, setTitle]);
 
@@ -68,20 +68,17 @@ const Note = ({
     );
   };
 
+  console.log(markdown);
+
   return (
-    <StyledNoteContainer
-      // showResults={showResults}
-      tabIndex="1"
-      onKeyDown={keyHandler}
-    >
-      {showMarkdown && (
-        <textarea
-          onChange={updateMarkdown}
-          value={markdown}
-          data-provide="markdown"
-          disabled={selectedScribble?.archived || selectedScribble?.deleted}
-        />
-      )}
+    <StyledNoteContainer tabIndex="1" onKeyDown={keyHandler}>
+      <textarea
+        onChange={updateMarkdown}
+        value={markdown}
+        data-provide="markdown"
+        disabled={selectedScribble?.archived || selectedScribble?.deleted}
+      />
+
       {showResults && markdown.length > 0 && (
         <div className="result-container">
           <ReactMarkdown
