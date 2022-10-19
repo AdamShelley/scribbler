@@ -32,6 +32,7 @@ const StyledNoteContainer = styled.div`
 
   .result-container {
     width: 50%;
+    /* min-width: 30%; */
     padding: 1rem 2rem;
     line-height: 2;
     font-weight: inherit;
@@ -51,8 +52,10 @@ const Note = ({
   keyHandler,
 }) => {
   useEffect(() => {
-    setMarkdown(selectedScribble?.body);
-    const title = updateTitle(selectedScribble?.body || "testy");
+    setMarkdown(
+      selectedScribble?.body || "# Press the + button to create a new Scribble"
+    );
+    const title = updateTitle(selectedScribble?.body);
     setTitle(title);
   }, [setMarkdown, selectedScribble?.body, setTitle]);
 
@@ -71,15 +74,21 @@ const Note = ({
   console.log(markdown);
 
   return (
-    <StyledNoteContainer tabIndex="1" onKeyDown={keyHandler}>
+    <StyledNoteContainer tabIndex="1">
+      {/* {markdown && ( */}
       <textarea
         onChange={updateMarkdown}
-        value={markdown}
+        value={markdown ? markdown : ""}
         data-provide="markdown"
-        disabled={selectedScribble?.archived || selectedScribble?.deleted}
+        disabled={
+          selectedScribble?.archived ||
+          selectedScribble?.deleted ||
+          !selectedScribble?.body
+        }
       />
+      {/* )} */}
 
-      {showResults && markdown.length > 0 && (
+      {showResults && markdown && (
         <div className="result-container">
           <ReactMarkdown
             children={markdown.replace(/\n/gi, "&nbsp; \n")}

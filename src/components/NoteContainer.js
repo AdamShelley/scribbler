@@ -44,7 +44,9 @@ const NoteContainer = ({
   const auth = useAuth();
 
   const [markdown, setMarkdown] = useState(
-    selectedScribble ? selectedScribble : "#### Write some markdown here"
+    selectedScribble
+      ? selectedScribble
+      : "# Press the + button to create a new Scribble"
   );
 
   const [title, setTitle] = useState(
