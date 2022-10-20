@@ -49,14 +49,14 @@ const Note = ({
   showResults,
   showMarkdown,
   updateScribblesWithoutDatabasePush,
-  keyHandler,
 }) => {
   useEffect(() => {
     setMarkdown(
       selectedScribble?.body || "# Press the + button to create a new Scribble"
     );
-    const title = updateTitle(selectedScribble?.body);
-    setTitle(title);
+    const title = updateTitle(selectedScribble?.body || "");
+    setTitle(title || "");
+    console.log(title);
   }, [setMarkdown, selectedScribble?.body, setTitle]);
 
   const updateMarkdown = (e) => {
@@ -88,7 +88,7 @@ const Note = ({
       />
       {/* )} */}
 
-      {showResults && markdown && (
+      {showResults && markdown.length > 0 && (
         <div className="result-container">
           <ReactMarkdown
             children={markdown.replace(/\n/gi, "&nbsp; \n")}

@@ -49,8 +49,18 @@ const StyledNavbar = styled.div`
     margin-left: 3rem;
     flex: 5;
 
+    input {
+      font-weight: 400;
+      font-size: 1rem;
+      border: none;
+      background-color: inherit;
+      color: inherit;
+      outline: none;
+    }
+
     h4 {
       font-weight: 400;
+      border-bottom: 1px solid var(--light-grey);
     }
 
     span {
@@ -168,7 +178,7 @@ const isValidEmail = (email) => {
   return /\S+@\S+\.\S+/.test(email);
 };
 
-const Navbar = ({ navTitle, tempScribbles }) => {
+const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
@@ -208,6 +218,12 @@ const Navbar = ({ navTitle, tempScribbles }) => {
     );
   };
 
+  const updateTitle = (e) => {
+    setNavTitle(e.target.value);
+
+    // Update Title on backend too
+  };
+
   return (
     <StyledNavbar>
       <div>
@@ -218,7 +234,7 @@ const Navbar = ({ navTitle, tempScribbles }) => {
         </div>
       </div>
       <div className="note-name">
-        <h4>{navTitle} </h4>
+        <input type="text" value={navTitle} onChange={updateTitle} />
 
         <span>{checkUnsaved() && "  - Unsaved scribble"}</span>
       </div>

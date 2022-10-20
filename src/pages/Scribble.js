@@ -15,7 +15,13 @@ const StyledContainer = styled.div`
   /* position: relative; */
 `;
 
-const Scribble = ({ setNavTitle, settings, setSettings, setTempScribbles }) => {
+const Scribble = ({
+  navTitle,
+  setNavTitle,
+  settings,
+  setSettings,
+  setTempScribbles,
+}) => {
   const [scribbles, setScribbles] = useState([]);
   const [archived, setArchived] = useState([]);
   const [deleted, setDeleted] = useState([]);

@@ -75,6 +75,7 @@ function App() {
             path="/"
             element={
               <Scribble
+                navTitle={navTitle}
                 setNavTitle={setNavTitle}
                 settings={settings}
                 setSettings={setSettings}
