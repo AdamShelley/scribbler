@@ -14,7 +14,6 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { deleteUser, getAuth } from "firebase/auth";
-import signinWithGithub from "./auth";
 
 const firestore = getFirestore();
 
@@ -157,12 +156,17 @@ export async function getSingleDocument(docId, col = "scribbles") {
 }
 
 export async function updateScribble(uid, newValues) {
-  const existingScribble = doc(firestore, "scribbles", uid);
+  console.log(uid, newValues);
+  try {
+    const existingScribble = doc(firestore, "scribbles", uid);
 
-  return await updateDoc(existingScribble, {
-    ...newValues,
-    timestamp: serverTimestamp(),
-  });
+    await updateDoc(existingScribble, {
+      ...newValues,
+      timestamp: serverTimestamp(),
+    });
+  } catch (error) {
+    return console.log(error);
+  }
 }
 
 export async function archiveScribble(

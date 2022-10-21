@@ -7,12 +7,12 @@ import { useAuth } from "../utils/auth";
 import Splash from "../components/Splash";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
+import { updateTitle } from "../utils/HandleScribbles";
 
 const StyledContainer = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  /* position: relative; */
 `;
 
 const Scribble = ({
@@ -141,6 +141,19 @@ const Scribble = ({
     setScribbles(newOrder);
     setTempScribbles(newOrder);
   };
+
+  const updateTitleHandler = () => {
+    console.log(navTitle, selectedScribble?.title);
+    console.log("Calling Update title");
+    updateTitle(selectedScribble, navTitle, scribbles, setScribbles);
+  };
+
+  useEffect(() => {
+    console.log(navTitle, selectedScribble?.title);
+    if (navTitle !== selectedScribble?.title) {
+      updateTitleHandler();
+    }
+  }, [navTitle, selectedScribble]);
 
   return (
     <div style={{ height: "100%", overflow: "hidden" }}>

@@ -78,6 +78,39 @@ export const saveScribbleToDatabase = async (
   }
 };
 
+export const updateTitle = async (
+  selectedScribble,
+  newTitle,
+  scribbles,
+  setScribbles
+) => {
+  await updateScribble(selectedScribble.id, {
+    ...selectedScribble,
+    title: newTitle,
+  });
+
+  const updatedDoc = await getSingleDocument(selectedScribble.id);
+
+  // Get the index of the scribble
+  const findIndex = scribbles.findIndex(
+    (scribbles) => scribbles.id === selectedScribble.id
+  );
+
+  // Remove the old scribble
+
+  const prevScribbles = scribbles.filter(
+    (scribble) => scribble.id !== selectedScribble.id
+  );
+
+  // Replace with the new one in the correct Index
+  prevScribbles.splice(findIndex, 0, updatedDoc);
+  setScribbles(prevScribbles);
+
+  sessionStorage.setItem("scribbles", JSON.stringify(prevScribbles));
+
+  toast.success("Title updated", { ...toastOptions, toastId: "Saving" });
+};
+
 export const deleteScribbleFromDatabase = async (
   rightClickedScribble,
   setDeleted,

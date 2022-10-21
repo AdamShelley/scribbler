@@ -41,7 +41,6 @@ function App() {
       }
 
       if (cachedSettings) {
-        console.log("Cached settings exist and is not undefined");
         setSettings(cachedSettings);
       } else {
         const getSettings = async () => {
@@ -57,9 +56,9 @@ function App() {
     }
   }, [auth, setUser, user]);
 
-  useEffect(() => {
-    setNavTitle("");
-  }, [setNavTitle]);
+  // useEffect(() => {
+  //   setNavTitle("");
+  // }, [setNavTitle]);
 
   return (
     <div className="App">

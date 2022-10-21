@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../utils/auth";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StyledSidebar } from "../styles/SidebarStyles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
   faArrowUp,
@@ -131,8 +131,6 @@ const Sidebar = ({
       clearTimeout(confirmTimeout);
     };
   };
-
-  console.log(scribbles);
 
   return (
     <StyledSidebar>

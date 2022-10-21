@@ -56,7 +56,6 @@ const Note = ({
     );
     const title = updateTitle(selectedScribble?.body || "");
     setTitle(title || "");
-    console.log(title);
   }, [setMarkdown, selectedScribble?.body, setTitle]);
 
   const updateMarkdown = (e) => {
@@ -70,8 +69,6 @@ const Note = ({
       newTitle
     );
   };
-
-  console.log(markdown);
 
   return (
     <StyledNoteContainer tabIndex="1">

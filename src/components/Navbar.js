@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useAuth } from "../utils/auth";
 import { Link } from "react-router-dom";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "./Modal";
 import Button from "../styles/Button";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
+import { useEffect } from "react";
 
 const StyledNavbar = styled.div`
   position: relative;
@@ -65,6 +66,16 @@ const StyledNavbar = styled.div`
 
     span {
       font-style: italic;
+    }
+
+    > button {
+      background-color: var(--nav-color);
+      border: none;
+      cursor: pointer;
+
+      svg {
+        color: var(--text-color);
+      }
     }
   }
 
@@ -183,6 +194,8 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
   const [showError, setShowError] = useState(false);
+  const [title, setTitle] = useState("");
+  const [showTick, setShowTick] = useState(false);
 
   const auth = useAuth();
 
@@ -218,11 +231,15 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
     );
   };
 
-  const updateTitle = (e) => {
-    setNavTitle(e.target.value);
+  const updateTitleHandler = () => {
+    setNavTitle(title);
 
-    // Update Title on backend too
+    setShowTick(false);
   };
+
+  useEffect(() => {
+    setTitle(navTitle);
+  }, [navTitle]);
 
   return (
     <StyledNavbar>
@@ -234,7 +251,19 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
         </div>
       </div>
       <div className="note-name">
-        <input type="text" value={navTitle} onChange={updateTitle} />
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => {
+            setShowTick(true);
+            setTitle(e.target.value);
+          }}
+        />
+        {showTick && (
+          <button onClick={updateTitleHandler}>
+            <FontAwesomeIcon icon={faCheck} />
+          </button>
+        )}
 
         <span>{checkUnsaved() && "  - Unsaved scribble"}</span>
       </div>
