@@ -50,13 +50,28 @@ const StyledNavbar = styled.div`
     margin-left: 3rem;
     flex: 5;
 
+    .title-container {
+      max-width: 10rem;
+      margin-top: 0.1rem;
+    }
+
     input {
       font-weight: 400;
       font-size: 1rem;
+      font-family: inherit;
       border: none;
       background-color: inherit;
       color: inherit;
       outline: none;
+      /* text-align: center; */
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease-in;
+      width: 100%;
+
+      &:focus {
+        padding-bottom: 0.3rem;
+        border-bottom: 2px solid var(--light-grey);
+      }
     }
 
     h4 {
@@ -75,6 +90,16 @@ const StyledNavbar = styled.div`
 
       svg {
         color: var(--text-color);
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        transform: scale(1);
+        opacity: 1;
+        transition: all 0.2s ease-in;
+
+        &:hover {
+          transform: scale(1.1);
+          opacity: 0.9;
+        }
       }
     }
   }
@@ -231,7 +256,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
     );
   };
 
-  const updateTitleHandler = () => {
+  const updateTitleHandler = (e) => {
     setNavTitle(title);
 
     setShowTick(false);
@@ -251,14 +276,16 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
         </div>
       </div>
       <div className="note-name">
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => {
-            setShowTick(true);
-            setTitle(e.target.value);
-          }}
-        />
+        <div className="title-container">
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => {
+              setShowTick(true);
+              setTitle(e.target.value);
+            }}
+          />
+        </div>
         {showTick && (
           <button onClick={updateTitleHandler}>
             <FontAwesomeIcon icon={faCheck} />

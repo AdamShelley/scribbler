@@ -157,6 +157,8 @@ export async function getSingleDocument(docId, col = "scribbles") {
 
 export async function updateScribble(uid, newValues) {
   console.log(uid, newValues);
+  if (newValues.temp) return;
+
   try {
     const existingScribble = doc(firestore, "scribbles", uid);
 

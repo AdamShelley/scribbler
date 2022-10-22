@@ -99,6 +99,9 @@ const Scribble = ({
 
   const createBlankScribble = () => {
     // If a blank scribble already exists, do not create a new one.
+
+    console.log("CREATING BLANK SCRIBBLE");
+
     const blankExists = scribbles.find((scribble) => scribble.temp);
     if (blankExists) {
       return toast.error("You already have a blank page", {
@@ -119,11 +122,12 @@ const Scribble = ({
   };
 
   // Keeps the non-saved markdown persistent.
-  const updateScribblesWithoutDatabasePush = (currentScribble, body, title) => {
+  const updateScribblesWithoutDatabasePush = (currentScribble, body) => {
+    console.log("Updating without DB PUSH");
     const newList = (previousScribbles) =>
       previousScribbles.map((scrib) =>
         scrib.id === currentScribble.id
-          ? { ...scrib, body, title, unsaved: true }
+          ? { ...scrib, body, unsaved: true }
           : scrib
       );
 
@@ -142,18 +146,17 @@ const Scribble = ({
     setTempScribbles(newOrder);
   };
 
-  const updateTitleHandler = () => {
-    console.log(navTitle, selectedScribble?.title);
-    console.log("Calling Update title");
-    updateTitle(selectedScribble, navTitle, scribbles, setScribbles);
-  };
-
   useEffect(() => {
-    console.log(navTitle, selectedScribble?.title);
-    if (navTitle !== selectedScribble?.title) {
-      updateTitleHandler();
+    if (
+      navTitle &&
+      selectedScribble?.title &&
+      selectedScribble?.temp === false &&
+      navTitle !== selectedScribble?.title
+    ) {
+      console.log("CALLING UPDATE TITLE");
+      updateTitle(selectedScribble, navTitle, scribbles, setScribbles);
     }
-  }, [navTitle, selectedScribble]);
+  }, [navTitle]);
 
   return (
     <div style={{ height: "100%", overflow: "hidden" }}>

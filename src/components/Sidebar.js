@@ -213,7 +213,7 @@ const Sidebar = ({
           </div>
         </div>
       </button>
-      {showArchive && archived.length > 0 && (
+      {showArchive && archived.length >= 1 && (
         <ul>
           {archived
             ? archived.map((scribble) => (

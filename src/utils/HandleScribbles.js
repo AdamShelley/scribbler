@@ -84,6 +84,7 @@ export const updateTitle = async (
   scribbles,
   setScribbles
 ) => {
+  console.log("UPDATING DATABASE!");
   await updateScribble(selectedScribble.id, {
     ...selectedScribble,
     title: newTitle,

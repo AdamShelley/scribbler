@@ -27,7 +27,7 @@ const StyledNoteContainer = styled.div`
     border-right: 1px solid var(--light-grey);
     min-width: 20%;
     overflow-x: scroll;
-    resize: horizontal;
+    /* resize: horizontal; */
   }
 
   .result-container {
@@ -60,13 +60,13 @@ const Note = ({
 
   const updateMarkdown = (e) => {
     setMarkdown(e.target.value);
-    const newTitle = updateTitle(e.target.value);
-    setTitle(newTitle);
+    // const newTitle = updateTitle(e.target.value);
+    // setTitle(newTitle);
 
     updateScribblesWithoutDatabasePush(
       selectedScribble,
-      e.target.value,
-      newTitle
+      e.target.value
+      // newTitle
     );
   };
 
