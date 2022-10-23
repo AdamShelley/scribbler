@@ -164,6 +164,7 @@ export async function updateScribble(uid, newValues) {
 
     await updateDoc(existingScribble, {
       ...newValues,
+      title: newValues.title,
       timestamp: serverTimestamp(),
     });
   } catch (error) {

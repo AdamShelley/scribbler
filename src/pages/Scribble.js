@@ -146,7 +146,14 @@ const Scribble = ({
     setTempScribbles(newOrder);
   };
 
+  // FIX DEPS ARRAY
   useEffect(() => {
+    if (selectedScribble?.temp) {
+      selectedScribble.title = navTitle;
+
+      // update without DB push for now
+    }
+
     if (
       navTitle &&
       selectedScribble?.title &&
@@ -154,7 +161,13 @@ const Scribble = ({
       navTitle !== selectedScribble?.title
     ) {
       console.log("CALLING UPDATE TITLE");
-      updateTitle(selectedScribble, navTitle, scribbles, setScribbles);
+      updateTitle(
+        selectedScribble,
+        navTitle,
+        scribbles,
+        setScribbles,
+        setSelectedScribble
+      );
     }
   }, [navTitle]);
 

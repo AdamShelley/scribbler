@@ -49,10 +49,6 @@ const NoteContainer = ({
       : "# Press the + button to create a new Scribble"
   );
 
-  const [title, setTitle] = useState(
-    selectedScribble ? selectedScribble.title : ""
-  );
-
   const [showResults, setShowResults] = useState(
     settings.showMD === "Yes" ? false : true
   );
@@ -61,7 +57,6 @@ const NoteContainer = ({
   const saveScribbleToDatabaseHandler = useCallback(() => {
     saveScribbleToDatabase(
       markdown,
-      title,
       scribbles,
       selectedScribble,
       setSelectedScribble,
@@ -69,18 +64,15 @@ const NoteContainer = ({
       auth.user.uid
     );
 
-    setNavTitle(title);
     resetSaveDot(selectedScribble);
   }, [
     markdown,
-    title,
     scribbles,
     selectedScribble,
     setSelectedScribble,
     setScribbles,
     auth?.user?.uid,
     resetSaveDot,
-    setNavTitle,
   ]);
 
   const deleteScribbleHandler = () => {
@@ -163,7 +155,6 @@ const NoteContainer = ({
             setMarkdown={setMarkdown}
             scribbles={scribbles}
             selectedScribble={selectedScribble}
-            setTitle={setTitle}
             showResults={showResults}
             showMarkdown={showMarkdown}
             updateScribblesWithoutDatabasePush={

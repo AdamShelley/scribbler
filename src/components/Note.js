@@ -3,7 +3,6 @@ import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
-import { updateTitle } from "../utils/getTitle";
 
 const StyledNoteContainer = styled.div`
   display: flex;
@@ -45,7 +44,6 @@ const Note = ({
   markdown,
   setMarkdown,
   selectedScribble,
-  setTitle,
   showResults,
   showMarkdown,
   updateScribblesWithoutDatabasePush,
@@ -54,9 +52,7 @@ const Note = ({
     setMarkdown(
       selectedScribble?.body || "# Press the + button to create a new Scribble"
     );
-    const title = updateTitle(selectedScribble?.body || "");
-    setTitle(title || "");
-  }, [setMarkdown, selectedScribble?.body, setTitle]);
+  }, [setMarkdown, selectedScribble?.body]);
 
   const updateMarkdown = (e) => {
     setMarkdown(e.target.value);

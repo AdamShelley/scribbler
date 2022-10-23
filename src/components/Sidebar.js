@@ -7,6 +7,7 @@ import {
   faArrowUp,
   faPlus,
   faTrashCan,
+  faTrashCanArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -185,7 +186,7 @@ const Sidebar = ({
                     : ""
                 }`}
               >
-                <h3>{scribble?.title?.slice(0, 35)}</h3>
+                <h3>{scribble?.title?.slice(0, 35)} </h3>
                 {scribble?.unsaved && <div className="save-dot"></div>}
               </li>
             ))
@@ -252,7 +253,7 @@ const Sidebar = ({
                 e.stopPropagation();
                 showConfirmDeleteButton();
               }}
-              icon={faTrashCan}
+              icon={showConfirm ? faTrashCanArrowUp : faTrashCan}
               style={{ opacity: 0.9 }}
             />
           )}

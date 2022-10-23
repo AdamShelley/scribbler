@@ -14,7 +14,7 @@ import { toastOptions } from "./toastOptions";
 
 export const saveScribbleToDatabase = async (
   markdown,
-  title,
+  // title,
   scribbles,
   selectedScribble,
   setSelectedScribble,
@@ -29,8 +29,9 @@ export const saveScribbleToDatabase = async (
       ...selectedScribble,
       unsaved: false,
       body: markdown,
-      title,
+      // title,
     });
+    console.log("SAVING: " + selectedScribble);
 
     const updatedDoc = await getSingleDocument(selectedScribble.id);
 
@@ -57,7 +58,7 @@ export const saveScribbleToDatabase = async (
 
     const newScribble = {
       body: markdown,
-      title,
+      title: selectedScribble.title || "Unsaved Scribble",
       createdAt: new Date().toISOString(),
       temp: false,
       archived: false,
@@ -65,6 +66,8 @@ export const saveScribbleToDatabase = async (
       authorId: userId,
       unsaved: false,
     };
+
+    console.log("CREATING NEW: ", newScribble);
 
     createScribble(userId, newScribble);
 
@@ -82,7 +85,8 @@ export const updateTitle = async (
   selectedScribble,
   newTitle,
   scribbles,
-  setScribbles
+  setScribbles,
+  setSelectedScribble
 ) => {
   console.log("UPDATING DATABASE!");
   await updateScribble(selectedScribble.id, {
@@ -106,6 +110,7 @@ export const updateTitle = async (
   // Replace with the new one in the correct Index
   prevScribbles.splice(findIndex, 0, updatedDoc);
   setScribbles(prevScribbles);
+  setSelectedScribble(updatedDoc);
 
   sessionStorage.setItem("scribbles", JSON.stringify(prevScribbles));
 
