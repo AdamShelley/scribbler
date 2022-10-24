@@ -215,8 +215,9 @@ export async function duplicateScribble(docId, uid) {
   try {
     const existingDoc = await getSingleDocument(docId);
 
-    existingDoc.title = `${existingDoc.title} -copy`;
-    existingDoc.body = `${existingDoc.body} -copy`;
+    existingDoc.title = `${existingDoc.title} (-copy)`;
+    existingDoc.body = `${existingDoc.body} (-copy)`;
+    existingDoc.id = `${existingDoc.id}-copy`;
 
     await createScribble(uid, existingDoc);
   } catch (err) {

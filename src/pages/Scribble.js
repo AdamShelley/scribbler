@@ -33,7 +33,7 @@ const Scribble = ({
     // Rerenders caused by changing the state for each separately
     // But why is the user being created 3 times?
     const cachedScribbles = JSON.parse(sessionStorage.getItem("scribbles"));
-    const cachedArchived = JSON.parse(sessionStorage.getItem("archive"));
+    const cachedArchived = JSON.parse(sessionStorage.getItem("archived"));
     const cachedDeleted = JSON.parse(sessionStorage.getItem("deleted"));
 
     if (cachedScribbles && auth.user) {
@@ -123,7 +123,9 @@ const Scribble = ({
 
   // Keeps the non-saved markdown persistent.
   const updateScribblesWithoutDatabasePush = (currentScribble, body) => {
+    console.log(currentScribble, body);
     console.log("Updating without DB PUSH");
+    // Where is previousScribbles from?
     const newList = (previousScribbles) =>
       previousScribbles.map((scrib) =>
         scrib.id === currentScribble.id
@@ -151,7 +153,15 @@ const Scribble = ({
     if (selectedScribble?.temp) {
       selectedScribble.title = navTitle;
 
-      // update without DB push for now
+      const newList = (previousScribbles) =>
+        previousScribbles.map((scrib) =>
+          scrib.id === selectedScribble.id
+            ? { ...scrib, title: navTitle, unsaved: true }
+            : scrib
+        );
+
+      setScribbles(newList);
+      setTempScribbles(newList);
     }
 
     if (

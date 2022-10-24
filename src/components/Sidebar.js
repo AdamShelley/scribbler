@@ -181,12 +181,12 @@ const Sidebar = ({
                 onClick={() => changeScribble(scribble)}
                 onContextMenu={() => setCurrentRightClickedScribble(scribble)}
                 className={`${
-                  selectedScribble?.title === scribble?.title
+                  selectedScribble?.id === scribble?.id
                     ? "selected-scribble"
                     : ""
                 }`}
               >
-                <h3>{scribble?.title?.slice(0, 35)} </h3>
+                <h3>{scribble?.title?.slice(0, 35)}</h3>
                 {scribble?.unsaved && <div className="save-dot"></div>}
               </li>
             ))
@@ -214,7 +214,7 @@ const Sidebar = ({
           </div>
         </div>
       </button>
-      {showArchive && archived.length >= 1 && (
+      {showArchive && archived.length > 0 && (
         <ul>
           {archived
             ? archived.map((scribble) => (
