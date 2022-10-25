@@ -51,7 +51,7 @@ const StyledNavbar = styled.div`
     flex: 5;
 
     .title-container {
-      max-width: 10rem;
+      min-width: 5rem;
       margin-top: 0.1rem;
     }
 
@@ -63,7 +63,7 @@ const StyledNavbar = styled.div`
       background-color: inherit;
       color: inherit;
       outline: none;
-      /* text-align: center; */
+      text-align: center;
       border-bottom: 2px solid transparent;
       transition: all 0.2s ease-in;
       width: 100%;
@@ -262,6 +262,8 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
     setShowTick(false);
   };
 
+  const resizeInput = (el) => {};
+
   useEffect(() => {
     setTitle(navTitle);
   }, [navTitle]);
@@ -279,11 +281,14 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
         <div className="title-container">
           <input
             type="text"
+            size={title.length}
             value={title}
             onChange={(e) => {
+              resizeInput();
               setShowTick(true);
               setTitle(e.target.value);
             }}
+            onKeyUp={(e) => resizeInput(e)}
           />
         </div>
         {showTick && (
