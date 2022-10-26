@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { useAuth } from "../utils/auth";
 import { Link } from "react-router-dom";
@@ -8,7 +8,6 @@ import Modal from "./Modal";
 import Button from "../styles/Button";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
-import { useEffect } from "react";
 
 const StyledNavbar = styled.div`
   position: relative;
@@ -221,6 +220,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
   const [showError, setShowError] = useState(false);
   const [title, setTitle] = useState("");
   const [showTick, setShowTick] = useState(false);
+  const [disableInput, setDisableInput] = useState(false);
 
   const auth = useAuth();
 
@@ -256,9 +256,15 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
     );
   };
 
-  const updateTitleHandler = (e) => {
-    setNavTitle(title);
+  const checkNotArchived = useCallback(() => {
+    return (
+      tempScribbles &&
+      !tempScribbles.some((scribble) => scribble.title === navTitle)
+    );
+  }, [navTitle, tempScribbles]);
 
+  const updateTitleHandler = () => {
+    setNavTitle(title);
     setShowTick(false);
   };
 
@@ -266,7 +272,8 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
 
   useEffect(() => {
     setTitle(navTitle);
-  }, [navTitle]);
+    setDisableInput(checkNotArchived());
+  }, [navTitle, checkNotArchived]);
 
   return (
     <StyledNavbar>
@@ -289,6 +296,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
               setTitle(e.target.value);
             }}
             onKeyUp={(e) => resizeInput(e)}
+            disabled={disableInput}
           />
         </div>
         {showTick && (
