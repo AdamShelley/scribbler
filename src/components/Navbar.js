@@ -272,7 +272,8 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
 
   useEffect(() => {
     setTitle(navTitle);
-    setDisableInput(checkNotArchived());
+    console.log(checkNotArchived());
+    // setDisableInput(checkNotArchived());
   }, [navTitle, checkNotArchived]);
 
   return (
@@ -288,7 +289,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
         <div className="title-container">
           <input
             type="text"
-            size={title.length}
+            size={title?.length}
             value={title}
             onChange={(e) => {
               resizeInput();
