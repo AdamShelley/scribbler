@@ -41,7 +41,7 @@ const Account = ({ setNavTitle }) => {
       <div className="settings-container profile">
         <div className="profile-option">
           <label htmlFor="email-address">Email Address</label>
-          <p>{auth?.user?.email}</p>
+          <p>{auth?.user?.email || `Logged in with Github`}</p>
         </div>
         <div className="button-container">
           <div className="profile-option">
@@ -93,7 +93,7 @@ const Account = ({ setNavTitle }) => {
               </div>
             )}
           </div>
-          <div className="profile-option">
+          {/* <div className="profile-option">
             <label htmlFor="delete-profile">
               Delete all data and profile <span>(This cannot be undone)</span>
             </label>
@@ -126,7 +126,7 @@ const Account = ({ setNavTitle }) => {
                 </Button>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
       <ToastContainer closeButton={false} />
