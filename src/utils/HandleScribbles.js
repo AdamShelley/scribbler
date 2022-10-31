@@ -31,7 +31,6 @@ export const saveScribbleToDatabase = async (
       body: markdown,
       // title,
     });
-    console.log("SAVING: " + selectedScribble);
 
     const updatedDoc = await getSingleDocument(selectedScribble.id);
 
@@ -67,8 +66,6 @@ export const saveScribbleToDatabase = async (
       unsaved: false,
     };
 
-    console.log("CREATING NEW: ", newScribble);
-
     createScribble(userId, newScribble);
 
     getAllUserScribbles(userId).then((result) => {
@@ -88,7 +85,6 @@ export const updateTitle = async (
   setScribbles,
   setSelectedScribble
 ) => {
-  console.log("UPDATING DATABASE!");
   await updateScribble(selectedScribble.id, {
     ...selectedScribble,
     title: newTitle,
@@ -201,7 +197,6 @@ export const restoreScribbleToMain = async (
 ) => {
   // Restore scribble to the main section
   try {
-    console.log(prevLoc);
     await restoreScribble(scribble, prevLoc);
 
     const prevLocScribbles = await getAllUserScribbles(userId, prevLoc);

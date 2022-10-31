@@ -104,8 +104,6 @@ const Sidebar = ({
   };
 
   const deleteAllScribblesInBin = () => {
-    console.log("Delete all scribbles");
-
     deleted.forEach((deletedScribble) => {
       deleteScribbleFromDatabase(deletedScribble, setDeleted, user.uid);
     });

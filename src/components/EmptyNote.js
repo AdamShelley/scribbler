@@ -35,8 +35,6 @@ const StyledEmptyNote = styled.div`
 `;
 
 const EmptyNote = ({ markdown, setMarkdown, setTitle }) => {
-  console.log("We are in empty note container");
-
   const updateMarkdown = (e) => {
     setMarkdown(e.target.value);
     const newTitle = updateTitle(e.target.value);

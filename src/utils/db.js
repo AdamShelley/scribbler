@@ -20,11 +20,9 @@ const firestore = getFirestore();
 // USER & SETTINGS
 
 export async function createUser(uid, data) {
-  // console.log("creating user");
   try {
     const newUserRef = doc(firestore, "users", uid);
     setDoc(newUserRef, { uid, ...data }, { merge: true });
-    console.log("Created new User");
     //Create new user settings if non available
     createSettings(uid);
   } catch (err) {
@@ -118,14 +116,11 @@ export async function getAllUserScribbles(
 
     return orderedScribbles;
   } catch (err) {
-    console.log("There has been an issue fetching user scribbles");
     console.log(err);
   }
 }
 
 export async function sortScribbles(data, sortMethod) {
-  // console.log("Sorting Scribbles");
-  // console.log(sortMethod);
   switch (sortMethod) {
     case "Newest":
       return data.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
@@ -156,7 +151,6 @@ export async function getSingleDocument(docId, col = "scribbles") {
 }
 
 export async function updateScribble(uid, newValues) {
-  console.log(uid, newValues);
   if (newValues.temp) return;
 
   try {
@@ -236,14 +230,13 @@ export async function deleteAccount(uid) {
   // Need to reauthenticate
 
   deleteUser(user)
-    .then(() => console.log("user deleted"))
+    .then()
     .catch((error) => console.log(error));
 }
 
 async function deleteCollections(uid, buckets) {
   try {
     for (let col in buckets) {
-      console.log("deleting: " + buckets[col]);
       const scribblesRef = collection(firestore, buckets[col]);
       const scribbleQuery = query(scribblesRef, where("authorId", "==", uid));
       const scribblesSnapshot = await getDocs(scribbleQuery);

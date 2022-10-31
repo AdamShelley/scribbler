@@ -6,7 +6,6 @@ export const storageSettings = (
   currentSettings,
   setSettings
 ) => {
-  console.log("Updating settings from storageSettings.js");
   if (updatedSetting.scribbleOrder) {
     sessionStorage.removeItem("scribbles");
     sessionStorage.removeItem("archived");

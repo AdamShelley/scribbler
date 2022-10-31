@@ -33,11 +33,7 @@ function useProvideAuth() {
     const saved_email = window.localStorage.getItem("emailForSignIn");
 
     if (isSignInWithEmailLink(auth, window.location.href) && !!saved_email) {
-      signInWithEmailLink(auth, saved_email, window.location.href).then(
-        (result) => {
-          console.log(result);
-        }
-      );
+      signInWithEmailLink(auth, saved_email, window.location.href);
     }
   }, []);
 
@@ -80,7 +76,6 @@ function useProvideAuth() {
 
     try {
       await sendSignInLinkToEmail(auth, email, actionCodeSettings).then(() => {
-        console.log("Signin with email");
         window.localStorage.setItem("emailForSignIn", email);
       });
     } catch (error) {

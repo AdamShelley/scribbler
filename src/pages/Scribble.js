@@ -100,8 +100,6 @@ const Scribble = ({
   const createBlankScribble = () => {
     // If a blank scribble already exists, do not create a new one.
 
-    console.log("CREATING BLANK SCRIBBLE");
-
     const blankExists = scribbles.find((scribble) => scribble.temp);
     if (blankExists) {
       return toast.error("You already have a blank page", {
@@ -123,9 +121,6 @@ const Scribble = ({
 
   // Keeps the non-saved markdown persistent.
   const updateScribblesWithoutDatabasePush = (currentScribble, body) => {
-    console.log(currentScribble, body);
-    console.log("Updating without DB PUSH");
-    // Where is previousScribbles from?
     const newList = (previousScribbles) =>
       previousScribbles.map((scrib) =>
         scrib.id === currentScribble.id
@@ -170,7 +165,6 @@ const Scribble = ({
       selectedScribble?.temp === false &&
       navTitle !== selectedScribble?.title
     ) {
-      console.log("CALLING UPDATE TITLE");
       updateTitle(
         selectedScribble,
         navTitle,

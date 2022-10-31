@@ -34,9 +34,8 @@ function App() {
     if (user) {
       // Check for user Settings
       let cachedSettings = localStorage.getItem("settings");
-      console.log(typeof cachedSettings);
+
       if (cachedSettings !== "undefined") {
-        console.log("Cached settings exist");
         cachedSettings = JSON.parse(localStorage.getItem("settings"));
       }
 

@@ -239,7 +239,6 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
       toast.error("Please enter a valid email", toastOptions);
       return false;
     } else {
-      console.log("Sending email to " + email);
       auth.signInWithEmailLinkHandler(email);
       return true;
     }
@@ -272,7 +271,6 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
 
   useEffect(() => {
     setTitle(navTitle);
-    console.log(checkNotArchived());
     // setDisableInput(checkNotArchived());
   }, [navTitle, checkNotArchived]);
 

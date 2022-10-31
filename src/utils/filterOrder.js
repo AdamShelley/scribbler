@@ -1,6 +1,4 @@
 export const filterOrder = (currentOrder) => {
-  console.log("Changing filter order");
-
   const options = ["Newest", "Oldest", "A-Z", "Z-A"];
 
   const currentScribbleOrder = currentOrder;
