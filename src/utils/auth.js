@@ -13,6 +13,7 @@ import {
 } from "firebase/auth";
 
 import { createUser } from "./db";
+import { DatabaseError } from "./error";
 
 const authContext = createContext();
 
@@ -67,7 +68,11 @@ function useProvideAuth() {
         handleUser(result.user);
       })
       .catch((err) => {
-        console.log(err);
+        throw new DatabaseError(
+          "Failed to sign in with Github, please try again.",
+          500,
+          err
+        );
       });
   };
 
@@ -78,8 +83,12 @@ function useProvideAuth() {
       await sendSignInLinkToEmail(auth, email, actionCodeSettings).then(() => {
         window.localStorage.setItem("emailForSignIn", email);
       });
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      throw new DatabaseError(
+        "Failed to sign in with the email, please try again.",
+        500,
+        err
+      );
     }
     window.localStorage.setItem("emailForSignIn", email);
   };
@@ -93,7 +102,11 @@ function useProvideAuth() {
         sessionStorage.removeItem("deleted");
       })
       .catch((err) => {
-        console.log(err);
+        throw new DatabaseError(
+          "Failed to sign out, please try again.",
+          500,
+          err
+        );
       });
   };
 

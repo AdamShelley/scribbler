@@ -285,18 +285,20 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
       </div>
       <div className="note-name">
         <div className="title-container">
-          <input
-            type="text"
-            size={title?.length}
-            value={title}
-            onChange={(e) => {
-              resizeInput();
-              setShowTick(true);
-              setTitle(e.target.value);
-            }}
-            onKeyUp={(e) => resizeInput(e)}
-            disabled={disableInput}
-          />
+          {title && (
+            <input
+              type="text"
+              size={title?.length}
+              value={title}
+              onChange={(e) => {
+                resizeInput();
+                setShowTick(true);
+                setTitle(e.target.value);
+              }}
+              onKeyUp={(e) => resizeInput(e)}
+              disabled={disableInput}
+            />
+          )}
         </div>
         {showTick && (
           <button onClick={updateTitleHandler}>

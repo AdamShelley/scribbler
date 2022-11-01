@@ -15,6 +15,8 @@ import {
 } from "firebase/firestore";
 import { deleteUser, getAuth } from "firebase/auth";
 
+import { DatabaseError } from "./error";
+
 const firestore = getFirestore();
 
 // USER & SETTINGS
@@ -26,7 +28,11 @@ export async function createUser(uid, data) {
     //Create new user settings if non available
     createSettings(uid);
   } catch (err) {
-    console.log(err);
+    throw new DatabaseError(
+      "Cannot create new user, please try again.",
+      504,
+      err
+    );
   }
 }
 
@@ -40,8 +46,12 @@ export async function getUserSettings(uid) {
     if (docSnap.exists()) {
       return docSnap.data();
     }
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new DatabaseError(
+      "Cannot get user settings, please try again.",
+      500,
+      err
+    );
   }
 }
 
@@ -89,7 +99,11 @@ export async function createScribble(uid, data) {
       timestamp: serverTimestamp(),
     });
   } catch (err) {
-    console.log(err);
+    throw new DatabaseError(
+      "Cannot create new Scribble, please try again.",
+      500,
+      err
+    );
   }
 }
 
@@ -116,7 +130,7 @@ export async function getAllUserScribbles(
 
     return orderedScribbles;
   } catch (err) {
-    console.log(err);
+    throw new DatabaseError("Could not get all user scribbles", 500, err);
   }
 }
 
@@ -145,8 +159,8 @@ export async function getSingleDocument(docId, col = "scribbles") {
     if (docSnap.exists()) {
       return docSnap.data();
     }
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new DatabaseError("Cannot get document, please try again.", 504, err);
   }
 }
 
@@ -161,8 +175,12 @@ export async function updateScribble(uid, newValues) {
       title: newValues.title,
       timestamp: serverTimestamp(),
     });
-  } catch (error) {
-    return console.log(error);
+  } catch (err) {
+    throw new DatabaseError(
+      "Cannot update Scribble, please try again.",
+      504,
+      err
+    );
   }
 }
 
@@ -179,7 +197,11 @@ export async function archiveScribble(
       deleted: loc === "deleted" ? true : false,
     });
   } catch (err) {
-    console.log(err);
+    throw new DatabaseError(
+      "Cannot archive Scribble, please try again.",
+      500,
+      err
+    );
   }
 }
 
@@ -192,7 +214,11 @@ export async function restoreScribble(scribble, prevLoc) {
     });
     deleteScribble(scribble.id, prevLoc);
   } catch (err) {
-    console.log(err);
+    throw new DatabaseError(
+      "Cannot restore Scribble, please try again.",
+      500,
+      err
+    );
   }
 }
 
@@ -215,7 +241,11 @@ export async function duplicateScribble(docId, uid) {
 
     await createScribble(uid, existingDoc);
   } catch (err) {
-    console.log(err);
+    throw new DatabaseError(
+      "Cannot duplicate Scribble, please try again.",
+      504,
+      err
+    );
   }
 }
 
@@ -231,7 +261,10 @@ export async function deleteAccount(uid) {
 
   deleteUser(user)
     .then()
-    .catch((error) => console.log(error));
+    .catch(
+      (err) =>
+        new DatabaseError("Cannot delete account, please try again.", 504, err)
+    );
 }
 
 async function deleteCollections(uid, buckets) {
@@ -246,8 +279,12 @@ async function deleteCollections(uid, buckets) {
       // Clear session storage
       sessionStorage.removeItem(buckets[col]);
     }
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new DatabaseError(
+      "Cannot delete collection, please try again.",
+      504,
+      err
+    );
   }
 }
 
