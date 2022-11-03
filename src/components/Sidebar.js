@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../utils/auth";
 import { StyledSidebar } from "../styles/SidebarStyles";
+import SidebarTabs from "./SidebarTabs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
@@ -18,6 +19,7 @@ import {
   moveScribbleToBin,
   duplicateScribbleHandler,
 } from "../utils/HandleScribbles";
+
 import OptionsMenu from "./OptionsMenu";
 
 const Sidebar = ({
@@ -149,6 +151,40 @@ const Sidebar = ({
         }
       />
 
+      {/* From Here */}
+      <SidebarTabs
+        naming={"Scribbles"}
+        setShowScribbles={setShowScribbles}
+        setCurrentRightClickedScribble={setCurrentRightClickedScribble}
+        showScribbles={showScribbles}
+        scribbles={scribbles}
+        createNewScribble={createNewScribble}
+        changeScribble={changeScribble}
+        selectedScribble={selectedScribble}
+      />
+
+      <SidebarTabs
+        naming={"Archive"}
+        setShowScribbles={setShowArchive}
+        setCurrentRightClickedScribble={setCurrentRightClickedScribble}
+        showScribbles={showArchive}
+        scribbles={archived}
+        createNewScribble={createNewScribble}
+        changeScribble={changeScribble}
+        selectedScribble={selectedScribble}
+      />
+
+      <SidebarTabs
+        naming={"Bin"}
+        setShowScribbles={setShowBin}
+        showScribbles={showBin}
+        setCurrentRightClickedScribble={setCurrentRightClickedScribble}
+        scribbles={deleted}
+        createNewScribble={createNewScribble}
+        changeScribble={changeScribble}
+        selectedScribble={selectedScribble}
+      />
+
       <button
         className="archive-button"
         onClick={() => setShowScribbles((prev) => !prev)}
@@ -212,6 +248,7 @@ const Sidebar = ({
           </div>
         </div>
       </button>
+
       {showArchive && archived.length > 0 && (
         <ul>
           {archived
@@ -295,6 +332,8 @@ const Sidebar = ({
       {showBin && deleted.length === 0 && (
         <p className="empty-section">Your bin is empty!</p>
       )}
+
+      {/* To here */}
     </StyledSidebar>
   );
 };
