@@ -27,6 +27,8 @@ const Scribble = ({
   const [deleted, setDeleted] = useState([]);
   const [selectedScribble, setSelectedScribble] = useState();
 
+  const BUCKETS = ["Scribbles", "Archived", "Bin"];
+
   const auth = useAuth();
 
   useEffect(() => {
@@ -192,6 +194,7 @@ const Scribble = ({
               deleted={deleted}
               setDeleted={setDeleted}
               settings={settings}
+              buckets={BUCKETS}
             />
             <NoteContainer
               scribbles={scribbles}

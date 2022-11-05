@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
@@ -17,7 +17,21 @@ const SidebarTabs = ({
   createNewScribble,
   changeScribble,
   selectedScribble,
+  deleteAllScribblesInBin,
 }) => {
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const showConfirmDeleteButton = () => {
+    setShowConfirm(true);
+    const confirmTimeout = setTimeout(() => {
+      setShowConfirm(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(confirmTimeout);
+    };
+  };
+
   return (
     <>
       <button
@@ -31,44 +45,72 @@ const SidebarTabs = ({
             <h4>| {naming} |</h4>
           </div>
 
-          <FontAwesomeIcon
-            onClick={(e) => {
-              e.stopPropagation();
-              createNewScribble();
-            }}
-            icon={faPlus}
-          />
+          {naming === "Scribbles" && (
+            <FontAwesomeIcon
+              onClick={(e) => {
+                e.stopPropagation();
+                createNewScribble();
+              }}
+              icon={faPlus}
+            />
+          )}
+
+          {naming === "Bin" && showScribbles && scribbles.length > 0 && (
+            <FontAwesomeIcon
+              onClick={(e) => {
+                e.stopPropagation();
+                showConfirmDeleteButton();
+              }}
+              icon={showConfirm ? faTrashCanArrowUp : faTrashCan}
+              style={{ opacity: 0.9 }}
+            />
+          )}
         </div>
       </button>
 
       {showScribbles && scribbles?.length >= 1 && (
-        <ul>
-          {scribbles ? (
-            scribbles.map((scribble, index) => (
-              <li
-                key={scribble?.id || `temp-${index}`}
-                onClick={() => changeScribble(scribble)}
-                onContextMenu={() => setCurrentRightClickedScribble(scribble)}
-                className={`${
-                  selectedScribble?.id === scribble?.id
-                    ? "selected-scribble"
-                    : ""
-                }`}
-              >
-                <h3>{scribble?.title?.slice(0, 35)}</h3>
-                {scribble?.unsaved && <div className="save-dot"></div>}
+        <>
+          <ul>
+            {scribbles ? (
+              scribbles.map((scribble, index) => (
+                <li
+                  key={scribble?.id || `temp-${index}`}
+                  onClick={() => changeScribble(scribble)}
+                  onContextMenu={() => setCurrentRightClickedScribble(scribble)}
+                  className={`${
+                    selectedScribble?.id === scribble?.id
+                      ? "selected-scribble"
+                      : ""
+                  }`}
+                >
+                  <h3>{scribble?.title?.slice(0, 35)}</h3>
+                  {scribble?.unsaved && <div className="save-dot"></div>}
+                </li>
+              ))
+            ) : (
+              <li>
+                <h3>Unsaved Scribble...</h3>
               </li>
-            ))
-          ) : (
-            <li>
-              <h3>Unsaved Scribble...</h3>
-            </li>
+            )}
+          </ul>
+          {naming === "Bin" && showConfirm && (
+            <div className="delete-all-container">
+              <button
+                onClick={() => {
+                  deleteAllScribblesInBin();
+                  setShowConfirm(false);
+                }}
+                className="delete-all-button"
+              >
+                Confirm Deletion
+              </button>
+            </div>
           )}
-        </ul>
+        </>
       )}
 
       {showScribbles && scribbles?.length === 0 && (
-        <p className="empty-section">You have no Scribbles!</p>
+        <p className="empty-section">You have no {naming}!</p>
       )}
     </>
   );
