@@ -58,31 +58,29 @@ function useProvideAuth() {
     });
   };
 
-  const signinWithGithub = () => {
+  const signinWithGithub = async () => {
     setLoading(true);
 
     const provider = new GithubAuthProvider();
 
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        handleUser(result.user);
-      })
-      .catch((err) => {
-        throw new DatabaseError(
-          "Failed to sign in with Github, please try again.",
-          500,
-          err
-        );
-      });
+    try {
+      const result = await signInWithPopup(auth, provider);
+      await handleUser(result.user);
+    } catch (err) {
+      throw new DatabaseError(
+        "Failed to sign in with Github, please try again.",
+        500,
+        err
+      );
+    }
   };
 
   const signInWithEmailLinkHandler = async (email) => {
     if (!email) return;
 
     try {
-      await sendSignInLinkToEmail(auth, email, actionCodeSettings).then(() => {
-        window.localStorage.setItem("emailForSignIn", email);
-      });
+      await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      window.localStorage.setItem("emailForSignIn", email);
     } catch (err) {
       throw new DatabaseError(
         "Failed to sign in with the email, please try again.",
@@ -93,21 +91,20 @@ function useProvideAuth() {
     window.localStorage.setItem("emailForSignIn", email);
   };
 
-  const signout = () => {
-    signOut(auth)
-      .then(() => {
-        setUser(false);
-        sessionStorage.removeItem("scribbles");
-        sessionStorage.removeItem("archived");
-        sessionStorage.removeItem("deleted");
-      })
-      .catch((err) => {
-        throw new DatabaseError(
-          "Failed to sign out, please try again.",
-          500,
-          err
-        );
-      });
+  const signout = async () => {
+    try {
+      await signOut(auth);
+      setUser(false);
+      sessionStorage.removeItem("scribbles");
+      sessionStorage.removeItem("archived");
+      sessionStorage.removeItem("deleted");
+    } catch (err) {
+      throw new DatabaseError(
+        "Failed to sign out, please try again.",
+        500,
+        err
+      );
+    }
   };
 
   return {

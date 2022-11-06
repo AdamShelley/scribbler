@@ -68,11 +68,10 @@ export const saveScribbleToDatabase = async (
 
     createScribble(userId, newScribble);
 
-    getAllUserScribbles(userId).then((result) => {
-      setScribbles(result);
-      setSelectedScribble(result[0]);
-      sessionStorage.setItem("scribbles", JSON.stringify(result));
-    });
+    const result = await getAllUserScribbles(userId);
+    setScribbles(result);
+    setSelectedScribble(result[0]);
+    sessionStorage.setItem("scribbles", JSON.stringify(result));
 
     toast.success("Created new Scribble!", toastOptions);
   }
@@ -219,11 +218,10 @@ export const duplicateScribbleHandler = async (
   sessionStorage.removeItem("scribbles");
   await duplicateScribble(docId, userId);
 
-  getAllUserScribbles(userId).then((result) => {
-    setScribbles(result);
-    setSelectedScribble(result[0]);
-    sessionStorage.setItem("scribbles", JSON.stringify(result));
-  });
+  const result = await getAllUserScribbles(userId);
+  setScribbles(result);
+  setSelectedScribble(result[0]);
+  sessionStorage.setItem("scribbles", JSON.stringify(result));
 
   toast.success("Scribble Copied", toastOptions);
 };

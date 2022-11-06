@@ -249,6 +249,7 @@ export async function duplicateScribble(docId, uid) {
   }
 }
 
+// WIP delete account not fully working
 export async function deleteAccount(uid) {
   // Delete scribbes, user & settings
   const buckets = ["scribbles", "archive", "deleted", "settings"];
@@ -258,13 +259,6 @@ export async function deleteAccount(uid) {
   const user = auth.currentUser;
 
   // Need to reauthenticate
-
-  deleteUser(user)
-    .then()
-    .catch(
-      (err) =>
-        new DatabaseError("Cannot delete account, please try again.", 504, err)
-    );
 }
 
 async function deleteCollections(uid, buckets) {
