@@ -110,7 +110,7 @@ const SidebarTabs = ({
       )}
 
       {showScribbles && scribbles?.length === 0 && (
-        <p className="empty-section">You have no {naming}!</p>
+        <p className="empty-section">You have no scribbles here!</p>
       )}
     </>
   );
