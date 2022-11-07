@@ -220,7 +220,6 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
   const [showError, setShowError] = useState(false);
   const [title, setTitle] = useState("");
   const [showTick, setShowTick] = useState(false);
-  const [disableInput, setDisableInput] = useState(false);
 
   const auth = useAuth();
 
@@ -255,24 +254,14 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
     );
   };
 
-  const checkNotArchived = useCallback(() => {
-    return (
-      tempScribbles &&
-      !tempScribbles.some((scribble) => scribble.title === navTitle)
-    );
-  }, [navTitle, tempScribbles]);
-
   const updateTitleHandler = () => {
     setNavTitle(title);
     setShowTick(false);
   };
 
-  const resizeInput = (el) => {};
-
   useEffect(() => {
     setTitle(navTitle);
-    // setDisableInput(checkNotArchived());
-  }, [navTitle, checkNotArchived]);
+  }, [navTitle]);
 
   return (
     <StyledNavbar>
@@ -291,12 +280,9 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
               size={title?.length}
               value={title}
               onChange={(e) => {
-                resizeInput();
                 setShowTick(true);
                 setTitle(e.target.value);
               }}
-              onKeyUp={(e) => resizeInput(e)}
-              disabled={disableInput}
             />
           )}
         </div>
