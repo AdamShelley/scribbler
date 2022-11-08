@@ -213,7 +213,7 @@ const isValidEmail = (email) => {
   return /\S+@\S+\.\S+/.test(email);
 };
 
-const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
+const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
@@ -283,6 +283,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle }) => {
                 setShowTick(true);
                 setTitle(e.target.value);
               }}
+              disabled={navPrevent}
             />
           )}
         </div>

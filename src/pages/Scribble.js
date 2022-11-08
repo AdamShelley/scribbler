@@ -21,6 +21,7 @@ const Scribble = ({
   settings,
   setSettings,
   setTempScribbles,
+  setNavPrevent,
 }) => {
   const [scribbles, setScribbles] = useState([]);
   const [archived, setArchived] = useState([]);
@@ -95,7 +96,11 @@ const Scribble = ({
   }, [auth.user, setNavTitle, settings, setTempScribbles]);
 
   const changeScribble = (scribble) => {
+    setNavPrevent(false);
     setSelectedScribble(scribble);
+
+    if (scribble.archived || scribble.deleted) setNavPrevent(true);
+
     setNavTitle(scribble.title);
   };
 

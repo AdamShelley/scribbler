@@ -20,6 +20,7 @@ import { ToastContainer } from "react-toastify";
 function App() {
   const [user, setUser] = useState(null);
   const [navTitle, setNavTitle] = useState("");
+  const [navPrevent, setNavPrevent] = useState(false);
   const [settings, setSettings] = useState("");
   const [tempScribbles, setTempScribbles] = useState("");
 
@@ -66,6 +67,7 @@ function App() {
           navTitle={navTitle}
           setNavTitle={setNavTitle}
           tempScribbles={tempScribbles}
+          navPrevent={navPrevent}
         />
         <GlobalStyle />
         <Routes>
@@ -78,6 +80,7 @@ function App() {
                 settings={settings}
                 setSettings={setSettings}
                 setTempScribbles={setTempScribbles}
+                setNavPrevent={setNavPrevent}
               />
             }
           />

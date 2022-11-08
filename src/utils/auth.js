@@ -67,6 +67,7 @@ function useProvideAuth() {
       const result = await signInWithPopup(auth, provider);
       await handleUser(result.user);
     } catch (err) {
+      console.log(err);
       throw new DatabaseError(
         "Failed to sign in with Github, please try again.",
         500,
@@ -79,7 +80,12 @@ function useProvideAuth() {
     if (!email) return;
 
     try {
-      await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      const response = await sendSignInLinkToEmail(
+        auth,
+        email,
+        actionCodeSettings
+      );
+      console.log(response);
       window.localStorage.setItem("emailForSignIn", email);
     } catch (err) {
       throw new DatabaseError(
