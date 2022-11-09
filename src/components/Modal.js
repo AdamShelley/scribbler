@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import styled from "styled-components";
 import Button from "../styles/Button";
-import { toastOptions } from "../utils/toastOptions";
 
 const StyledModal = styled.div`
   display: flex;
@@ -27,6 +25,7 @@ const StyledModal = styled.div`
 
     span {
       cursor: pointer;
+      color: white;
     }
   }
 
@@ -107,6 +106,7 @@ const Modal = ({
             onClick={handleSignIn}
             maxWidth="15%"
             minWidth="10%"
+            margin="0 0 0 .5rem"
             style={{ whiteSpace: "nowrap", padding: ".5rem" }}
           >
             Sign-in

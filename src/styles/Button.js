@@ -11,7 +11,7 @@ const StyledButton = styled.button`
   max-width: ${(props) => props.maxWidth || "100%"};
   font-size: ${(props) => props.fontSize || "0.7rem"};
   font-family: inherit;
-  border-radius: 2px;
+  border-radius: 2px !important;
   cursor: pointer;
   user-select: none;
 

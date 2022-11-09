@@ -13,5 +13,6 @@ export class DatabaseError extends Error {
     });
 
     console.log(`Error ${errorCode}: ${message}`);
+    console.log(original);
   }
 }
