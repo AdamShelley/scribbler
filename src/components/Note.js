@@ -68,18 +68,18 @@ const Note = ({
 
   return (
     <StyledNoteContainer tabIndex="1">
-      {/* {markdown && ( */}
-      <textarea
-        onChange={updateMarkdown}
-        value={markdown ? markdown : ""}
-        data-provide="markdown"
-        disabled={
-          selectedScribble?.archived ||
-          selectedScribble?.deleted ||
-          !selectedScribble?.body
-        }
-      />
-      {/* )} */}
+      {showMarkdown && (
+        <textarea
+          onChange={updateMarkdown}
+          value={markdown ? markdown : ""}
+          data-provide="markdown"
+          disabled={
+            selectedScribble?.archived ||
+            selectedScribble?.deleted ||
+            !selectedScribble?.body
+          }
+        />
+      )}
 
       {showResults && markdown.length > 0 && (
         <div className="result-container">
