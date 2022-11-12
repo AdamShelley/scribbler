@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { down } from "styled-breakpoints";
+import { useBreakpoint } from "styled-breakpoints/react-styled";
+
 import Sidebar from "../components/Sidebar";
 import NoteContainer from "../components/NoteContainer";
 import { getAllUserScribbles } from "../utils/db";
@@ -28,9 +31,12 @@ const Scribble = ({
   const [deleted, setDeleted] = useState([]);
   const [selectedScribble, setSelectedScribble] = useState();
 
-  const BUCKETS = ["Scribbles", "Archived", "Bin"];
-
+  const showSidebarToggle = useBreakpoint(down("md"));
+  const [showSidebar, setShowSidebar] = useState(
+    showSidebarToggle ? showSidebarToggle : true
+  );
   const auth = useAuth();
+  const BUCKETS = ["Scribbles", "Archived", "Bin"];
 
   useEffect(() => {
     // Rerenders caused by changing the state for each separately
@@ -200,6 +206,7 @@ const Scribble = ({
               setDeleted={setDeleted}
               settings={settings}
               buckets={BUCKETS}
+              showSidebarToggle={showSidebar}
             />
             <NoteContainer
               scribbles={scribbles}
@@ -215,6 +222,8 @@ const Scribble = ({
               settings={settings}
               setSettings={setSettings}
               setNavTitle={setNavTitle}
+              showSidebar={showSidebar}
+              setShowSidebar={setShowSidebar}
             />
           </>
         ) : (

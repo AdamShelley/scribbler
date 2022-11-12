@@ -249,4 +249,8 @@ export const StyledSidebar = styled.div`
     &:hover {
     }
   }
+
+  @media screen and (max-width: 800px) {
+    display: none;
+  } ;
 `;

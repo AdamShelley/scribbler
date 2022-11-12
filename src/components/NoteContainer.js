@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { down } from "styled-breakpoints";
+import { useBreakpoint } from "styled-breakpoints/react-styled";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEyeSlash,
@@ -40,6 +43,8 @@ const NoteContainer = ({
   settings,
   setSettings,
   setNavTitle,
+  showSidebar,
+  setShowSidebar,
 }) => {
   const auth = useAuth();
 
@@ -109,6 +114,7 @@ const NoteContainer = ({
     <StyledScribbleContainer>
       <StyledSearchBar>
         <div>
+          {showSidebar && <div onClick={() => setShowSidebar(true)}>X</div>}
           <Tooltips text={`Order: ${settings?.scribbleOrder}`}>
             <FontAwesomeIcon
               className="show-results"

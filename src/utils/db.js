@@ -13,7 +13,7 @@ import {
   deleteDoc,
   getDoc,
 } from "firebase/firestore";
-import { deleteUser, getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 import { DatabaseError } from "./error";
 

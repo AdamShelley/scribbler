@@ -23,6 +23,7 @@
     "remark-breaks": "^3.0.2",
     "remark-gfm": "^3.0.1",
     "remark-github": "^11.2.4",
+    "styled-breakpoints": "^11.1.1",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },

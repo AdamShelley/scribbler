@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
 import { useAuth } from "../utils/auth";
 import { Link } from "react-router-dom";
 import { faChevronDown, faCheck } from "@fortawesome/free-solid-svg-icons";
