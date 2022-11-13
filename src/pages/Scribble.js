@@ -31,10 +31,6 @@ const Scribble = ({
   const [deleted, setDeleted] = useState([]);
   const [selectedScribble, setSelectedScribble] = useState();
 
-  const showSidebarToggle = useBreakpoint(down("md"));
-  const [showSidebar, setShowSidebar] = useState(
-    showSidebarToggle ? showSidebarToggle : true
-  );
   const auth = useAuth();
   const BUCKETS = ["Scribbles", "Archived", "Bin"];
 
@@ -188,6 +184,8 @@ const Scribble = ({
     }
   }, [navTitle]);
 
+  const isMobile = useBreakpoint(down("sm"));
+
   return (
     <div style={{ height: "100%", overflow: "hidden" }}>
       <StyledContainer>
@@ -206,25 +204,25 @@ const Scribble = ({
               setDeleted={setDeleted}
               settings={settings}
               buckets={BUCKETS}
-              showSidebarToggle={showSidebar}
+              isMobile={isMobile}
             />
-            <NoteContainer
-              scribbles={scribbles}
-              selectedScribble={selectedScribble}
-              setSelectedScribble={setSelectedScribble}
-              setScribbles={setScribbles}
-              updateScribblesWithoutDatabasePush={
-                updateScribblesWithoutDatabasePush
-              }
-              resetSaveDot={resetSaveDot}
-              setDeleted={setDeleted}
-              setArchived={setArchived}
-              settings={settings}
-              setSettings={setSettings}
-              setNavTitle={setNavTitle}
-              showSidebar={showSidebar}
-              setShowSidebar={setShowSidebar}
-            />
+            {!isMobile && (
+              <NoteContainer
+                scribbles={scribbles}
+                selectedScribble={selectedScribble}
+                setSelectedScribble={setSelectedScribble}
+                setScribbles={setScribbles}
+                updateScribblesWithoutDatabasePush={
+                  updateScribblesWithoutDatabasePush
+                }
+                resetSaveDot={resetSaveDot}
+                setDeleted={setDeleted}
+                setArchived={setArchived}
+                settings={settings}
+                setSettings={setSettings}
+                setNavTitle={setNavTitle}
+              />
+            )}
           </>
         ) : (
           <>

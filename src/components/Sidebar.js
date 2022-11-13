@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { down } from "styled-breakpoints";
-import { useBreakpoint } from "styled-breakpoints/react-styled";
 
 import { useAuth } from "../utils/auth";
 import { StyledSidebar } from "../styles/SidebarStyles";
@@ -29,9 +27,8 @@ const Sidebar = ({
   setScribbles,
   setSelectedScribble,
   settings,
+  isMobile,
 }) => {
-  const isMobile = useBreakpoint(down("sm"));
-
   const [showScribbles, setShowScribbles] = useState(
     settings?.expandScribbles === "Yes" ? true : false
   );
@@ -118,7 +115,7 @@ const Sidebar = ({
   };
 
   return (
-    <StyledSidebar>
+    <StyledSidebar isMobile={isMobile}>
       <OptionsMenu
         currentRightClickedScribble={currentRightClickedScribble}
         archiveScribbleHandler={archiveScribbleHandler}

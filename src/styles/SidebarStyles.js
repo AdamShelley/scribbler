@@ -5,6 +5,7 @@ export const StyledSidebar = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   min-width: 25vw;
+  width: ${(props) => (props.isMobile ? "100%" : "")};
   border-right: 1px solid var(--light-grey);
   background-color: #1b1b1b;
   height: 100%;
@@ -251,6 +252,5 @@ export const StyledSidebar = styled.div`
   }
 
   @media screen and (max-width: 800px) {
-    display: none;
   } ;
 `;

@@ -9,6 +9,7 @@ import {
   faFloppyDisk,
   faTrash,
   faFilter,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -114,7 +115,13 @@ const NoteContainer = ({
     <StyledScribbleContainer>
       <StyledSearchBar>
         <div>
-          {showSidebar && <div onClick={() => setShowSidebar(true)}>X</div>}
+          {showSidebar && (
+            <FontAwesomeIcon
+              className="show-results"
+              icon={faBars}
+              onClick={() => setShowSidebar(true)}
+            />
+          )}
           <Tooltips text={`Order: ${settings?.scribbleOrder}`}>
             <FontAwesomeIcon
               className="show-results"
