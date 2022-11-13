@@ -13,7 +13,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import EmptyNote from "./EmptyNote";
 import Note from "./Note";
 import { useAuth } from "../utils/auth";
 import Tooltips from "../utils/Tooltips";
@@ -43,8 +42,7 @@ const NoteContainer = ({
   setDeleted,
   settings,
   setSettings,
-  setNavTitle,
-  showSidebar,
+  isMobile,
   setShowSidebar,
 }) => {
   const auth = useAuth();
@@ -115,7 +113,7 @@ const NoteContainer = ({
     <StyledScribbleContainer>
       <StyledSearchBar>
         <div>
-          {showSidebar && (
+          {isMobile && (
             <FontAwesomeIcon
               className="show-results"
               icon={faBars}

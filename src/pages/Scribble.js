@@ -30,6 +30,7 @@ const Scribble = ({
   const [archived, setArchived] = useState([]);
   const [deleted, setDeleted] = useState([]);
   const [selectedScribble, setSelectedScribble] = useState();
+  const [showSidebar, setShowSidebar] = useState(true);
 
   const auth = useAuth();
   const BUCKETS = ["Scribbles", "Archived", "Bin"];
@@ -104,6 +105,8 @@ const Scribble = ({
     if (scribble.archived || scribble.deleted) setNavPrevent(true);
 
     setNavTitle(scribble.title);
+
+    if (isMobile) setShowSidebar(false);
   };
 
   const createBlankScribble = () => {
@@ -186,27 +189,34 @@ const Scribble = ({
 
   const isMobile = useBreakpoint(down("sm"));
 
+  useEffect(() => {
+    console.log(isMobile);
+    if (isMobile) setShowSidebar(true);
+  }, [isMobile]);
+
   return (
     <div style={{ height: "100%", overflow: "hidden" }}>
       <StyledContainer>
         {auth.user && settings ? (
           <>
-            <Sidebar
-              scribbles={scribbles}
-              selectedScribble={selectedScribble}
-              changeScribble={changeScribble}
-              setScribbles={setScribbles}
-              setSelectedScribble={setSelectedScribble}
-              createNewScribble={createBlankScribble}
-              archived={archived}
-              setArchived={setArchived}
-              deleted={deleted}
-              setDeleted={setDeleted}
-              settings={settings}
-              buckets={BUCKETS}
-              isMobile={isMobile}
-            />
-            {!isMobile && (
+            {showSidebar && (
+              <Sidebar
+                scribbles={scribbles}
+                selectedScribble={selectedScribble}
+                changeScribble={changeScribble}
+                setScribbles={setScribbles}
+                setSelectedScribble={setSelectedScribble}
+                createNewScribble={createBlankScribble}
+                archived={archived}
+                setArchived={setArchived}
+                deleted={deleted}
+                setDeleted={setDeleted}
+                settings={settings}
+                buckets={BUCKETS}
+                isMobile={isMobile}
+              />
+            )}
+            {!showSidebar && (
               <NoteContainer
                 scribbles={scribbles}
                 selectedScribble={selectedScribble}
@@ -221,6 +231,8 @@ const Scribble = ({
                 settings={settings}
                 setSettings={setSettings}
                 setNavTitle={setNavTitle}
+                isMobile={isMobile}
+                setShowSidebar={setShowSidebar}
               />
             )}
           </>
