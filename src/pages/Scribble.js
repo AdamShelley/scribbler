@@ -190,9 +190,12 @@ const Scribble = ({
   const isMobile = useBreakpoint(down("sm"));
 
   useEffect(() => {
-    console.log(isMobile);
     if (isMobile) setShowSidebar(true);
   }, [isMobile]);
+
+  const webVersion = !isMobile;
+  const showNoteContainer =
+    (!showSidebar && isMobile && !webVersion) || webVersion;
 
   return (
     <div style={{ height: "100%", overflow: "hidden" }}>
@@ -216,7 +219,7 @@ const Scribble = ({
                 isMobile={isMobile}
               />
             )}
-            {!showSidebar && (
+            {showNoteContainer && (
               <NoteContainer
                 scribbles={scribbles}
                 selectedScribble={selectedScribble}

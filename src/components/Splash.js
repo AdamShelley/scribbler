@@ -2,6 +2,7 @@ import React from "react";
 
 import styled from "styled-components";
 import hero1 from "../img/hero1.png";
+
 const StyledSplashContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,6 +47,12 @@ const StyledSplashContainer = styled.div`
       li {
         margin-top: 3rem;
       }
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    div {
+      max-width: 95%;
     }
   }
 `;

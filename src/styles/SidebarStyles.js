@@ -145,7 +145,7 @@ export const StyledSidebar = styled.div`
   }
 
   .archive-button {
-    height: 2.5rem;
+    height: ${(props) => (props.isMobile ? "3rem" : "2.5rem")};
     min-height: 2.5rem;
     margin: 0rem;
     margin-top: 0.1rem;
@@ -195,6 +195,7 @@ export const StyledSidebar = styled.div`
       width: 100%;
 
       > div {
+        width: ${(props) => (props.isMobile ? "10rem" : "")};
       }
 
       > svg {

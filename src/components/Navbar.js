@@ -44,6 +44,16 @@ const StyledNavbar = styled.div`
         }
       }
     }
+
+    @media screen and (max-width: 800px) {
+      .logo-container {
+        margin-left: 1rem;
+
+        a h1 {
+          padding-right: 1rem;
+        }
+      }
+    }
   }
 
   .note-name {
@@ -102,6 +112,10 @@ const StyledNavbar = styled.div`
         }
       }
     }
+
+    @media screen and (max-width: 800px) {
+      margin-left: 0.5rem;
+    }
   }
 
   .avatar-container {
@@ -155,6 +169,10 @@ const StyledNavbar = styled.div`
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    @media screen and (max-width: 800px) {
+      justify-content: center;
     }
   }
 
@@ -273,29 +291,31 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
           </Link>
         </div>
       </div>
-      <div className="note-name">
-        <div className="title-container">
-          {title && (
-            <input
-              type="text"
-              size={title?.length}
-              value={title}
-              onChange={(e) => {
-                setShowTick(true);
-                setTitle(e.target.value);
-              }}
-              disabled={navPrevent}
-            />
+      {title && (
+        <div className="note-name">
+          <div className="title-container">
+            {title && (
+              <input
+                type="text"
+                size={title?.length}
+                value={title}
+                onChange={(e) => {
+                  setShowTick(true);
+                  setTitle(e.target.value);
+                }}
+                disabled={navPrevent}
+              />
+            )}
+          </div>
+          {showTick && (
+            <button onClick={updateTitleHandler}>
+              <FontAwesomeIcon icon={faCheck} />
+            </button>
           )}
-        </div>
-        {showTick && (
-          <button onClick={updateTitleHandler}>
-            <FontAwesomeIcon icon={faCheck} />
-          </button>
-        )}
 
-        <span>{checkUnsaved() && "  - Unsaved scribble"}</span>
-      </div>
+          <span>{checkUnsaved() && "  - Unsaved scribble"}</span>
+        </div>
+      )}
 
       <div className="avatar-container">
         {!auth.user && (
