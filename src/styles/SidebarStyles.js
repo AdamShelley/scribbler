@@ -27,7 +27,7 @@ export const StyledSidebar = styled.div`
     h3 {
       font-weight: 400;
       font-size: 1rem;
-
+      user-select: none;
       letter-spacing: 1px;
     }
 

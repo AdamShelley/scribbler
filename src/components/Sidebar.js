@@ -141,6 +141,7 @@ const Sidebar = ({
         createNewScribble={createNewScribble}
         changeScribble={changeScribble}
         selectedScribble={selectedScribble}
+        isMobile={isMobile}
       />
       <SidebarTabs
         naming={"Archive"}
@@ -150,6 +151,7 @@ const Sidebar = ({
         scribbles={archived}
         changeScribble={changeScribble}
         selectedScribble={selectedScribble}
+        isMobile={isMobile}
       />
 
       <SidebarTabs
@@ -161,6 +163,7 @@ const Sidebar = ({
         changeScribble={changeScribble}
         selectedScribble={selectedScribble}
         deleteAllScribblesInBin={deleteAllScribblesInBin}
+        isMobile={isMobile}
       />
     </StyledSidebar>
   );

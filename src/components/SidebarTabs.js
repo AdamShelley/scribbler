@@ -18,6 +18,7 @@ const SidebarTabs = ({
   changeScribble,
   selectedScribble,
   deleteAllScribblesInBin,
+  isMobile,
 }) => {
   const [showConfirm, setShowConfirm] = useState(false);
 

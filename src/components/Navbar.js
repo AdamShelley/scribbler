@@ -9,6 +9,8 @@ import Modal from "./Modal";
 import Button from "../styles/Button";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
+import { down } from "styled-breakpoints";
+import { useBreakpoint } from "styled-breakpoints/react-styled";
 
 const StyledNavbar = styled.div`
   position: relative;
@@ -170,10 +172,6 @@ const StyledNavbar = styled.div`
         opacity: 0.8;
       }
     }
-
-    @media screen and (max-width: 800px) {
-      justify-content: center;
-    }
   }
 
   .dropdown {
@@ -282,6 +280,8 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
     setTitle(navTitle);
   }, [navTitle]);
 
+  const isMobile = useBreakpoint(down("sm"));
+
   return (
     <StyledNavbar>
       <div>
@@ -291,7 +291,8 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
           </Link>
         </div>
       </div>
-      {title && (
+
+      {!isMobile && title && (
         <div className="note-name">
           <div className="title-container">
             {title && (
