@@ -38,6 +38,12 @@ const StyledNoteContainer = styled.div`
     overflow-x: scroll;
     /* white-space: pre; */
   }
+
+  @media screen and (max-width: 800px) {
+    textarea {
+      border-right: none;
+    }
+  }
 `;
 
 const Note = ({

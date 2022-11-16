@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { down } from "styled-breakpoints";
-import { useBreakpoint } from "styled-breakpoints/react-styled";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -30,6 +28,7 @@ import { useCallback } from "react";
 import { sortScribbles } from "../utils/db";
 import { filterOrder } from "../utils/filterOrder";
 import { storageSettings } from "../utils/storageSettings";
+import MobileTitle from "./MobileTitle";
 
 const NoteContainer = ({
   scribbles,
@@ -44,6 +43,8 @@ const NoteContainer = ({
   setSettings,
   isMobile,
   setShowSidebar,
+  navTitle,
+  setNavTitle,
 }) => {
   const auth = useAuth();
 
@@ -159,6 +160,9 @@ const NoteContainer = ({
           </Tooltips>
         </div>
       </StyledSearchBar>
+      {isMobile && (
+        <MobileTitle setNavTitle={setNavTitle} navTitle={navTitle} />
+      )}
       <StyledNoteContainer>
         <div>
           <Note

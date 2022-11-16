@@ -219,6 +219,7 @@ const Scribble = ({
                 isMobile={isMobile}
               />
             )}
+
             {showNoteContainer && (
               <NoteContainer
                 scribbles={scribbles}
@@ -233,6 +234,7 @@ const Scribble = ({
                 setArchived={setArchived}
                 settings={settings}
                 setSettings={setSettings}
+                navTitle={navTitle}
                 setNavTitle={setNavTitle}
                 isMobile={isMobile}
                 setShowSidebar={setShowSidebar}

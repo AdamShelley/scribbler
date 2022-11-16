@@ -40,6 +40,11 @@ const StyledSearchBar = styled.div`
     &:hover {
       color: var(--light-grey);
     }
+
+    @media screen and (max-width: 800px) {
+      padding: 1rem;
+      font-size: 1.2rem;
+    }
   }
 `;
 

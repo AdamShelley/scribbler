@@ -6,7 +6,8 @@ export const StyledSidebar = styled.div`
   justify-content: flex-start;
   min-width: 25vw;
   width: ${(props) => (props.isMobile ? "100%" : "")};
-  border-right: 1px solid var(--light-grey);
+  border-right: ${(props) =>
+    props.isMobile ? "" : "1px solid var(--light-grey)"};
   background-color: #1b1b1b;
   height: 100%;
   max-height: 100vh;
@@ -27,7 +28,8 @@ export const StyledSidebar = styled.div`
     h3 {
       font-weight: 400;
       font-size: 1rem;
-      user-select: none;
+      -webkit-user-select: text !important;
+      user-select: text !important;
       letter-spacing: 1px;
     }
 
@@ -141,6 +143,11 @@ export const StyledSidebar = styled.div`
         white-space: nowrap;
         overflow-y: hidden;
       }
+
+      @media screen and (max-width: 800px) {
+        -webkit-user-select: text !important;
+        user-select: text !important;
+      }
     }
   }
 
@@ -195,12 +202,18 @@ export const StyledSidebar = styled.div`
       width: 100%;
 
       > div {
-        width: ${(props) => (props.isMobile ? "10rem" : "")};
+        width: ${(props) => (props.isMobile ? "8rem" : "")};
+        justify-content: flex-start;
       }
 
       > svg {
-        font-size: 1rem;
+        font-size: 1.2rem;
         cursor: pointer;
+
+        @media screen and (max-width: 800px) {
+          font-size: 1.5rem;
+          opacity: 0.8;
+        }
 
         &:hover {
           opacity: 0.8;
@@ -251,7 +264,4 @@ export const StyledSidebar = styled.div`
     &:hover {
     }
   }
-
-  @media screen and (max-width: 800px) {
-  } ;
 `;
