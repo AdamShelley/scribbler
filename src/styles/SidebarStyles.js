@@ -151,6 +151,12 @@ export const StyledSidebar = styled.div`
     }
   }
 
+  @media screen and (max-width: 800px) {
+    > ul li {
+      height: 3rem;
+    }
+  }
+
   .archive-button {
     height: ${(props) => (props.isMobile ? "3rem" : "2.5rem")};
     min-height: 2.5rem;

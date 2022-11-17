@@ -7,10 +7,9 @@ const MobileTitleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0.8rem 1rem;
+  padding: 0.4rem 1rem;
   /* background-color: var(--nav-color); */
-  border-bottom: 1px solid var(--light-grey);
-  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid var(--dark-grey);
 
   input {
     font-weight: 400;
@@ -21,13 +20,14 @@ const MobileTitleContainer = styled.div`
     color: inherit;
     outline: none;
     text-align: left;
-    border-bottom: 2px solid transparent;
+    border-bottom: 1px solid transparent;
     transition: all 0.2s ease-in;
     line-height: 2;
+    padding: 0.2rem 0.5rem;
 
     &:focus {
       line-height: 2;
-      border-bottom: 2px solid var(--light-grey);
+      border-bottom: 1px solid var(--light-grey);
     }
   }
 

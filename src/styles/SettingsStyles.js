@@ -116,4 +116,44 @@ export const StyledContainer = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 800px) {
+    padding: 1rem;
+    min-height: 120vh;
+
+    h2 {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .settings-container {
+      .option {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+
+        h5 {
+          margin-bottom: 1rem;
+          font-size: 0.8rem;
+          font-weight: 600;
+        }
+
+        .option-choices {
+          flex-wrap: wrap;
+          width: 100%;
+          margin-left: 0;
+
+          button {
+            padding: 0.5rem;
+            margin: 0.8rem;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+
+    .profile {
+      width: 100%;
+    }
+  }
 `;

@@ -42,7 +42,7 @@ const StyledSearchBar = styled.div`
     }
 
     @media screen and (max-width: 800px) {
-      padding: 1rem;
+      padding: 0.5rem;
       font-size: 1.2rem;
     }
   }

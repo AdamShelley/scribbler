@@ -202,7 +202,7 @@ const StyledNavbar = styled.div`
       border-radius: 2px;
       display: flex;
       flex-direction: column;
-      min-height: 6.5rem; // Temp fix
+      min-height: 6.5rem;
       z-index: 99;
       box-shadow: 4px 9px 16px -3px rgba(0, 0, 0, 0.75);
 
@@ -220,6 +220,15 @@ const StyledNavbar = styled.div`
         &:hover {
           background-color: var(--text-color);
           color: var(--background);
+        }
+      }
+    }
+
+    @media screen and (max-width: 800px) {
+      div {
+        min-height: 9.5rem;
+        a {
+          padding: 1rem 3rem;
         }
       }
     }

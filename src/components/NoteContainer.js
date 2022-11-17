@@ -8,6 +8,7 @@ import {
   faTrash,
   faFilter,
   faBars,
+  faBoxArchive,
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,6 +23,7 @@ import {
 import {
   saveScribbleToDatabase,
   moveScribbleToBin,
+  archiveScribbleInDatabase,
 } from "../utils/HandleScribbles";
 import { useEffect } from "react";
 import { useCallback } from "react";
@@ -90,6 +92,15 @@ const NoteContainer = ({
     );
   };
 
+  const archiveScribbleHandler = () => {
+    archiveScribbleInDatabase(
+      selectedScribble,
+      setScribbles,
+      setArchived,
+      auth.user.uid
+    );
+  };
+
   const filterResults = async () => {
     // Update user settings
     const newOrder = filterOrder(settings.scribbleOrder);
@@ -151,6 +162,13 @@ const NoteContainer = ({
               onClick={saveScribbleToDatabaseHandler}
             />
           </Tooltips>
+          {isMobile && (
+            <FontAwesomeIcon
+              className="show-results"
+              icon={faBoxArchive}
+              onClick={archiveScribbleHandler}
+            />
+          )}
           <Tooltips text="Delete">
             <FontAwesomeIcon
               className="show-results"
