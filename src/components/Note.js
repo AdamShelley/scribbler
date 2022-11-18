@@ -6,9 +6,7 @@ import remarkBreaks from "remark-breaks";
 
 const StyledNoteContainer = styled.div`
   display: flex;
-  /* flex-direction: column; */
   position: absolute;
-
   width: 100%;
   height: 100%;
 
@@ -40,8 +38,17 @@ const StyledNoteContainer = styled.div`
   }
 
   @media screen and (max-width: 800px) {
+    flex-direction: column;
+
     textarea {
       border-right: none;
+      height: 100%;
+    }
+
+    .result-container {
+      border-top: 1px solid var(--light-grey);
+      width: 100%;
+      height: 100%;
     }
   }
 `;

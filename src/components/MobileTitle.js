@@ -9,7 +9,8 @@ const MobileTitleContainer = styled.div`
   justify-content: flex-start;
   padding: 0.4rem 1rem;
   /* background-color: var(--nav-color); */
-  border-bottom: 1px solid var(--dark-grey);
+  /* border-bottom: 1px solid var(--dark-grey); */
+  border-top: 1px solid var(--dark-grey);
 
   input {
     font-weight: 400;

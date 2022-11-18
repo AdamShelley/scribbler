@@ -9,6 +9,7 @@ import {
   faFilter,
   faBars,
   faBoxArchive,
+  faTrashArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,6 +25,7 @@ import {
   saveScribbleToDatabase,
   moveScribbleToBin,
   archiveScribbleInDatabase,
+  restoreScribbleToMain,
 } from "../utils/HandleScribbles";
 import { useEffect } from "react";
 import { useCallback } from "react";
@@ -110,6 +112,18 @@ const NoteContainer = ({
     await sortScribbles(scribbles, "Z-A");
   };
 
+  const restoreScribbleHandler = () => {
+    const prevLoc = selectedScribble.archived ? "archive" : "deleted";
+    const setPrevLoc = selectedScribble.archived ? setArchived : setDeleted;
+    restoreScribbleToMain(
+      selectedScribble,
+      setScribbles,
+      prevLoc,
+      setPrevLoc,
+      auth.user.uid
+    );
+  };
+
   useEffect(() => {
     // Setup save timer
     if (settings.autosave !== "Never") {
@@ -120,6 +134,9 @@ const NoteContainer = ({
       return () => clearInterval(autosaveTimer);
     }
   }, [settings?.autosave, saveScribbleToDatabaseHandler]);
+
+  const showRestoreButton =
+    selectedScribble.archived || selectedScribble.deleted;
 
   return (
     <StyledScribbleContainer>
@@ -162,20 +179,32 @@ const NoteContainer = ({
               onClick={saveScribbleToDatabaseHandler}
             />
           </Tooltips>
-          {isMobile && (
-            <FontAwesomeIcon
-              className="show-results"
-              icon={faBoxArchive}
-              onClick={archiveScribbleHandler}
-            />
+          {isMobile && !selectedScribble.archived && !selectedScribble.deleted && (
+            <>
+              <FontAwesomeIcon
+                className="show-results"
+                icon={faBoxArchive}
+                onClick={archiveScribbleHandler}
+              />
+
+              <Tooltips text="Delete">
+                <FontAwesomeIcon
+                  className="show-results"
+                  icon={faTrash}
+                  onClick={deleteScribbleHandler}
+                />
+              </Tooltips>
+            </>
           )}
-          <Tooltips text="Delete">
-            <FontAwesomeIcon
-              className="show-results"
-              icon={faTrash}
-              onClick={deleteScribbleHandler}
-            />
-          </Tooltips>
+          {showRestoreButton && (
+            <Tooltips text="Restore">
+              <FontAwesomeIcon
+                className="show-results"
+                icon={faTrashArrowUp}
+                onClick={restoreScribbleHandler}
+              />
+            </Tooltips>
+          )}
         </div>
       </StyledSearchBar>
       {isMobile && (

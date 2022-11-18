@@ -4,11 +4,16 @@ const StyledScribbleContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const StyledSearchBar = styled.div`
   background-color: var(--dark-grey);
   padding: 0.5rem 1rem;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,8 +45,13 @@ const StyledSearchBar = styled.div`
     &:hover {
       color: var(--light-grey);
     }
+  }
 
-    @media screen and (max-width: 800px) {
+  @media screen and (max-width: 800px) {
+    margin: 1rem;
+    border: 1px solid var(--light-grey);
+
+    .show-results {
       padding: 0.5rem;
       font-size: 1.2rem;
     }
@@ -51,12 +61,13 @@ const StyledSearchBar = styled.div`
 const StyledNoteContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* min-height: 100%;
-  min-width: 100%; */
   flex-grow: 100;
   cursor: auto;
   position: relative;
-  /* background-color: var(--nav-color); */
+
+  @media screen and (max-width: 800px) {
+    max-height: 80vh;
+  }
 `;
 
 export { StyledScribbleContainer, StyledSearchBar, StyledNoteContainer };
