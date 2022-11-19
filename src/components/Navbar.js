@@ -172,6 +172,14 @@ const StyledNavbar = styled.div`
         opacity: 0.8;
       }
     }
+
+    @media screen and (max-width: 800px) {
+      button {
+        border: none;
+        background-color: var(--nav-color);
+        border-bottom: 1px solid var(--light-grey);
+      }
+    }
   }
 
   .dropdown {

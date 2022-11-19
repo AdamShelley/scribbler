@@ -54,6 +54,41 @@ const StyledModal = styled.div`
       white-space: nowrap;
     }
   }
+
+  @media screen and (max-width: 800px) {
+    div {
+      position: absolute;
+      right: 0;
+      top: 100%;
+
+      display: flex;
+    }
+
+    label {
+      display: none;
+    }
+
+    input {
+      width: 15rem;
+    }
+    button {
+    }
+
+    .check-email-display {
+      position: absolute;
+      top: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: var(--background);
+
+      p {
+        margin-right: 0;
+        font-size: 0.8rem !important;
+      }
+    }
+  }
 `;
 
 const Modal = ({

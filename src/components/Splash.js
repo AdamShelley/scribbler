@@ -28,13 +28,14 @@ const StyledSplashContainer = styled.div`
   }
 
   .img-container {
-    border: 2px solid var(--light-grey);
+    border: 1px solid var(--dark-grey);
     border-radius: 2px;
-    box-shadow: 2px 2px 10px rgba(255, 255, 255, 0.1);
+    box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1);
 
     img {
       height: 100%;
       width: 100%;
+      object-fit: cover;
     }
   }
 
@@ -51,8 +52,12 @@ const StyledSplashContainer = styled.div`
   }
 
   @media screen and (max-width: 800px) {
+    white-space: nowrap;
+    padding-bottom: 10rem;
+
     div {
       max-width: 95%;
+      height: 25rem;
     }
   }
 `;
