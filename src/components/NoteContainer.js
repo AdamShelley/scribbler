@@ -7,9 +7,9 @@ import {
   faFloppyDisk,
   faTrash,
   faFilter,
-  faBars,
   faBoxArchive,
   faTrashArrowUp,
+  faList,
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -136,7 +136,7 @@ const NoteContainer = ({
   }, [settings?.autosave, saveScribbleToDatabaseHandler]);
 
   const showRestoreButton =
-    selectedScribble.archived || selectedScribble.deleted;
+    selectedScribble?.archived || selectedScribble?.deleted;
 
   return (
     <StyledScribbleContainer>
@@ -145,7 +145,7 @@ const NoteContainer = ({
           {isMobile && (
             <FontAwesomeIcon
               className="show-results"
-              icon={faBars}
+              icon={faList}
               onClick={() => setShowSidebar(true)}
             />
           )}

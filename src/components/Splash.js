@@ -33,7 +33,7 @@ const StyledSplashContainer = styled.div`
     box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1);
 
     img {
-      height: 100%;
+      /* height: 100%; */
       width: 100%;
       object-fit: cover;
     }
@@ -54,10 +54,16 @@ const StyledSplashContainer = styled.div`
   @media screen and (max-width: 800px) {
     white-space: nowrap;
     padding-bottom: 10rem;
+    overflow-x: hidden;
 
     div {
-      max-width: 95%;
-      height: 25rem;
+      max-width: 100%;
+      margin-top: 3rem;
+    }
+
+    .img-container {
+      width: 100%;
+      object-fit: cover;
     }
   }
 `;

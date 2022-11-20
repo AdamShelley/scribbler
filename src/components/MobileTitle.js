@@ -8,8 +8,8 @@ const MobileTitleContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   padding: 0.4rem 1rem;
-  /* background-color: var(--nav-color); */
-  /* border-bottom: 1px solid var(--dark-grey); */
+  background-color: var(--nav-color);
+  border-bottom: 1px solid var(--dark-grey);
   border-top: 1px solid var(--dark-grey);
 
   input {
@@ -68,7 +68,7 @@ const MobileTitle = ({ navTitle, setNavTitle }) => {
         <input
           type="text"
           value={newTitle}
-          size={newTitle?.length}
+          // size={newTitle?.length}
           onChange={(e) => {
             setShowTick(true);
             setNewTitle(e.target.value);

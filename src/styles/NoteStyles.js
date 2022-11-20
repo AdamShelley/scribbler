@@ -6,7 +6,7 @@ const StyledScribbleContainer = styled.div`
   width: 100%;
 
   @media screen and (max-width: 800px) {
-    flex-direction: column-reverse;
+    /* flex-direction: column-reverse; */
   }
 `;
 
@@ -48,11 +48,12 @@ const StyledSearchBar = styled.div`
   }
 
   @media screen and (max-width: 800px) {
-    margin: 1rem;
+    margin: 0.2rem 1.5rem;
     border: 1px solid var(--light-grey);
+    border-radius: 5px;
 
     .show-results {
-      padding: 0.5rem;
+      padding: 0.8rem;
       font-size: 1.2rem;
     }
   }
