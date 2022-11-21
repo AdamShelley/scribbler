@@ -48,9 +48,9 @@ const StyledSearchBar = styled.div`
   }
 
   @media screen and (max-width: 800px) {
-    margin: 0.2rem 1.5rem;
+    /* margin: 0.2rem 1.5rem; */
     border: 1px solid var(--light-grey);
-    border-radius: 5px;
+    /* border-radius: 5px; */
 
     .show-results {
       padding: 0.8rem;

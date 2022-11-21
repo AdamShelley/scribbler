@@ -134,8 +134,8 @@ export const StyledContainer = styled.div`
 
         h5 {
           margin-bottom: 1rem;
-          font-size: 0.8rem;
-          font-weight: 600;
+          font-size: 1rem;
+          font-weight: 500;
         }
 
         .option-choices {
@@ -147,6 +147,11 @@ export const StyledContainer = styled.div`
             padding: 0.5rem;
             margin: 0.8rem;
             font-weight: 600;
+            border: 1px solid var(--dark-grey);
+          }
+
+          .highlighted-setting {
+            border: 1px solid var(--text-color);
           }
         }
       }

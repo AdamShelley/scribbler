@@ -226,6 +226,13 @@ export const StyledSidebar = styled.div`
         }
       }
     }
+
+    @media screen and (max-width: 800px) {
+      margin: 0.2rem 0.5rem;
+      border-radius: 2px;
+      border: 1px solid var(--light-grey);
+      min-height: 3rem;
+    }
   }
 
   .empty-section {

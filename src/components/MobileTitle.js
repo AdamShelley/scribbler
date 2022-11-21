@@ -9,8 +9,8 @@ const MobileTitleContainer = styled.div`
   justify-content: flex-start;
   padding: 0.4rem 1rem;
   background-color: var(--nav-color);
-  border-bottom: 1px solid var(--dark-grey);
   border-top: 1px solid var(--dark-grey);
+  border-bottom: 2px solid var(--light-grey);
 
   input {
     font-weight: 400;
@@ -75,7 +75,6 @@ const MobileTitle = ({ navTitle, setNavTitle }) => {
           }}
         />
       )}
-
       {showTick && (
         <button onClick={updateTitleHandler}>
           <FontAwesomeIcon icon={faCheck} />
