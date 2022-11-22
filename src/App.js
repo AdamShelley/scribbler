@@ -16,6 +16,7 @@ import { useAuth } from "./utils/auth";
 import Navbar from "./components/Navbar";
 import { getUserSettings } from "./utils/db";
 import { ToastContainer } from "react-toastify";
+import Guide from "./pages/Guide";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -84,6 +85,7 @@ function App() {
               />
             }
           />
+          <Route path="/guide" element={<Guide />} />
           {user && (
             <Route
               path="/account"

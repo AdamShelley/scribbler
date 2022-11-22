@@ -228,7 +228,8 @@ export const StyledSidebar = styled.div`
     }
 
     @media screen and (max-width: 800px) {
-      margin: 0.2rem 0.5rem;
+      /* margin: 0.2rem 0.5rem; */
+      margin: 0.2rem 1rem;
       border-radius: 2px;
       border: 1px solid var(--light-grey);
       min-height: 3rem;
@@ -245,6 +246,10 @@ export const StyledSidebar = styled.div`
 
   button:first-of-type {
     margin-top: 0;
+
+    @media screen and (max-width: 800px) {
+      margin-top: 0.5rem;
+    }
   }
 
   .delete-all-container {

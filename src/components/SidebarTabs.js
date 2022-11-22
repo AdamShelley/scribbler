@@ -46,7 +46,7 @@ const SidebarTabs = ({
             <h4>| {naming} |</h4>
           </div>
 
-          {naming === "Scribbles" && (
+          {showScribbles && naming === "Scribbles" && (
             <FontAwesomeIcon
               onClick={(e) => {
                 e.stopPropagation();

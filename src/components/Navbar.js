@@ -210,7 +210,7 @@ const StyledNavbar = styled.div`
       border-radius: 2px;
       display: flex;
       flex-direction: column;
-      min-height: 6.5rem;
+      min-height: 8.5rem;
       z-index: 99;
       box-shadow: 4px 9px 16px -3px rgba(0, 0, 0, 0.75);
 
@@ -234,7 +234,7 @@ const StyledNavbar = styled.div`
 
     @media screen and (max-width: 800px) {
       div {
-        min-height: 9.5rem;
+        min-height: 12.5rem;
         a {
           padding: 1rem 3rem;
         }
@@ -373,6 +373,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
             </p>
             {showDropdown && (
               <div>
+                <Link to="/guide">Markdown Guide</Link>
                 <Link to="/account">Your Account</Link>
                 <Link to="/settings">Settings</Link>
                 <Link to="/" onClick={logoutHandler}>

@@ -180,22 +180,28 @@ const NoteContainer = ({
             />
           </Tooltips>
           {isMobile && !selectedScribble.archived && !selectedScribble.deleted && (
-            <>
+            <FontAwesomeIcon
+              className="show-results"
+              icon={faBoxArchive}
+              onClick={() => {
+                archiveScribbleHandler();
+                setShowSidebar(true);
+              }}
+            />
+          )}
+          {isMobile && !selectedScribble.deleted && (
+            <Tooltips text="Delete">
               <FontAwesomeIcon
                 className="show-results"
-                icon={faBoxArchive}
-                onClick={archiveScribbleHandler}
+                icon={faTrash}
+                onClick={() => {
+                  deleteScribbleHandler();
+                  setShowSidebar(true);
+                }}
               />
-
-              <Tooltips text="Delete">
-                <FontAwesomeIcon
-                  className="show-results"
-                  icon={faTrash}
-                  onClick={deleteScribbleHandler}
-                />
-              </Tooltips>
-            </>
+            </Tooltips>
           )}
+
           {showRestoreButton && (
             <Tooltips text="Restore">
               <FontAwesomeIcon
