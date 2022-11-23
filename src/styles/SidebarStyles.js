@@ -108,6 +108,11 @@ export const StyledSidebar = styled.div`
       max-width: 100%;
     }
 
+    p {
+      font-size: 0.8rem;
+      color: var(--light-grey);
+    }
+
     button {
       padding: 0.4rem 0.8rem;
       background-color: var(--background);
@@ -229,7 +234,7 @@ export const StyledSidebar = styled.div`
 
     @media screen and (max-width: 800px) {
       /* margin: 0.2rem 0.5rem; */
-      margin: 0.2rem 1rem;
+      margin: 0.2rem 0.8rem;
       border-radius: 2px;
       border: 1px solid var(--light-grey);
       min-height: 3rem;
@@ -280,6 +285,16 @@ export const StyledSidebar = styled.div`
     }
 
     &:hover {
+    }
+
+    @media screen and (max-width: 800px) {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+
+      button {
+        display: flex;
+        align-items: center;
+      }
     }
   }
 `;

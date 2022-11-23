@@ -10,6 +10,7 @@ import {
   faBoxArchive,
   faTrashArrowUp,
   faList,
+  faMapPin,
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -124,6 +125,8 @@ const NoteContainer = ({
     );
   };
 
+  const pinScribbleToTop = () => {};
+
   useEffect(() => {
     // Setup save timer
     if (settings.autosave !== "Never") {
@@ -149,13 +152,24 @@ const NoteContainer = ({
               onClick={() => setShowSidebar(true)}
             />
           )}
-          <Tooltips text={`Order: ${settings?.scribbleOrder}`}>
-            <FontAwesomeIcon
-              className="show-results"
-              icon={faFilter}
-              onClick={filterResults}
-            />
-          </Tooltips>
+          {!isMobile && (
+            <Tooltips text={`Order: ${settings?.scribbleOrder}`}>
+              <FontAwesomeIcon
+                className="show-results"
+                icon={faFilter}
+                onClick={filterResults}
+              />
+            </Tooltips>
+          )}
+          {
+            <Tooltips text="Pin">
+              <FontAwesomeIcon
+                className="show-results"
+                icon={faMapPin}
+                onClick={pinScribbleToTop}
+              />
+            </Tooltips>
+          }
           <Tooltips text="Show Editor">
             <FontAwesomeIcon
               className="show-results"

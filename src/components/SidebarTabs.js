@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Moment from "react-moment";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
@@ -85,6 +87,12 @@ const SidebarTabs = ({
                   }`}
                 >
                   <h3>{scribble?.title?.slice(0, 35)}</h3>
+                  {scribble?.latestUpdate && (
+                    <p>
+                      <Moment format="DD/MM">{scribble.latestUpdate}</Moment>
+                    </p>
+                  )}
+
                   {scribble?.unsaved && <div className="save-dot"></div>}
                 </li>
               ))

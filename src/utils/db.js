@@ -12,6 +12,7 @@ import {
   serverTimestamp,
   deleteDoc,
   getDoc,
+  Timestamp,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -96,6 +97,7 @@ export async function createScribble(uid, data) {
       archived: false,
       deleted: false,
       unsaved: false,
+      pinned: false,
       timestamp: serverTimestamp(),
     });
   } catch (err) {
@@ -123,7 +125,16 @@ export async function getAllUserScribbles(
     const scribbleList = [];
 
     querySnapshot.forEach((doc) => {
-      scribbleList.push({ ...doc.data(), id: doc.id });
+      scribbleList.push({
+        ...doc.data(),
+        id: doc.id,
+        latestUpdate:
+          doc.data().timestamp &&
+          new Timestamp(
+            doc.data().timestamp.seconds,
+            doc.data().timestamp.nanoseconds
+          ).toDate(),
+      });
     });
 
     const orderedScribbles = await sortScribbles(scribbleList, scribbleOrder);
