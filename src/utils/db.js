@@ -137,6 +137,11 @@ export async function getAllUserScribbles(
       });
     });
 
+    // Pick out pinned scribbles
+    const pinnedScribbles = scribbleList.map((scribble) => {
+      console.log(scribble.pinned);
+    });
+
     const orderedScribbles = await sortScribbles(scribbleList, scribbleOrder);
 
     return orderedScribbles;
