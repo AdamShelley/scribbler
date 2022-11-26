@@ -7,6 +7,7 @@ import {
   getAllUserScribbles,
   getSingleDocument,
   duplicateScribble,
+  pinScribble,
 } from "./db";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -224,6 +225,19 @@ export const duplicateScribbleHandler = async (
   sessionStorage.setItem("scribbles", JSON.stringify(result));
 
   toast.success("Scribble Copied", toastOptions);
+};
+
+export const pinScribbleHandler = async (
+  scribbles,
+  setScribbles,
+  id,
+  data,
+  userId
+) => {
+  await pinScribble(id, data);
+  const userScribbles = await getAllUserScribbles(userId);
+  setScribbles(userScribbles);
+  sessionStorageRefresh("scribbles", scribbles);
 };
 
 const sessionStorageRefresh = (store, data) => {

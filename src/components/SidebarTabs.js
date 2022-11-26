@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,
   faArrowUp,
+  faMapPin,
   faPlus,
   faTrashCan,
   faTrashCanArrowUp,
@@ -20,7 +21,7 @@ const SidebarTabs = ({
   changeScribble,
   selectedScribble,
   deleteAllScribblesInBin,
-  isMobile,
+  unpinScribble,
 }) => {
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -86,10 +87,27 @@ const SidebarTabs = ({
                       : ""
                   }`}
                 >
-                  <h3>{scribble?.title?.slice(0, 35)}</h3>
+                  <>
+                    {scribble?.pinned && (
+                      <FontAwesomeIcon
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          unpinScribble(scribble.id);
+                        }}
+                        icon={faMapPin}
+                        style={{ opacity: 0.5 }}
+                      />
+                    )}
+                    <h3>{scribble?.title?.slice(0, 35)}</h3>
+                  </>
+
                   {scribble?.latestUpdate && (
                     <p>
-                      <Moment format="DD/MM">{scribble.latestUpdate}</Moment>
+                      <Moment format="DD/MM">
+                        {scribble.latestUpdate
+                          ? scribble.latestUpdate
+                          : scribble.createdAt}
+                      </Moment>
                     </p>
                   )}
 

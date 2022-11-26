@@ -110,6 +110,19 @@ export async function createScribble(uid, data) {
 }
 
 // Creates settings if the user has no settings in firebase already
+export async function pinScribble(id, data) {
+  console.log(data);
+  try {
+    const existingScribble = doc(firestore, "scribbles", id);
+
+    return await updateDoc(existingScribble, {
+      ...data,
+      timestamp: serverTimestamp(),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export async function getAllUserScribbles(
   uid,
@@ -138,13 +151,17 @@ export async function getAllUserScribbles(
     });
 
     // Pick out pinned scribbles
-    const pinnedScribbles = scribbleList.map((scribble) => {
-      console.log(scribble.pinned);
+    const pinnedScribbles = scribbleList.filter((scribble) => {
+      return scribble.pinned;
     });
 
-    const orderedScribbles = await sortScribbles(scribbleList, scribbleOrder);
+    const nonPinned = scribbleList.filter((scribble) => {
+      return !scribble.pinned;
+    });
 
-    return orderedScribbles;
+    const orderedScribbles = await sortScribbles(nonPinned, scribbleOrder);
+
+    return [...pinnedScribbles, ...orderedScribbles];
   } catch (err) {
     throw new DatabaseError("Could not get all user scribbles", 500, err);
   }

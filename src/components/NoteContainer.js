@@ -27,10 +27,11 @@ import {
   moveScribbleToBin,
   archiveScribbleInDatabase,
   restoreScribbleToMain,
+  pinScribbleHandler,
 } from "../utils/HandleScribbles";
 import { useEffect } from "react";
 import { useCallback } from "react";
-import { sortScribbles } from "../utils/db";
+import { pinScribble, sortScribbles } from "../utils/db";
 import { filterOrder } from "../utils/filterOrder";
 import { storageSettings } from "../utils/storageSettings";
 import MobileTitle from "./MobileTitle";
@@ -125,7 +126,17 @@ const NoteContainer = ({
     );
   };
 
-  const pinScribbleToTop = () => {};
+  const pinScribbleToTop = () => {
+    // Check its not in archive or bin
+    if (selectedScribble.archive || selectedScribble.deleted) return;
+    pinScribbleHandler(
+      scribbles,
+      setScribbles,
+      selectedScribble.id,
+      { pinned: true },
+      auth.user.uid
+    );
+  };
 
   useEffect(() => {
     // Setup save timer
@@ -161,7 +172,7 @@ const NoteContainer = ({
               />
             </Tooltips>
           )}
-          {
+          {!selectedScribble?.archived && !selectedScribble?.deleted && (
             <Tooltips text="Pin">
               <FontAwesomeIcon
                 className="show-results"
@@ -169,7 +180,7 @@ const NoteContainer = ({
                 onClick={pinScribbleToTop}
               />
             </Tooltips>
-          }
+          )}
           <Tooltips text="Show Editor">
             <FontAwesomeIcon
               className="show-results"

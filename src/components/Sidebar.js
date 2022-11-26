@@ -11,9 +11,12 @@ import {
   restoreScribbleToMain,
   moveScribbleToBin,
   duplicateScribbleHandler,
+  pinScribbleHandler,
 } from "../utils/HandleScribbles";
 
 import OptionsMenu from "./OptionsMenu";
+import { toast } from "react-toastify";
+import { toastOptions } from "../utils/toastOptions";
 
 const Sidebar = ({
   scribbles,
@@ -114,6 +117,18 @@ const Sidebar = ({
     );
   };
 
+  const unpinScribble = (id) => {
+    pinScribbleHandler(
+      scribbles,
+      setScribbles,
+      id,
+      { pinned: false },
+      user.uid
+    );
+
+    toast.success("Removed pin from Scribble", toastOptions);
+  };
+
   return (
     <StyledSidebar isMobile={isMobile}>
       <OptionsMenu
@@ -142,6 +157,7 @@ const Sidebar = ({
         changeScribble={changeScribble}
         selectedScribble={selectedScribble}
         isMobile={isMobile}
+        unpinScribble={unpinScribble}
       />
       <SidebarTabs
         naming={"Archive"}
