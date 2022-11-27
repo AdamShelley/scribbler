@@ -87,7 +87,7 @@ const SidebarTabs = ({
                       : ""
                   }`}
                 >
-                  <>
+                  <span>
                     {scribble?.pinned && (
                       <FontAwesomeIcon
                         onClick={(e) => {
@@ -99,7 +99,7 @@ const SidebarTabs = ({
                       />
                     )}
                     <h3>{scribble?.title?.slice(0, 35)}</h3>
-                  </>
+                  </span>
 
                   {scribble?.latestUpdate && (
                     <p>

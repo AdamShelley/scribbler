@@ -85,6 +85,14 @@ export const StyledSidebar = styled.div`
         border-left: 1px solid var(--text-color);
       }
 
+      span {
+        display: flex;
+
+        svg {
+          margin-right: 1rem;
+        }
+      }
+
       div {
         width: 100%;
       }

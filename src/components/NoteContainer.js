@@ -129,11 +129,12 @@ const NoteContainer = ({
   const pinScribbleToTop = () => {
     // Check its not in archive or bin
     if (selectedScribble.archive || selectedScribble.deleted) return;
+
     pinScribbleHandler(
       scribbles,
       setScribbles,
       selectedScribble.id,
-      { pinned: true },
+      { pinned: !selectedScribble.pinned },
       auth.user.uid
     );
   };
@@ -173,7 +174,7 @@ const NoteContainer = ({
             </Tooltips>
           )}
           {!selectedScribble?.archived && !selectedScribble?.deleted && (
-            <Tooltips text="Pin">
+            <Tooltips text={selectedScribble.pinned ? "Unpin" : "Pin"}>
               <FontAwesomeIcon
                 className="show-results"
                 icon={faMapPin}
