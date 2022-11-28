@@ -226,7 +226,7 @@ export const StyledSidebar = styled.div`
       }
 
       > svg {
-        font-size: 1.2rem;
+        font-size: 1rem;
         cursor: pointer;
 
         @media screen and (max-width: 800px) {

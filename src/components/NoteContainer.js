@@ -31,7 +31,7 @@ import {
 } from "../utils/HandleScribbles";
 import { useEffect } from "react";
 import { useCallback } from "react";
-import { pinScribble, sortScribbles } from "../utils/db";
+import { sortScribbles } from "../utils/db";
 import { filterOrder } from "../utils/filterOrder";
 import { storageSettings } from "../utils/storageSettings";
 import MobileTitle from "./MobileTitle";
@@ -174,7 +174,7 @@ const NoteContainer = ({
             </Tooltips>
           )}
           {!selectedScribble?.archived && !selectedScribble?.deleted && (
-            <Tooltips text={selectedScribble.pinned ? "Unpin" : "Pin"}>
+            <Tooltips text={selectedScribble?.pinned ? "Unpin" : "Pin"}>
               <FontAwesomeIcon
                 className="show-results"
                 icon={faMapPin}
