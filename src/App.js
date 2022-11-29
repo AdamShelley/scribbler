@@ -57,10 +57,6 @@ function App() {
     }
   }, [auth, setUser, user]);
 
-  // useEffect(() => {
-  //   setNavTitle("");
-  // }, [setNavTitle]);
-
   return (
     <div className="App">
       <Router>

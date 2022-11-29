@@ -10,6 +10,7 @@ import {
   sendSignInLinkToEmail,
   isSignInWithEmailLink,
   signInWithEmailLink,
+  signInAnonymously,
 } from "firebase/auth";
 
 import { createUser } from "./db";
@@ -97,6 +98,23 @@ function useProvideAuth() {
     window.localStorage.setItem("emailForSignIn", email);
   };
 
+  const signInTestAccount = async () => {
+    console.log("Signing in test account");
+
+    const response = await signInAnonymously(auth);
+    console.log(response);
+    await handleUser(response.user);
+
+    try {
+    } catch (err) {
+      throw new DatabaseError(
+        "Failed to sign in anonymously, please try again.",
+        500,
+        err
+      );
+    }
+  };
+
   const signout = async () => {
     try {
       await signOut(auth);
@@ -120,6 +138,7 @@ function useProvideAuth() {
     signInWithEmailLinkHandler,
     signout,
     checkSignedIn,
+    signInTestAccount,
   };
 }
 
@@ -128,7 +147,7 @@ const formatUser = (user) => {
     uid: user.uid,
     email: user.email,
     name: user.displayName,
-    provider: user.providerData[0].providerId,
+    provider: user?.providerData[0]?.providerId || "anon",
     photoUrl: user.photoURL,
   };
 };

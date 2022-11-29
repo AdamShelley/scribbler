@@ -340,6 +340,16 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
           <div>
             <Button
               style={{ whiteSpace: "nowrap", padding: ".5rem" }}
+              onClick={auth.signInTestAccount}
+            >
+              Test Account
+            </Button>
+          </div>
+        )}
+        {!auth.user && (
+          <div>
+            <Button
+              style={{ whiteSpace: "nowrap", padding: ".5rem" }}
               onClick={auth.signinWithGithub}
             >
               Github Signin
@@ -365,6 +375,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
             )}
           </div>
         )}
+        {auth.user?.provider === "anon" && <p>Test account</p>}
         {auth.user && (
           <div onClick={showMenu} className="dropdown">
             <p>

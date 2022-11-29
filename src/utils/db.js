@@ -111,7 +111,6 @@ export async function createScribble(uid, data) {
 
 // Creates settings if the user has no settings in firebase already
 export async function pinScribble(id, data) {
-  console.log(data);
   try {
     const existingScribble = doc(firestore, "scribbles", id);
 
