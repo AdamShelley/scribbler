@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import Onboarder from "../onboarder/Onboarder";
 import { useAuth } from "../utils/auth";
 import { Link } from "react-router-dom";
 import { faChevronDown, faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -375,9 +375,10 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
             )}
           </div>
         )}
-        {auth.user?.provider === "anon" && <p>Test account</p>}
+
         {auth.user && (
           <div onClick={showMenu} className="dropdown">
+            {auth.user?.provider === "anon" && <p>Test account</p>}
             <p>
               {auth.user?.name || auth.user?.email}
               <FontAwesomeIcon icon={faChevronDown} />

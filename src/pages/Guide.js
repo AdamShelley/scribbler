@@ -39,6 +39,13 @@ const GuideContainer = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 800px) {
+    .guide-content-container {
+      width: 90%;
+      margin-top: 3rem;
+    }
+  }
 `;
 
 const Guide = () => {
