@@ -302,7 +302,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
   return (
     <StyledNavbar>
       <div>
-        <div className="logo-container">
+        <div className="logo-container selector selector-1">
           <Link to="/">
             <h1>Scribbler</h1>
           </Link>
@@ -311,7 +311,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
 
       {!isMobile && title && (
         <div className="note-name">
-          <div className="title-container">
+          <div className="title-container ">
             {title && (
               <input
                 type="text"

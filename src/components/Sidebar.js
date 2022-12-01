@@ -130,7 +130,7 @@ const Sidebar = ({
   };
 
   return (
-    <StyledSidebar isMobile={isMobile}>
+    <StyledSidebar className="selector selector-2" isMobile={isMobile}>
       <OptionsMenu
         currentRightClickedScribble={currentRightClickedScribble}
         archiveScribbleHandler={archiveScribbleHandler}
