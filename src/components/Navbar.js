@@ -302,7 +302,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
   return (
     <StyledNavbar>
       <div>
-        <div className="logo-container selector selector-1">
+        <div className="logo-container selector selector-0">
           <Link to="/">
             <h1>Scribbler</h1>
           </Link>

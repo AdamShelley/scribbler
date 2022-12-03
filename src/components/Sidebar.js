@@ -17,6 +17,7 @@ import {
 import OptionsMenu from "./OptionsMenu";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
+import OnboarderStep from "../onboarder/OnboarderStep";
 
 const Sidebar = ({
   scribbles,
@@ -130,58 +131,64 @@ const Sidebar = ({
   };
 
   return (
-    <StyledSidebar className="selector selector-2" isMobile={isMobile}>
-      <OptionsMenu
-        currentRightClickedScribble={currentRightClickedScribble}
-        archiveScribbleHandler={archiveScribbleHandler}
-        saveScribbleHandler={saveScribbleHandler}
-        deleteScribbleHandler={deleteScribbleHandler}
-        binScribbleHandler={binScribbleHandler}
-        restoreScribbleHandler={restoreScribbleHandler}
-        copyScribbleHandler={copyScribbleHandler}
-        archivedMenu={currentRightClickedScribble?.archived}
-        deleteMenu={currentRightClickedScribble?.deleted}
-        fullMenu={
-          !currentRightClickedScribble?.archived &&
-          !currentRightClickedScribble?.deleted
-        }
-      />
+    <OnboarderStep
+      step={2}
+      title="Sidebar"
+      description="This is where all your scribbles are contained."
+    >
+      <StyledSidebar isMobile={isMobile}>
+        <OptionsMenu
+          currentRightClickedScribble={currentRightClickedScribble}
+          archiveScribbleHandler={archiveScribbleHandler}
+          saveScribbleHandler={saveScribbleHandler}
+          deleteScribbleHandler={deleteScribbleHandler}
+          binScribbleHandler={binScribbleHandler}
+          restoreScribbleHandler={restoreScribbleHandler}
+          copyScribbleHandler={copyScribbleHandler}
+          archivedMenu={currentRightClickedScribble?.archived}
+          deleteMenu={currentRightClickedScribble?.deleted}
+          fullMenu={
+            !currentRightClickedScribble?.archived &&
+            !currentRightClickedScribble?.deleted
+          }
+        />
 
-      <SidebarTabs
-        naming={"Scribbles"}
-        setShowScribbles={setShowScribbles}
-        setCurrentRightClickedScribble={setCurrentRightClickedScribble}
-        showScribbles={showScribbles}
-        scribbles={scribbles}
-        createNewScribble={createNewScribble}
-        changeScribble={changeScribble}
-        selectedScribble={selectedScribble}
-        isMobile={isMobile}
-        unpinScribble={unpinScribble}
-      />
-      <SidebarTabs
-        naming={"Archive"}
-        setShowScribbles={setShowArchive}
-        setCurrentRightClickedScribble={setCurrentRightClickedScribble}
-        showScribbles={showArchive}
-        scribbles={archived}
-        changeScribble={changeScribble}
-        selectedScribble={selectedScribble}
-        isMobile={isMobile}
-      />
+        <SidebarTabs
+          naming={"Scribbles"}
+          setShowScribbles={setShowScribbles}
+          setCurrentRightClickedScribble={setCurrentRightClickedScribble}
+          showScribbles={showScribbles}
+          scribbles={scribbles}
+          createNewScribble={createNewScribble}
+          changeScribble={changeScribble}
+          selectedScribble={selectedScribble}
+          isMobile={isMobile}
+          unpinScribble={unpinScribble}
+        />
+        <SidebarTabs
+          naming={"Archive"}
+          setShowScribbles={setShowArchive}
+          setCurrentRightClickedScribble={setCurrentRightClickedScribble}
+          showScribbles={showArchive}
+          scribbles={archived}
+          changeScribble={changeScribble}
+          selectedScribble={selectedScribble}
+          isMobile={isMobile}
+        />
 
-      <SidebarTabs
-        naming={"Bin"}
-        setShowScribbles={setShowBin}
-        showScribbles={showBin}
-        setCurrentRightClickedScribble={setCurrentRightClickedScribble}
-        scribbles={deleted}
-        changeScribble={changeScribble}
-        selectedScribble={selectedScribble}
-        deleteAllScribblesInBin={deleteAllScribblesInBin}
-        isMobile={isMobile}
-      />
-    </StyledSidebar>
+        <SidebarTabs
+          naming={"Bin"}
+          setShowScribbles={setShowBin}
+          showScribbles={showBin}
+          setCurrentRightClickedScribble={setCurrentRightClickedScribble}
+          scribbles={deleted}
+          changeScribble={changeScribble}
+          selectedScribble={selectedScribble}
+          deleteAllScribblesInBin={deleteAllScribblesInBin}
+          isMobile={isMobile}
+        />
+      </StyledSidebar>
+    </OnboarderStep>
   );
 };
 

@@ -154,8 +154,8 @@ const NoteContainer = ({
     selectedScribble?.archived || selectedScribble?.deleted;
 
   return (
-    <StyledScribbleContainer>
-      <StyledSearchBar>
+    <StyledScribbleContainer className="selector selector-4">
+      <StyledSearchBar className="selector selector-5">
         <div>
           {isMobile && (
             <FontAwesomeIcon

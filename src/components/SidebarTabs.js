@@ -51,6 +51,7 @@ const SidebarTabs = ({
 
           {showScribbles && naming === "Scribbles" && (
             <FontAwesomeIcon
+              className="selector selector-3"
               onClick={(e) => {
                 e.stopPropagation();
                 createNewScribble();
