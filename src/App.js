@@ -18,6 +18,7 @@ import { getUserSettings } from "./utils/db";
 import { ToastContainer } from "react-toastify";
 import Guide from "./pages/Guide";
 import Onboarder from "./onboarder/Onboarder";
+import OnboarderStep from "./onboarder/OnboarderStep";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -110,10 +111,6 @@ function App() {
       </Router>
       <Footer />
       <ToastContainer closeButton={false} />
-      <Onboarder
-        isOpen={showOnboarder}
-        handleClose={() => setShowOnboarder(false)}
-      />
     </div>
   );
 }

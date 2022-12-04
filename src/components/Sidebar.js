@@ -17,7 +17,7 @@ import {
 import OptionsMenu from "./OptionsMenu";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
-import OnboarderStep from "../onboarder/OnboarderStep";
+import OnboardingWrapper from "../onboarder/OnboardingWrapper";
 
 const Sidebar = ({
   scribbles,
@@ -131,11 +131,7 @@ const Sidebar = ({
   };
 
   return (
-    <OnboarderStep
-      step={2}
-      title="Sidebar"
-      description="This is where all your scribbles are contained."
-    >
+    <OnboardingWrapper step={1}>
       <StyledSidebar isMobile={isMobile}>
         <OptionsMenu
           currentRightClickedScribble={currentRightClickedScribble}
@@ -188,7 +184,7 @@ const Sidebar = ({
           isMobile={isMobile}
         />
       </StyledSidebar>
-    </OnboarderStep>
+    </OnboardingWrapper>
   );
 };
 

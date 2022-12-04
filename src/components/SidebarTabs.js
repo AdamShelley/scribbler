@@ -10,6 +10,7 @@ import {
   faTrashCan,
   faTrashCanArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
+import OnboardingWrapper from "../onboarder/OnboardingWrapper";
 
 const SidebarTabs = ({
   naming,
@@ -49,16 +50,21 @@ const SidebarTabs = ({
             <h4>| {naming} |</h4>
           </div>
 
-          {showScribbles && naming === "Scribbles" && (
-            <FontAwesomeIcon
-              className="selector selector-3"
-              onClick={(e) => {
-                e.stopPropagation();
-                createNewScribble();
-              }}
-              icon={faPlus}
-            />
-          )}
+          <OnboardingWrapper
+            step={2}
+            title="Add new Scribble"
+            description="This is how you can create a new scribble."
+          >
+            {showScribbles && naming === "Scribbles" && (
+              <FontAwesomeIcon
+                onClick={(e) => {
+                  e.stopPropagation();
+                  createNewScribble();
+                }}
+                icon={faPlus}
+              />
+            )}
+          </OnboardingWrapper>
 
           {naming === "Bin" && showScribbles && scribbles.length > 0 && (
             <FontAwesomeIcon

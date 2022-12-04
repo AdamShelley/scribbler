@@ -1,32 +1,41 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
 
-const OnboarderStepOutline = styled.div`
-  position: relative;
+import Onboarder from "./Onboarder";
 
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    /* background-color: rgba(0, 0, 0, 0.1); */
-    width: 100%;
-    height: 100%;
-    border: 3px solid var(--text-color);
-    z-index: 100;
-  }
-`;
+import { OnboardingSteps } from "./OnboardingData";
 
-const OnboarderStep = ({ children, showOutline }) => {
+const OnboarderStep = (props) => {
+  const [showOnboarder, setShowOnboarder] = useState(true);
+  const [showFinish, setShowFinish] = useState(false);
+
+  //   const prevPage = () => {
+  //     setStep((prev) => (prev > 0 ? prev - 1 : 0));
+  //   };
+
+  //   const nextPage = () => {
+  //     if (currentStep === OnboardingSteps.length - 1) {
+  //       setShowFinish(true);
+  //     } else {
+  //       setStep((prev) => prev + 1);
+  //     }
+  //   };
+
+  const finishOnboarding = () => {
+    setShowOnboarder(false);
+  };
+
+  console.log(props);
+
   return (
     <>
-      {showOutline ? (
-        <OnboarderStepOutline>{children}</OnboarderStepOutline>
-      ) : (
-        <>{children}</>
-      )}
+      <Onboarder
+        isOpen={showOnboarder}
+        handleClose={() => setShowOnboarder(false)}
+        currentStep={props.step}
+        stepData={OnboardingSteps[props.step]}
+        finishOnboarding={finishOnboarding}
+        showFinish={showFinish}
+      />
     </>
   );
 };
