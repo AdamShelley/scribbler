@@ -1,4 +1,4 @@
-export const OnboardingSteps = [
+export const OnboardingData = [
   {
     step: 0,
 

@@ -17,8 +17,8 @@ import Navbar from "./components/Navbar";
 import { getUserSettings } from "./utils/db";
 import { ToastContainer } from "react-toastify";
 import Guide from "./pages/Guide";
-import Onboarder from "./onboarder/Onboarder";
-import OnboarderStep from "./onboarder/OnboarderStep";
+import OnboardingContainer from "./Onboarder/components/OnboardingContainer";
+import { OnboardingData } from "./Onboarder/OnboardingData";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -26,7 +26,6 @@ function App() {
   const [navPrevent, setNavPrevent] = useState(false);
   const [settings, setSettings] = useState("");
   const [tempScribbles, setTempScribbles] = useState("");
-  const [showOnboarder, setShowOnboarder] = useState(true);
 
   const auth = useAuth();
 
@@ -111,6 +110,7 @@ function App() {
       </Router>
       <Footer />
       <ToastContainer closeButton={false} />
+      <OnboardingContainer stepData={OnboardingData} />
     </div>
   );
 }
