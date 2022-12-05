@@ -11,6 +11,9 @@ import Splash from "../components/Splash";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
 import { updateTitle } from "../utils/HandleScribbles";
+import OnboardingContainer from "../Onboarder/components/OnboardingContainer";
+import { OnboardingData } from "../Onboarder/OnboardingData";
+import OnboardingProvider from "../Onboarder/OnboardingProvider";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -198,56 +201,58 @@ const Scribble = ({
     (!showSidebar && isMobile && !webVersion) || webVersion;
 
   return (
-    <div style={{ height: "100%", overflow: "hidden" }}>
-      <StyledContainer>
-        {auth.user && settings ? (
-          <>
-            {showSidebar && (
-              <Sidebar
-                scribbles={scribbles}
-                selectedScribble={selectedScribble}
-                changeScribble={changeScribble}
-                setScribbles={setScribbles}
-                setSelectedScribble={setSelectedScribble}
-                createNewScribble={createBlankScribble}
-                archived={archived}
-                setArchived={setArchived}
-                deleted={deleted}
-                setDeleted={setDeleted}
-                settings={settings}
-                buckets={BUCKETS}
-                isMobile={isMobile}
-              />
-            )}
+    <OnboardingProvider>
+      <div style={{ height: "100%", overflow: "hidden" }}>
+        <StyledContainer>
+          {auth.user && settings ? (
+            <>
+              {showSidebar && (
+                <Sidebar
+                  scribbles={scribbles}
+                  selectedScribble={selectedScribble}
+                  changeScribble={changeScribble}
+                  setScribbles={setScribbles}
+                  setSelectedScribble={setSelectedScribble}
+                  createNewScribble={createBlankScribble}
+                  archived={archived}
+                  setArchived={setArchived}
+                  deleted={deleted}
+                  setDeleted={setDeleted}
+                  settings={settings}
+                  buckets={BUCKETS}
+                  isMobile={isMobile}
+                />
+              )}
 
-            {showNoteContainer && (
-              <NoteContainer
-                scribbles={scribbles}
-                selectedScribble={selectedScribble}
-                setSelectedScribble={setSelectedScribble}
-                setScribbles={setScribbles}
-                updateScribblesWithoutDatabasePush={
-                  updateScribblesWithoutDatabasePush
-                }
-                resetSaveDot={resetSaveDot}
-                setDeleted={setDeleted}
-                setArchived={setArchived}
-                settings={settings}
-                setSettings={setSettings}
-                navTitle={navTitle}
-                setNavTitle={setNavTitle}
-                isMobile={isMobile}
-                setShowSidebar={setShowSidebar}
-              />
-            )}
-          </>
-        ) : (
-          <>
-            <Splash />
-          </>
-        )}
-      </StyledContainer>
-    </div>
+              {showNoteContainer && (
+                <NoteContainer
+                  scribbles={scribbles}
+                  selectedScribble={selectedScribble}
+                  setSelectedScribble={setSelectedScribble}
+                  setScribbles={setScribbles}
+                  updateScribblesWithoutDatabasePush={
+                    updateScribblesWithoutDatabasePush
+                  }
+                  resetSaveDot={resetSaveDot}
+                  setDeleted={setDeleted}
+                  setArchived={setArchived}
+                  settings={settings}
+                  setSettings={setSettings}
+                  navTitle={navTitle}
+                  setNavTitle={setNavTitle}
+                  isMobile={isMobile}
+                  setShowSidebar={setShowSidebar}
+                />
+              )}
+            </>
+          ) : (
+            <>
+              <Splash />
+            </>
+          )}
+        </StyledContainer>
+      </div>
+    </OnboardingProvider>
   );
 };
 

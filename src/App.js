@@ -17,8 +17,6 @@ import Navbar from "./components/Navbar";
 import { getUserSettings } from "./utils/db";
 import { ToastContainer } from "react-toastify";
 import Guide from "./pages/Guide";
-import OnboardingContainer from "./Onboarder/components/OnboardingContainer";
-import { OnboardingData } from "./Onboarder/OnboardingData";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -110,7 +108,6 @@ function App() {
       </Router>
       <Footer />
       <ToastContainer closeButton={false} />
-      <OnboardingContainer stepData={OnboardingData} />
     </div>
   );
 }

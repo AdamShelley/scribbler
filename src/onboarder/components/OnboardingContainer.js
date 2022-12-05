@@ -1,8 +1,9 @@
+import React, { useState, useContext } from "react";
 import OnboardPortal from "../OnboardPortal";
-import React, { useState } from "react";
 import styled from "styled-components";
 import { useOnboarderContainer } from "../hooks/useOnboarderContainer";
 import { useShowHighlight } from "../hooks/useShowHighlight";
+import { OnboardContext } from "../OnboardingProvider";
 
 const OnboarderContainer = styled.div`
   position: fixed;
@@ -14,6 +15,7 @@ const OnboarderContainer = styled.div`
   justify-content: center; // Can be an option later
   transition: all 0.3s ease-in-out;
   overflow: hidden;
+
   /* z-index: 997; */
   /* padding: 40px 20px 20px; */
 
@@ -56,17 +58,17 @@ const OnboardingContainer = ({ stepData, showOnboarding = true }) => {
   const { saveStep } = useShowHighlight();
   const [openModal, setOpenModal] = useState(showOnboarding);
 
-  const [currentStep, setCurrentStep] = useState(0);
+  const [stepContext, setNextStep] = useContext(OnboardContext);
 
   const nextStep = () => {
-    setCurrentStep((prev) => prev + 1);
-    saveStep(currentStep + 1);
+    setNextStep(stepContext + 1);
   };
 
   const previousStep = () => {
-    setCurrentStep((prev) => prev - 1);
-    saveStep(currentStep - 1);
+    setNextStep(stepContext - 1);
   };
+
+  console.log(stepContext);
 
   return (
     <>
@@ -74,15 +76,15 @@ const OnboardingContainer = ({ stepData, showOnboarding = true }) => {
         <OnboardPortal wrapperId="onboarder-wrapper">
           <OnboarderContainer ref={containerRef}>
             <section>
-              <h2>{stepData[currentStep].title}</h2>
-              <p>{stepData[currentStep].description}</p>
+              <h2>{stepData[stepContext]?.title}</h2>
+              <p>{stepData[stepContext]?.description}</p>
 
               <div>
-                {currentStep > 0 && (
+                {stepContext > 0 && (
                   <button onClick={previousStep}>Previous step</button>
                 )}
 
-                {stepData.length - 1 !== currentStep ? (
+                {stepData.length - 1 !== stepContext ? (
                   <button onClick={nextStep}>Next step</button>
                 ) : (
                   <button onClick={() => setOpenModal(false)}>Finish</button>

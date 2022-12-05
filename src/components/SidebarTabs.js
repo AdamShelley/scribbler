@@ -51,7 +51,7 @@ const SidebarTabs = ({
           </div>
 
           {showScribbles && naming === "Scribbles" && (
-            <HighlighterWrapper data-onboard="1">
+            <HighlighterWrapper step={2}>
               <FontAwesomeIcon
                 onClick={(e) => {
                   e.stopPropagation();
