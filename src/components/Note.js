@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
+import HighlighterWrapper from "../Onboarder/components/HighlighterWrapper";
 
 const StyledNoteContainer = styled.div`
   display: flex;
@@ -81,18 +82,20 @@ const Note = ({
 
   return (
     <StyledNoteContainer tabIndex="1">
-      {showMarkdown && (
-        <textarea
-          onChange={updateMarkdown}
-          value={markdown ? markdown : ""}
-          data-provide="markdown"
-          disabled={
-            selectedScribble?.archived ||
-            selectedScribble?.deleted ||
-            !selectedScribble?.body
-          }
-        />
-      )}
+      <HighlighterWrapper step={3}>
+        {showMarkdown && (
+          <textarea
+            onChange={updateMarkdown}
+            value={markdown ? markdown : ""}
+            data-provide="markdown"
+            disabled={
+              selectedScribble?.archived ||
+              selectedScribble?.deleted ||
+              !selectedScribble?.body
+            }
+          />
+        )}
+      </HighlighterWrapper>
 
       {showResults && markdown.length > 0 && (
         <div className="result-container">

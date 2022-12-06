@@ -4,7 +4,7 @@ import { useShowHighlight } from "../hooks/useShowHighlight";
 
 const HighlightedComponent = styled.div`
   position: relative;
-  z-index: 999;
+  z-index: 1000;
 
   &:after {
     content: "";
@@ -15,8 +15,7 @@ const HighlightedComponent = styled.div`
     height: 100%;
     border: 3px solid var(--text-color);
     box-shadow: 2px 3px 2px rgba(255, 255, 255, 0.4);
-    padding: 0.2rem;
-    z-index: 999;
+    z-index: 1000;
   }
 `;
 
@@ -26,13 +25,15 @@ const HighlighterWrapper = ({ children, step }) => {
   console.log(currentStep);
 
   return (
-    <div ref={highlightRef}>
+    <>
       {step === currentStep ? (
-        <HighlightedComponent>{children}</HighlightedComponent>
+        <HighlightedComponent ref={highlightRef}>
+          {children}
+        </HighlightedComponent>
       ) : (
         <>{children}</>
       )}
-    </div>
+    </>
   );
 };
 
