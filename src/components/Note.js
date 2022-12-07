@@ -82,8 +82,8 @@ const Note = ({
 
   return (
     <StyledNoteContainer tabIndex="1">
-      <HighlighterWrapper step={3}>
-        {showMarkdown && (
+      {showMarkdown && (
+        <HighlighterWrapper step={3} width="100%">
           <textarea
             onChange={updateMarkdown}
             value={markdown ? markdown : ""}
@@ -94,20 +94,17 @@ const Note = ({
               !selectedScribble?.body
             }
           />
-        )}
+        </HighlighterWrapper>
+      )}
 
-        {showResults && markdown.length > 0 && (
-          <div className="result-container">
-            <ReactMarkdown
-              children={markdown.replace(/\n/gi, "&nbsp; \n")}
-              remarkPlugins={[
-                [remarkGfm, { singleTilde: false }],
-                remarkBreaks,
-              ]}
-            />
-          </div>
-        )}
-      </HighlighterWrapper>
+      {showResults && markdown.length > 0 && (
+        <div className="result-container">
+          <ReactMarkdown
+            children={markdown.replace(/\n/gi, "&nbsp; \n")}
+            remarkPlugins={[[remarkGfm, { singleTilde: false }], remarkBreaks]}
+          />
+        </div>
+      )}
     </StyledNoteContainer>
   );
 };

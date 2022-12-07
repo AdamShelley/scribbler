@@ -1,19 +1,16 @@
 export const OnboardingData = [
   {
     step: 0,
-
     title: "Welcome to Scribbler",
     description: "This will help you get started!",
   },
   {
     step: 1,
-
     title: "Sidebar",
     description: "This is where all your scribbles are contained.",
   },
   {
     step: 2,
-
     title: "Add Scribble",
     description: "Click the + button to create a new scribble.",
   },
@@ -25,9 +22,13 @@ export const OnboardingData = [
   },
   {
     step: 4,
-
     title: "Toolbar",
     description:
       "You have options to show/hide markdown/filter/save your scribbles",
+  },
+  {
+    step: 5,
+    title: "Get started!",
+    description: "Explore, and enjoy!",
   },
 ];

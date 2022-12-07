@@ -25,7 +25,7 @@ const OnboarderContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border: 3px solid var(--text-color);
     border-radius: 5px;
     padding: 2rem;
@@ -41,7 +41,7 @@ const OnboarderContainer = styled.div`
     }
 
     p {
-      font-size: 1rem;
+      font-size: 1.5rem;
       font-weight: 500;
       line-height: 1.8;
     }
