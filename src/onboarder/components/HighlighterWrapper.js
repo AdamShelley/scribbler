@@ -3,20 +3,14 @@ import styled from "styled-components";
 import { useShowHighlight } from "../hooks/useShowHighlight";
 
 const HighlightedComponent = styled.div`
-  position: relative;
-  z-index: 1000;
+  border: 1px solid var(--text-color);
 
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 3px solid var(--text-color);
-    box-shadow: 2px 3px 2px rgba(255, 255, 255, 0.4);
-    z-index: 1000;
-  }
+  box-shadow: 2px 3px 2px rgba(255, 255, 255, 0.4);
+
+  user-select: none;
+  pointer-events: none;
+
+  z-index: 55;
 `;
 
 const HighlighterWrapper = ({ children, step }) => {

@@ -95,16 +95,19 @@ const Note = ({
             }
           />
         )}
-      </HighlighterWrapper>
 
-      {showResults && markdown.length > 0 && (
-        <div className="result-container">
-          <ReactMarkdown
-            children={markdown.replace(/\n/gi, "&nbsp; \n")}
-            remarkPlugins={[[remarkGfm, { singleTilde: false }], remarkBreaks]}
-          />
-        </div>
-      )}
+        {showResults && markdown.length > 0 && (
+          <div className="result-container">
+            <ReactMarkdown
+              children={markdown.replace(/\n/gi, "&nbsp; \n")}
+              remarkPlugins={[
+                [remarkGfm, { singleTilde: false }],
+                remarkBreaks,
+              ]}
+            />
+          </div>
+        )}
+      </HighlighterWrapper>
     </StyledNoteContainer>
   );
 };

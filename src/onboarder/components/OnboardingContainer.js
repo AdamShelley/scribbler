@@ -4,21 +4,24 @@ import styled from "styled-components";
 import { useOnboarderContainer } from "../hooks/useOnboarderContainer";
 import { useShowHighlight } from "../hooks/useShowHighlight";
 import { OnboardContext } from "../OnboardingProvider";
+import OnboardOverlay from "./OnboardOverlay";
 import Button from "../styles/Button";
 
 const OnboarderContainer = styled.div`
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  /* position: fixed; */
+  /* inset: 0; */
   display: flex;
   flex-direction: column;
   align-items: center; // Can be altered as an option
   justify-content: center; // Can be an option later
   transition: all 0.3s ease-in-out;
   overflow: hidden;
-  z-index: 999;
+
+  z-index: 60;
 
   section {
+    position: absolute;
+    top: 30%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -27,10 +30,9 @@ const OnboarderContainer = styled.div`
     border-radius: 5px;
     padding: 2rem;
     background-color: var(--background);
-    min-width: 25%;
-    min-height: 40%;
+    width: 30%;
+    height: 40%;
 
-    z-index: 1005;
     box-shadow: 0px 2px 5px rgba(255, 255, 255, 0.1);
 
     h2 {
@@ -69,39 +71,46 @@ const OnboardingContainer = ({ stepData, showOnboarding = true }) => {
   };
 
   console.log(stepContext);
+  const finishOnboarding = () => {
+    setOpenModal(false);
+    setNextStep(0);
+  };
 
   return (
     <>
       {openModal && (
         // <OnboardPortal wrapperId="onboarder-wrapper">
-        <OnboarderContainer ref={containerRef}>
-          <section>
-            <h2>{stepData[stepContext]?.title}</h2>
-            <p>{stepData[stepContext]?.description}</p>
+        <>
+          <OnboarderContainer ref={containerRef}>
+            <section>
+              <h2>{stepData[stepContext]?.title}</h2>
+              <p>{stepData[stepContext]?.description}</p>
 
-            <div>
-              {stepContext > 0 && (
-                <Button minWidth="50%" padding="1rem" onClick={previousStep}>
-                  Previous step
-                </Button>
-              )}
+              <div>
+                {stepContext > 0 && (
+                  <Button minWidth="50%" padding="1rem" onClick={previousStep}>
+                    Previous step
+                  </Button>
+                )}
 
-              {stepData.length - 1 !== stepContext ? (
-                <Button padding="1rem" minWidth="50%" onClick={nextStep}>
-                  Next step
-                </Button>
-              ) : (
-                <Button
-                  minWidth="50%"
-                  padding="1rem"
-                  onClick={() => setOpenModal(false)}
-                >
-                  Finish
-                </Button>
-              )}
-            </div>
-          </section>
-        </OnboarderContainer>
+                {stepData.length - 1 !== stepContext ? (
+                  <Button padding="1rem" minWidth="50%" onClick={nextStep}>
+                    Next step
+                  </Button>
+                ) : (
+                  <Button
+                    minWidth="50%"
+                    padding="1rem"
+                    onClick={finishOnboarding}
+                  >
+                    Finish
+                  </Button>
+                )}
+              </div>
+            </section>
+          </OnboarderContainer>
+          <OnboardOverlay />
+        </>
         // </OnboardPortal>
       )}
     </>
