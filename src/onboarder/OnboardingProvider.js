@@ -4,13 +4,17 @@ import { OnboardingData } from "./OnboardingData";
 
 export const OnboardContext = createContext();
 
-const OnboardingProvider = ({ children }) => {
+const OnboardingProvider = ({ children, showOnboarding, finishOnboarding }) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   return (
     <OnboardContext.Provider value={[currentStep, setCurrentStep]}>
       {children}
-      <OnboardingContainer stepData={OnboardingData} />
+      <OnboardingContainer
+        showOnboarding={showOnboarding}
+        stepData={OnboardingData}
+        finishOnboarding={finishOnboarding}
+      />
     </OnboardContext.Provider>
   );
 };

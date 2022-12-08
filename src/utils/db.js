@@ -70,6 +70,7 @@ export async function createSettings(uid) {
         showMD: "No",
         scribbleOrder: "Newest",
         autosave: 30000,
+        firstTimeUser: true,
       },
       { merge: true }
     );

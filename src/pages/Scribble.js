@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { down } from "styled-breakpoints";
 import { useBreakpoint } from "styled-breakpoints/react-styled";
-
 import Sidebar from "../components/Sidebar";
 import NoteContainer from "../components/NoteContainer";
 import { getAllUserScribbles } from "../utils/db";
@@ -11,9 +10,8 @@ import Splash from "../components/Splash";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
 import { updateTitle } from "../utils/HandleScribbles";
-import OnboardingContainer from "../Onboarder/components/OnboardingContainer";
-import { OnboardingData } from "../Onboarder/OnboardingData";
 import OnboardingProvider from "../Onboarder/OnboardingProvider";
+import { storageSettings } from "../utils/storageSettings";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -29,13 +27,12 @@ const Scribble = ({
   setTempScribbles,
   setNavPrevent,
 }) => {
+  const auth = useAuth();
   const [scribbles, setScribbles] = useState([]);
   const [archived, setArchived] = useState([]);
   const [deleted, setDeleted] = useState([]);
   const [selectedScribble, setSelectedScribble] = useState();
   const [showSidebar, setShowSidebar] = useState(true);
-
-  const auth = useAuth();
   const BUCKETS = ["Scribbles", "Archived", "Bin"];
 
   useEffect(() => {
@@ -200,59 +197,75 @@ const Scribble = ({
   const showNoteContainer =
     (!showSidebar && isMobile && !webVersion) || webVersion;
 
-  return (
-    <OnboardingProvider>
-      <div style={{ height: "100%", overflow: "hidden" }}>
-        <StyledContainer>
-          {auth.user && settings ? (
-            <>
-              {showSidebar && (
-                <Sidebar
-                  scribbles={scribbles}
-                  selectedScribble={selectedScribble}
-                  changeScribble={changeScribble}
-                  setScribbles={setScribbles}
-                  setSelectedScribble={setSelectedScribble}
-                  createNewScribble={createBlankScribble}
-                  archived={archived}
-                  setArchived={setArchived}
-                  deleted={deleted}
-                  setDeleted={setDeleted}
-                  settings={settings}
-                  buckets={BUCKETS}
-                  isMobile={isMobile}
-                />
-              )}
+  const finishOnboarding = () => {
+    storageSettings(
+      auth.user.uid,
+      { firstTimeUser: false },
+      settings,
+      setSettings
+    );
+  };
 
-              {showNoteContainer && (
-                <NoteContainer
-                  scribbles={scribbles}
-                  selectedScribble={selectedScribble}
-                  setSelectedScribble={setSelectedScribble}
-                  setScribbles={setScribbles}
-                  updateScribblesWithoutDatabasePush={
-                    updateScribblesWithoutDatabasePush
-                  }
-                  resetSaveDot={resetSaveDot}
-                  setDeleted={setDeleted}
-                  setArchived={setArchived}
-                  settings={settings}
-                  setSettings={setSettings}
-                  navTitle={navTitle}
-                  setNavTitle={setNavTitle}
-                  isMobile={isMobile}
-                  setShowSidebar={setShowSidebar}
-                />
+  return (
+    <>
+      {settings && (
+        <OnboardingProvider
+          showOnboarding={settings.firstTimeUser}
+          finishOnboarding={finishOnboarding}
+        >
+          <div style={{ height: "100%", overflow: "hidden" }}>
+            <StyledContainer>
+              {auth.user && settings ? (
+                <>
+                  {showSidebar && (
+                    <Sidebar
+                      scribbles={scribbles}
+                      selectedScribble={selectedScribble}
+                      changeScribble={changeScribble}
+                      setScribbles={setScribbles}
+                      setSelectedScribble={setSelectedScribble}
+                      createNewScribble={createBlankScribble}
+                      archived={archived}
+                      setArchived={setArchived}
+                      deleted={deleted}
+                      setDeleted={setDeleted}
+                      settings={settings}
+                      buckets={BUCKETS}
+                      isMobile={isMobile}
+                    />
+                  )}
+
+                  {showNoteContainer && (
+                    <NoteContainer
+                      scribbles={scribbles}
+                      selectedScribble={selectedScribble}
+                      setSelectedScribble={setSelectedScribble}
+                      setScribbles={setScribbles}
+                      updateScribblesWithoutDatabasePush={
+                        updateScribblesWithoutDatabasePush
+                      }
+                      resetSaveDot={resetSaveDot}
+                      setDeleted={setDeleted}
+                      setArchived={setArchived}
+                      settings={settings}
+                      setSettings={setSettings}
+                      navTitle={navTitle}
+                      setNavTitle={setNavTitle}
+                      isMobile={isMobile}
+                      setShowSidebar={setShowSidebar}
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  <Splash />
+                </>
               )}
-            </>
-          ) : (
-            <>
-              <Splash />
-            </>
-          )}
-        </StyledContainer>
-      </div>
-    </OnboardingProvider>
+            </StyledContainer>
+          </div>
+        </OnboardingProvider>
+      )}
+    </>
   );
 };
 

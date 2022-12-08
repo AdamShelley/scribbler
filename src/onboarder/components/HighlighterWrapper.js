@@ -14,8 +14,6 @@ const HighlightedComponent = styled.div`
 const HighlighterWrapper = ({ children, step, width }) => {
   const { highlightRef, currentStep } = useShowHighlight();
 
-  console.log(currentStep);
-
   return (
     <>
       {step === currentStep ? (

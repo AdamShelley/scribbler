@@ -1,8 +1,6 @@
 import React, { useState, useContext } from "react";
-import OnboardPortal from "../OnboardPortal";
 import styled from "styled-components";
 import { useOnboarderContainer } from "../hooks/useOnboarderContainer";
-import { useShowHighlight } from "../hooks/useShowHighlight";
 import { OnboardContext } from "../OnboardingProvider";
 import OnboardOverlay from "./OnboardOverlay";
 import Button from "../styles/Button";
@@ -55,9 +53,12 @@ const OnboarderContainer = styled.div`
   }
 `;
 
-const OnboardingContainer = ({ stepData, showOnboarding = true }) => {
+const OnboardingContainer = ({
+  stepData,
+  showOnboarding,
+  finishOnboarding,
+}) => {
   const { containerRef } = useOnboarderContainer();
-  const { saveStep } = useShowHighlight();
   const [openModal, setOpenModal] = useState(showOnboarding);
 
   const [stepContext, setNextStep] = useContext(OnboardContext);
@@ -70,16 +71,15 @@ const OnboardingContainer = ({ stepData, showOnboarding = true }) => {
     setNextStep(stepContext - 1);
   };
 
-  console.log(stepContext);
-  const finishOnboarding = () => {
+  const finishOnboardingHandler = () => {
     setOpenModal(false);
     setNextStep(0);
+    finishOnboarding();
   };
 
   return (
     <>
       {openModal && (
-        // <OnboardPortal wrapperId="onboarder-wrapper">
         <>
           <OnboarderContainer ref={containerRef}>
             <section>
@@ -101,7 +101,7 @@ const OnboardingContainer = ({ stepData, showOnboarding = true }) => {
                   <Button
                     minWidth="50%"
                     padding="1rem"
-                    onClick={finishOnboarding}
+                    onClick={finishOnboardingHandler}
                   >
                     Finish
                   </Button>
@@ -111,7 +111,6 @@ const OnboardingContainer = ({ stepData, showOnboarding = true }) => {
           </OnboarderContainer>
           <OnboardOverlay />
         </>
-        // </OnboardPortal>
       )}
     </>
   );
