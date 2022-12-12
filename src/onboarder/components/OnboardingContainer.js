@@ -51,6 +51,31 @@ const OnboarderContainer = styled.div`
       justify-content: center;
     }
   }
+
+  @media screen and (max-width: 800px) {
+    section {
+      width: 75%;
+      height: 25%;
+      padding: 2rem;
+      border: 1px solid var(--text-color);
+      justify-content: flex-start;
+
+      h2 {
+        font-size: 1rem;
+        padding: 0.5rem 0;
+      }
+
+      p {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+      }
+
+      button {
+        margin-top: 2rem;
+        padding: 0.5rem;
+      }
+    }
+  }
 `;
 
 const OnboardingContainer = ({

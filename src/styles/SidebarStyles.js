@@ -221,7 +221,7 @@ export const StyledSidebar = styled.div`
       width: 100%;
 
       > div {
-        width: ${(props) => (props.isMobile ? "8rem" : "")};
+        /* width: ${(props) => (props.isMobile ? "8rem" : "")}; */
         justify-content: flex-start;
       }
 

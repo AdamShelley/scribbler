@@ -31,6 +31,7 @@ const Scribble = ({
   const [scribbles, setScribbles] = useState([]);
   const [archived, setArchived] = useState([]);
   const [deleted, setDeleted] = useState([]);
+  const [localSettings, setLocalSettings] = useState({});
   const [selectedScribble, setSelectedScribble] = useState();
   const [showSidebar, setShowSidebar] = useState(true);
   const BUCKETS = ["Scribbles", "Archived", "Bin"];
@@ -41,6 +42,7 @@ const Scribble = ({
     const cachedScribbles = JSON.parse(sessionStorage.getItem("scribbles"));
     const cachedArchived = JSON.parse(sessionStorage.getItem("archived"));
     const cachedDeleted = JSON.parse(sessionStorage.getItem("deleted"));
+    const cachedSettings = JSON.parse(localStorage.getItem("settings"));
 
     if (cachedScribbles && auth.user) {
       setScribbles(cachedScribbles);
@@ -48,6 +50,7 @@ const Scribble = ({
       setArchived(cachedArchived || []);
       setDeleted(cachedDeleted || []);
       setSelectedScribble(cachedScribbles[0]);
+      setLocalSettings(cachedSettings);
       setNavTitle(cachedScribbles[0]?.title);
     } else {
       const fetchScribbles = async () => {
@@ -145,7 +148,7 @@ const Scribble = ({
   };
 
   const resetSaveDot = (currentScribble) => {
-    if (currentScribble.temp) return;
+    if (currentScribble?.temp) return;
 
     const newOrder = scribbles.map((scrib) =>
       scrib.id === currentScribble.id ? { ...scrib, unsaved: false } : scrib
@@ -208,62 +211,56 @@ const Scribble = ({
 
   return (
     <>
-      {settings && (
+      {auth.user && localSettings ? (
         <OnboardingProvider
-          showOnboarding={settings.firstTimeUser}
+          showOnboarding={localSettings.firstTimeUser}
           finishOnboarding={finishOnboarding}
         >
           <div style={{ height: "100%", overflow: "hidden" }}>
             <StyledContainer>
-              {auth.user && settings ? (
-                <>
-                  {showSidebar && (
-                    <Sidebar
-                      scribbles={scribbles}
-                      selectedScribble={selectedScribble}
-                      changeScribble={changeScribble}
-                      setScribbles={setScribbles}
-                      setSelectedScribble={setSelectedScribble}
-                      createNewScribble={createBlankScribble}
-                      archived={archived}
-                      setArchived={setArchived}
-                      deleted={deleted}
-                      setDeleted={setDeleted}
-                      settings={settings}
-                      buckets={BUCKETS}
-                      isMobile={isMobile}
-                    />
-                  )}
+              {showSidebar && (
+                <Sidebar
+                  scribbles={scribbles}
+                  selectedScribble={selectedScribble}
+                  changeScribble={changeScribble}
+                  setScribbles={setScribbles}
+                  setSelectedScribble={setSelectedScribble}
+                  createNewScribble={createBlankScribble}
+                  archived={archived}
+                  setArchived={setArchived}
+                  deleted={deleted}
+                  setDeleted={setDeleted}
+                  settings={settings}
+                  buckets={BUCKETS}
+                  isMobile={isMobile}
+                />
+              )}
 
-                  {showNoteContainer && (
-                    <NoteContainer
-                      scribbles={scribbles}
-                      selectedScribble={selectedScribble}
-                      setSelectedScribble={setSelectedScribble}
-                      setScribbles={setScribbles}
-                      updateScribblesWithoutDatabasePush={
-                        updateScribblesWithoutDatabasePush
-                      }
-                      resetSaveDot={resetSaveDot}
-                      setDeleted={setDeleted}
-                      setArchived={setArchived}
-                      settings={settings}
-                      setSettings={setSettings}
-                      navTitle={navTitle}
-                      setNavTitle={setNavTitle}
-                      isMobile={isMobile}
-                      setShowSidebar={setShowSidebar}
-                    />
-                  )}
-                </>
-              ) : (
-                <>
-                  <Splash />
-                </>
+              {showNoteContainer && (
+                <NoteContainer
+                  scribbles={scribbles}
+                  selectedScribble={selectedScribble}
+                  setSelectedScribble={setSelectedScribble}
+                  setScribbles={setScribbles}
+                  updateScribblesWithoutDatabasePush={
+                    updateScribblesWithoutDatabasePush
+                  }
+                  resetSaveDot={resetSaveDot}
+                  setDeleted={setDeleted}
+                  setArchived={setArchived}
+                  settings={settings}
+                  setSettings={setSettings}
+                  navTitle={navTitle}
+                  setNavTitle={setNavTitle}
+                  isMobile={isMobile}
+                  setShowSidebar={setShowSidebar}
+                />
               )}
             </StyledContainer>
           </div>
         </OnboardingProvider>
+      ) : (
+        <Splash />
       )}
     </>
   );

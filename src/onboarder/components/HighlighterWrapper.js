@@ -17,7 +17,10 @@ const HighlighterWrapper = ({ children, step, width }) => {
   return (
     <>
       {step === currentStep ? (
-        <HighlightedComponent width={width} ref={highlightRef}>
+        <HighlightedComponent
+          width={width ? width : undefined}
+          ref={highlightRef}
+        >
           {children}
         </HighlightedComponent>
       ) : (

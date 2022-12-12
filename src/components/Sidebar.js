@@ -131,7 +131,7 @@ const Sidebar = ({
   };
 
   return (
-    <HighlighterWrapper step={1}>
+    <HighlighterWrapper step={1} width={isMobile && "100%"}>
       <StyledSidebar isMobile={isMobile}>
         <OptionsMenu
           currentRightClickedScribble={currentRightClickedScribble}
