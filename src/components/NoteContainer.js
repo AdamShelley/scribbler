@@ -200,13 +200,15 @@ const NoteContainer = ({
                 onClick={() => setShowResults((prev) => !prev)}
               />
             </Tooltips>
-            <Tooltips text="Save">
-              <FontAwesomeIcon
-                className="show-results"
-                icon={faFloppyDisk}
-                onClick={saveScribbleToDatabaseHandler}
-              />
-            </Tooltips>
+            {!selectedScribble?.archived && !selectedScribble?.deleted && (
+              <Tooltips text="Save">
+                <FontAwesomeIcon
+                  className="show-results"
+                  icon={faFloppyDisk}
+                  onClick={saveScribbleToDatabaseHandler}
+                />
+              </Tooltips>
+            )}
             {isMobile &&
               !selectedScribble.archived &&
               !selectedScribble.deleted && (
