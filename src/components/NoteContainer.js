@@ -154,6 +154,8 @@ const NoteContainer = ({
   const showRestoreButton =
     selectedScribble?.archived || selectedScribble?.deleted;
 
+  const showDeletionButton = !selectedScribble?.deleted;
+
   return (
     <StyledScribbleContainer>
       <HighlighterWrapper step={4}>
@@ -221,7 +223,7 @@ const NoteContainer = ({
                   }}
                 />
               )}
-            {isMobile && !selectedScribble.deleted && (
+            {showDeletionButton && (
               <Tooltips text="Delete">
                 <FontAwesomeIcon
                   className="show-results"
