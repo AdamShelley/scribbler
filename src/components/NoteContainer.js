@@ -61,9 +61,7 @@ const NoteContainer = ({
       : "# Press the + button to create a new Scribble"
   );
 
-  const [showResults, setShowResults] = useState(
-    settings.showMD === "Yes" ? false : true
-  );
+  const [showResults, setShowResults] = useState();
   const [showMarkdown, setShowMarkdown] = useState(true);
 
   const saveScribbleToDatabaseHandler = useCallback(() => {
@@ -149,12 +147,18 @@ const NoteContainer = ({
       }, [settings?.autosave || 30000]);
       return () => clearInterval(autosaveTimer);
     }
-  }, [settings?.autosave, saveScribbleToDatabaseHandler]);
+
+    // If the showMD is YES then show immediately
+
+    settings.showMD === "Yes" ? setShowResults(true) : setShowResults(false);
+  }, [settings?.showMD, settings?.autosave, saveScribbleToDatabaseHandler]);
 
   const showRestoreButton =
     selectedScribble?.archived || selectedScribble?.deleted;
 
   const showDeletionButton = !selectedScribble?.deleted;
+
+  console.log(showResults);
 
   return (
     <StyledScribbleContainer>

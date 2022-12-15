@@ -194,7 +194,8 @@ const Scribble = ({
 
   useEffect(() => {
     if (isMobile) setShowSidebar(true);
-  }, [isMobile]);
+    if (settings) setLocalSettings(settings);
+  }, [isMobile, settings]);
 
   const webVersion = !isMobile;
   const showNoteContainer =
@@ -230,7 +231,7 @@ const Scribble = ({
                   setArchived={setArchived}
                   deleted={deleted}
                   setDeleted={setDeleted}
-                  settings={settings}
+                  settings={localSettings}
                   buckets={BUCKETS}
                   isMobile={isMobile}
                 />
@@ -248,7 +249,7 @@ const Scribble = ({
                   resetSaveDot={resetSaveDot}
                   setDeleted={setDeleted}
                   setArchived={setArchived}
-                  settings={settings}
+                  settings={localSettings}
                   setSettings={setSettings}
                   navTitle={navTitle}
                   setNavTitle={setNavTitle}

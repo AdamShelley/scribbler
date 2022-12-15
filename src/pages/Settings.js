@@ -46,7 +46,7 @@ const Settings = ({ settings, setSettings, setNavTitle }) => {
             />
             <SettingOption
               name="showMD"
-              optionText="Hide markdown preview"
+              optionText="Show markdown preview"
               choices={["Yes", "No"]}
               defaultChoice={settings.showMD}
               updateSetting={saveSettings}

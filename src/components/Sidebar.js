@@ -18,6 +18,7 @@ import OptionsMenu from "./OptionsMenu";
 import { toast } from "react-toastify";
 import { toastOptions } from "../utils/toastOptions";
 import HighlighterWrapper from "../Onboarder/components/HighlighterWrapper";
+import { useEffect } from "react";
 
 const Sidebar = ({
   scribbles,
@@ -33,15 +34,9 @@ const Sidebar = ({
   settings,
   isMobile,
 }) => {
-  const [showScribbles, setShowScribbles] = useState(
-    settings?.expandScribbles === "Yes" ? true : false
-  );
-  const [showArchive, setShowArchive] = useState(
-    settings?.expandArchive === "Yes" ? true : false
-  );
-  const [showBin, setShowBin] = useState(
-    settings?.expandBin === "Yes" ? true : false
-  );
+  const [showScribbles, setShowScribbles] = useState(null);
+  const [showArchive, setShowArchive] = useState(null);
+  const [showBin, setShowBin] = useState(null);
 
   const [currentRightClickedScribble, setCurrentRightClickedScribble] =
     useState(null);
@@ -129,6 +124,19 @@ const Sidebar = ({
 
     toast.success("Removed pin from Scribble", toastOptions);
   };
+
+  useEffect(() => {
+    // Temp helper function to help until settings updated with booleans
+    const checkShow = (expand) => (expand === "Yes" ? true : false);
+
+    if (settings) {
+      const { expandScribbles, expandArchive, expandBin } = settings;
+
+      setShowScribbles(checkShow(expandScribbles));
+      setShowArchive(checkShow(expandArchive));
+      setShowBin(checkShow(expandBin));
+    }
+  }, [settings]);
 
   return (
     <HighlighterWrapper step={1} width={isMobile && "100%"}>
