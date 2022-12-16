@@ -237,7 +237,7 @@ export const pinScribbleHandler = async (
   await pinScribble(id, data);
   const userScribbles = await getAllUserScribbles(userId);
   setScribbles(userScribbles);
-  sessionStorageRefresh("scribbles", scribbles);
+  sessionStorageRefresh("scribbles", userScribbles);
 };
 
 const sessionStorageRefresh = (store, data) => {
