@@ -52,10 +52,10 @@ const Sidebar = ({
   };
 
   const saveScribbleHandler = () => {
-    const { body, title } = currentRightClickedScribble;
+    const { body } = currentRightClickedScribble;
+
     saveScribbleToDatabase(
       body,
-      title,
       scribbles,
       selectedScribble,
       setSelectedScribble,
