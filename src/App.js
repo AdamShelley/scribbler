@@ -45,7 +45,10 @@ function App() {
         setSettings(cachedSettings);
       } else {
         const getSettings = async () => {
+          console.log(auth.user.uid);
           const settings = await getUserSettings(auth.user.uid);
+
+          console.log(settings);
 
           if (settings !== undefined) {
             setSettings(settings);

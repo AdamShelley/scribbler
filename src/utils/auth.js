@@ -52,6 +52,7 @@ function useProvideAuth() {
   };
 
   const checkSignedIn = () => {
+    console.log("Checking if already signed in");
     onAuthStateChanged(auth, (user) => {
       if (user) {
         handleUser(user);
@@ -102,7 +103,7 @@ function useProvideAuth() {
     console.log("Signing in test account");
 
     const response = await signInAnonymously(auth);
-    console.log(response);
+
     await handleUser(response.user);
 
     try {

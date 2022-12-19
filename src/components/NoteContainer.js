@@ -158,8 +158,6 @@ const NoteContainer = ({
 
   const showDeletionButton = !selectedScribble?.deleted;
 
-  console.log(showResults);
-
   return (
     <StyledScribbleContainer>
       <HighlighterWrapper step={4}>
