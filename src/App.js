@@ -34,6 +34,7 @@ function App() {
     }
 
     if (user) {
+      console.log("There is a user in app");
       // Check for user Settings
       let cachedSettings = localStorage.getItem("settings");
 
@@ -41,18 +42,20 @@ function App() {
         cachedSettings = JSON.parse(localStorage.getItem("settings"));
       }
 
+      console.log(cachedSettings);
+
       if (cachedSettings) {
         setSettings(cachedSettings);
       } else {
         const getSettings = async () => {
-          console.log(auth.user.uid);
-          const settings = await getUserSettings(auth.user.uid);
-
-          console.log(settings);
-
-          if (settings !== undefined) {
-            setSettings(settings);
-            localStorage.setItem("settings", JSON.stringify(settings));
+          try {
+            const settings = await getUserSettings(auth.user.uid);
+            if (settings !== undefined) {
+              setSettings(settings);
+              localStorage.setItem("settings", JSON.stringify(settings));
+            }
+          } catch (error) {
+            console.log(error);
           }
         };
         getSettings();
@@ -84,6 +87,7 @@ function App() {
               />
             }
           />
+
           <Route path="/guide" element={<Guide />} />
           {user && (
             <Route

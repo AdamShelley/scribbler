@@ -66,21 +66,21 @@ export async function createSettings(uid) {
   const settings = doc(firestore, "settings", uid);
   const settingsDoc = await getDoc(settings);
 
+  const settingsTemplate = {
+    authorId: uid,
+    expandScribbles: "Yes",
+    expandArchive: "Yes",
+    expandBin: "No",
+    showMD: "No",
+    scribbleOrder: "Newest",
+    autosave: 30000,
+    firstTimeUser: true,
+  };
+
   if (!settingsDoc.exists()) {
-    return await setDoc(
-      settings,
-      {
-        authorId: uid,
-        expandScribbles: "Yes",
-        expandArchive: "Yes",
-        expandBin: "No",
-        showMD: "No",
-        scribbleOrder: "Newest",
-        autosave: 30000,
-        firstTimeUser: true,
-      },
-      { merge: true }
-    );
+    console.log("Settings do not exist");
+    localStorage.setItem("settings", JSON.stringify(settingsTemplate));
+    return await setDoc(settings, settingsTemplate, { merge: true });
   } else {
     return settingsDoc.data();
   }

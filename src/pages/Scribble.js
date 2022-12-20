@@ -44,7 +44,11 @@ const Scribble = ({
     const cachedDeleted = JSON.parse(sessionStorage.getItem("deleted"));
     const cachedSettings = JSON.parse(localStorage.getItem("settings"));
 
-    if (cachedScribbles && auth.user) {
+    console.log(cachedScribbles);
+
+    if (!!cachedScribbles && auth.user) {
+      console.log("Using localstorage settings");
+
       setScribbles(cachedScribbles);
       setTempScribbles(cachedScribbles);
       setArchived(cachedArchived || []);
@@ -53,6 +57,8 @@ const Scribble = ({
       setLocalSettings(cachedSettings);
       setNavTitle(cachedScribbles[0]?.title);
     } else {
+      console.log("Fetching");
+      console.log(settings);
       const fetchScribbles = async () => {
         const fetchedScribbles = await getAllUserScribbles(
           auth.user.uid,
@@ -194,8 +200,7 @@ const Scribble = ({
 
   useEffect(() => {
     if (isMobile) setShowSidebar(true);
-    if (settings) setLocalSettings(settings);
-  }, [isMobile, settings]);
+  }, [isMobile]);
 
   const webVersion = !isMobile;
   const showNoteContainer =
