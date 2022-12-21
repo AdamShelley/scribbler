@@ -35,7 +35,9 @@ function App() {
 
     if (user) {
       console.log("There is a user in app");
+      console.log(user);
       // Check for user Settings
+
       let cachedSettings = localStorage.getItem("settings");
 
       if (cachedSettings !== "undefined") {
@@ -47,9 +49,26 @@ function App() {
       if (cachedSettings) {
         setSettings(cachedSettings);
       } else {
+        // Temp settings in localstorage
+        const settingsTemplate = {
+          authorId: user.uid,
+          expandScribbles: "Yes",
+          expandArchive: "Yes",
+          expandBin: "No",
+          showMD: "No",
+          scribbleOrder: "Newest",
+          autosave: 30000,
+          firstTimeUser: true,
+        };
+        localStorage.setItem("settings", JSON.stringify(settingsTemplate));
+
         const getSettings = async () => {
           try {
+            console.log("Trying to fetch user settings");
             const settings = await getUserSettings(auth.user.uid);
+
+            console.log(settings);
+
             if (settings !== undefined) {
               setSettings(settings);
               localStorage.setItem("settings", JSON.stringify(settings));

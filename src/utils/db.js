@@ -27,7 +27,9 @@ export async function createUser(uid, data) {
     const newUserRef = doc(firestore, "users", uid);
     setDoc(newUserRef, { uid, ...data }, { merge: true });
     //Create new user settings if non available
-    await createSettings(uid);
+    const userSettings = await createSettings(uid);
+    console.log(userSettings);
+    return userSettings;
   } catch (err) {
     throw new DatabaseError(
       "Cannot create new user, please try again.",
@@ -40,12 +42,14 @@ export async function createUser(uid, data) {
 export async function getUserSettings(uid) {
   if (!uid) return;
 
+  console.log(uid);
+
   console.log("Getting user settings");
 
   try {
     const docRef = doc(firestore, "settings", uid);
     const docSnap = await getDoc(docRef);
-
+    console.log(docSnap.exists());
     if (!docSnap.exists()) {
       throw new DatabaseError("No snapshot of settings exists", 500);
     }
@@ -79,7 +83,7 @@ export async function createSettings(uid) {
 
   if (!settingsDoc.exists()) {
     console.log("Settings do not exist");
-    localStorage.setItem("settings", JSON.stringify(settingsTemplate));
+    // localStorage.setItem("settings", JSON.stringify(settingsTemplate));
     return await setDoc(settings, settingsTemplate, { merge: true });
   } else {
     return settingsDoc.data();

@@ -44,8 +44,6 @@ const Scribble = ({
     const cachedDeleted = JSON.parse(sessionStorage.getItem("deleted"));
     const cachedSettings = JSON.parse(localStorage.getItem("settings"));
 
-    console.log(cachedScribbles);
-
     if (!!cachedScribbles && auth.user) {
       console.log("Using localstorage settings");
 
@@ -215,11 +213,13 @@ const Scribble = ({
     );
   };
 
+  console.log(settings);
+
   return (
     <>
-      {auth.user && localSettings ? (
+      {auth.user && settings ? (
         <OnboardingProvider
-          showOnboarding={localSettings.firstTimeUser}
+          showOnboarding={settings.firstTimeUser}
           finishOnboarding={finishOnboarding}
         >
           <div style={{ height: "100%", overflow: "hidden" }}>
@@ -254,7 +254,7 @@ const Scribble = ({
                   resetSaveDot={resetSaveDot}
                   setDeleted={setDeleted}
                   setArchived={setArchived}
-                  settings={localSettings}
+                  settings={settings}
                   setSettings={setSettings}
                   navTitle={navTitle}
                   setNavTitle={setNavTitle}
