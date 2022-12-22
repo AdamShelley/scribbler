@@ -73,9 +73,7 @@ function App() {
               setSettings(settings);
               localStorage.setItem("settings", JSON.stringify(settings));
             }
-          } catch (error) {
-            console.log(error);
-          }
+          } catch (error) {}
         };
         getSettings();
       }

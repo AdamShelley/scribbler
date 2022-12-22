@@ -50,7 +50,7 @@ const SidebarTabs = ({
             <h4>| {naming} |</h4>
           </div>
 
-          {showScribbles && naming === "Scribbles" && (
+          {naming === "Scribbles" && (
             <HighlighterWrapper step={2}>
               <FontAwesomeIcon
                 onClick={(e) => {
