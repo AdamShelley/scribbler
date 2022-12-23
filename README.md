@@ -18,6 +18,14 @@ Visit the working app at [Here](https://scribbler-app.com)
 ### Learnings
 - Hooking up custom domain to firebase, and setting up the email authentication with the custom domain. 
 
+### Install
+> `Clone the repo to your machine`
+
+> `npm install`
+
+> `npm run start`
+
+
 ### Credits & Interesting Packages used
 - [React Markdown](https://github.com/remarkjs/react-markdown) 
 - [Font Awesome](https://fontawesome.com/)
