@@ -22,6 +22,12 @@ const SettingOption = ({
     });
   };
 
+  const TESTHIGHLIGHT = (choice) => {
+    return String(currentSetting) === String(choice)
+      ? "highlighted-setting"
+      : "";
+  };
+
   return (
     <div className="option">
       <h5>{optionText}</h5>
@@ -31,7 +37,7 @@ const SettingOption = ({
             <button
               value={choice}
               key={choice + index}
-              className={currentSetting === choice ? "highlighted-setting" : ""}
+              className={TESTHIGHLIGHT(choice)}
               onClick={changeOption}
             >
               {isNaN(choice) ? choice : choice / 1000}

@@ -42,7 +42,7 @@ const GuideContainer = styled.div`
 
   @media screen and (max-width: 800px) {
     .guide-content-container {
-      width: 90%;
+      width: 95%;
       margin-top: 3rem;
     }
   }

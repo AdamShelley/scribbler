@@ -50,9 +50,6 @@ export async function getUserSettings(uid) {
     const docRef = doc(firestore, "settings", uid);
     const docSnap = await getDoc(docRef);
     console.log(docSnap.exists());
-    if (!docSnap.exists()) {
-      throw new DatabaseError("No snapshot of settings exists", 500);
-    }
 
     if (docSnap.exists()) {
       return docSnap.data();

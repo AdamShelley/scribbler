@@ -24,6 +24,18 @@ const ExampleContainer = styled.div`
   .md-rendered-container {
     margin: 0rem 3rem;
   }
+
+  @media screen and (max-width: 800px) {
+    margin-top: 3rem;
+    flex-direction: column;
+
+    textarea {
+    }
+
+    .md-rendered-container {
+      margin-top: 2rem;
+    }
+  }
 `;
 
 const MarkdownExample = ({ mdInput }) => {

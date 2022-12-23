@@ -174,17 +174,24 @@ const StyledNavbar = styled.div`
     }
 
     @media screen and (max-width: 800px) {
+      /* flex-wrap: wrap; */
+
+      > div {
+        margin-right: 0.2rem;
+      }
+
       button {
         border: none;
         background-color: var(--nav-color);
         border-bottom: 1px solid var(--light-grey);
+        padding: 0.2rem 0 !important;
       }
     }
   }
 
   .dropdown {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     position: relative;
     align-items: center;
     justify-content: center;
@@ -309,21 +316,21 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
         </div>
       </div>
 
-      {!isMobile && title && (
+      {!isMobile && (
         <div className="note-name">
           <div className="title-container ">
-            {title && (
-              <input
-                type="text"
-                size={title?.length}
-                value={title}
-                onChange={(e) => {
-                  setShowTick(true);
-                  setTitle(e.target.value);
-                }}
-                disabled={navPrevent}
-              />
-            )}
+            {/* {title && ( */}
+            <input
+              type="text"
+              size={title?.length || 4}
+              value={title}
+              onChange={(e) => {
+                setShowTick(true);
+                setTitle(e.target.value);
+              }}
+              disabled={navPrevent}
+            />
+            {/* )} */}
           </div>
           {showTick && (
             <button onClick={updateTitleHandler}>
@@ -352,7 +359,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
               style={{ whiteSpace: "nowrap", padding: ".5rem" }}
               onClick={auth.signinWithGithub}
             >
-              Github Signin
+              Github {!isMobile && "Signin"}
             </Button>
           </div>
         )}
@@ -362,7 +369,7 @@ const Navbar = ({ navTitle, tempScribbles, setNavTitle, navPrevent }) => {
               style={{ whiteSpace: "nowrap", padding: ".5rem" }}
               onClick={triggerModal}
             >
-              Email Signin
+              Email {!isMobile && "Signin"}
             </Button>
             {showModal && (
               <Modal
