@@ -207,6 +207,7 @@ export const StyledSidebar = styled.div`
         font-size: 0.8rem;
         font-weight: 600;
         margin-left: 0.5rem;
+        overflow: hidden;
 
         &:hover {
           transform: scale(1);
@@ -236,6 +237,14 @@ export const StyledSidebar = styled.div`
 
         &:hover {
           opacity: 0.8;
+        }
+      }
+
+      @media screen and (max-width: 800px) {
+        div h4 {
+          overflow: hidden;
+          white-space: nowrap;
+          font-size: 0.8rem;
         }
       }
     }
