@@ -34,8 +34,6 @@ function App() {
     }
 
     if (user) {
-      console.log("There is a user in app");
-      console.log(user);
       // Check for user Settings
 
       let cachedSettings = localStorage.getItem("settings");
@@ -43,8 +41,6 @@ function App() {
       if (cachedSettings !== "undefined") {
         cachedSettings = JSON.parse(localStorage.getItem("settings"));
       }
-
-      console.log(cachedSettings);
 
       if (cachedSettings) {
         setSettings(cachedSettings);
@@ -64,10 +60,7 @@ function App() {
 
         const getSettings = async () => {
           try {
-            console.log("Trying to fetch user settings");
             const settings = await getUserSettings(auth.user.uid);
-
-            console.log(settings);
 
             if (settings !== undefined) {
               setSettings(settings);
